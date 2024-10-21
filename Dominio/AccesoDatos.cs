@@ -19,7 +19,7 @@ namespace Dominio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CallCenter; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CALLCENTER; integrated security=true");
             comando = new SqlCommand();
         }
 

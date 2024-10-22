@@ -16,12 +16,12 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select Id, Tipo, Descripcion, Estado, FechaAlta from INCIDENCIAS");
+                datos.setearConsulta("select codigo, Tipo, Descripcion, Estado, FechaAlta from INCIDENCIAS");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Incidencia aux = new Incidencia();
-                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Id = (int)datos.Lector["codigo"];
                     aux.Tipo = (int)datos.Lector["Tipo"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Estado = (int)datos.Lector["Estado"];

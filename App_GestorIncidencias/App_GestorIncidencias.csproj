@@ -64,14 +64,23 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Usuarios.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Admin\HomeAdmin.aspx" />
     <Content Include="Global.asax" />
     <Content Include="IncidenciaListar.aspx" />
+    <Content Include="Recursos\CallC.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Prioridades.aspx.cs">
+      <DependentUpon>Prioridades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Prioridades.aspx.designer.cs">
+      <DependentUpon>Prioridades.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -133,7 +142,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Recursos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

@@ -21,4 +21,18 @@ insert into Incidencias
 values (4, 'Lisa necesita frenos', 1, '22-03-2023', null, null)
 
 
+--PRIORIDADES--
+create table PRIORIDADES(
+Id int identity(1,1) not null primary key,
+Nombre varchar(30) not null unique)
+go
 
+insert into PRIORIDADES (Nombre)
+values ('Urgente');
+insert into PRIORIDADES (Nombre)
+values ('Alta');
+insert into PRIORIDADES (Nombre)
+values ('Media');
+insert into PRIORIDADES (Nombre)
+values ('Baja');
+go

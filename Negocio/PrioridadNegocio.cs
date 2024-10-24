@@ -15,13 +15,14 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select Id, Nombre from PRIORIDADES");
+                datos.setearConsulta("select Id, Nombre, Activa from PRIORIDADES");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Prioridad aux = new Prioridad();
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Activa = (bool)datos.Lector["Activa"];
 
                     lista.Add(aux);
                 }

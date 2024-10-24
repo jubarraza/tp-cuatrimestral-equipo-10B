@@ -24,15 +24,16 @@ values (4, 'Lisa necesita frenos', 1, '22-03-2023', null, null)
 --PRIORIDADES--
 create table PRIORIDADES(
 Id int identity(1,1) not null primary key,
-Nombre varchar(30) not null unique)
+Nombre varchar(30) not null unique,
+Activa bit not null)
 go
 
-insert into PRIORIDADES (Nombre)
-values ('Urgente');
-insert into PRIORIDADES (Nombre)
-values ('Alta');
-insert into PRIORIDADES (Nombre)
-values ('Media');
-insert into PRIORIDADES (Nombre)
-values ('Baja');
+insert into PRIORIDADES (Nombre, Activa)
+values ('Urgente',1);
+insert into PRIORIDADES (Nombre, Activa)
+values ('Alta',1);
+insert into PRIORIDADES (Nombre, Activa)
+values ('Media',1);
+insert into PRIORIDADES (Nombre, Activa)
+values ('Baja',1);
 go

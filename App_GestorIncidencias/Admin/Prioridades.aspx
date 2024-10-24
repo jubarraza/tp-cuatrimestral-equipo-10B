@@ -31,6 +31,7 @@
                     <Columns>
                         <asp:BoundField HeaderText="ID" DataField="Id" />
                         <asp:BoundField HeaderText="Prioridad" DataField="Nombre" />
+                        <asp:CheckBoxField HeaderText="Activa" DataField="Activa" />
                     </Columns>
 
 

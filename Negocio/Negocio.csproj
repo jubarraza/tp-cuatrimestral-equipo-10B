@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <Compile Include="PersonaNegocio.cs" />
+=======
+    <Compile Include="EstadoNegocio.cs" />
+>>>>>>> Stashed changes
     <Compile Include="PrioridadNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IncidenciaNegocio.cs" />

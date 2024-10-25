@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Usuarios.aspx" />
     <Content Include="Default.aspx" />
@@ -74,6 +75,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Estados.aspx.cs">
+      <DependentUpon>Estados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Estados.aspx.designer.cs">
+      <DependentUpon>Estados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Prioridades.aspx.cs">
       <DependentUpon>Prioridades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

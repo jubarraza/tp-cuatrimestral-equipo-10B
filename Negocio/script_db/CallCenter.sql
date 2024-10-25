@@ -38,6 +38,7 @@ insert into PRIORIDADES (Nombre, Activa)
 values ('Baja',1);
 go
 
+<<<<<<< Updated upstream
 --PERSONAS
 create table PERSONAS(
 Id int identity(1,1) not null primary key,
@@ -51,3 +52,28 @@ insert into PERSONAS
 values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
+=======
+
+--ESTADOS--
+create table ESTADOS(
+Id int identity(1,1) not null primary key,
+Nombre varchar(30) not null unique,
+EstadoFinal bit not null,
+Activo bit not null)
+go
+
+
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('Abierto', 0, 1);
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('Asignado', 0, 1);
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('En Analisis', 0, 1);
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('Resuelto', 1, 1);
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('Cerrado', 1, 1);
+insert into ESTADOS (Nombre, EstadoFinal, Activo)
+values ('Reabierto', 0, 1);
+go
+>>>>>>> Stashed changes

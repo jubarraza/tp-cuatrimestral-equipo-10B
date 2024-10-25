@@ -37,3 +37,17 @@ values ('Media',1);
 insert into PRIORIDADES (Nombre, Activa)
 values ('Baja',1);
 go
+
+--PERSONAS
+create table PERSONAS(
+Id int identity(1,1) not null primary key,
+Nombre varchar(50) not null,
+Apellido varchar(50) not null,
+Email varchar(80) not null unique)
+
+insert into PERSONAS
+values ('Bart','Simpson','bartsimpson@gmail.com');
+insert into PERSONAS
+values('Homero','Thompson','homerothompson@hotmail.com');
+insert into PERSONAS
+values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');

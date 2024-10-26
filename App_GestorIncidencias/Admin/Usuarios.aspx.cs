@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace App_GestorIncidencias.Admin
 {
@@ -11,7 +12,9 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            PersonaNegocio negocio = new PersonaNegocio();
+            gvPersonas.DataSource = negocio.listar();
+            gvPersonas.DataBind();
         }
     }
 }

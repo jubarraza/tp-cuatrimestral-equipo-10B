@@ -10,6 +10,7 @@
 
              <div class="mb-3 col-4 col-sm-auto col-md-auto">
                  <h1>Menu de administración de usuarios</h1>
+                 <asp:GridView ID="gvPersonas" CssClass="table" runat="server"></asp:GridView>
              </div>
          </div>
 

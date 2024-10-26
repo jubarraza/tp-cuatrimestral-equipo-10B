@@ -8,20 +8,25 @@ namespace Dominio
 {
     public class Incidencia
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
-        public int Tipo { get; set; }
+        public int Cliente { get; set; } 
 
-        public string Descripcion { get; set; }
+        public int Usuario { get; set; } 
 
-        public int Estado { get; set; }
+        public string Descripcion { get; set; } 
 
-        public DateTime FechaAlta { get; set; }
+        public int Estado { get; set; } 
 
-        public DateTime FechaBaja { get; set; }
+        public int Prioridad { get; set; } 
 
-        public string Resolucion { get; set; }
+        public int Tipo { get; set; } 
 
+        public DateTime FechaAlta { get; set; } 
+
+        public DateTime FechaCierre { get; set; } 
+
+        public string Resolucion { get; set; } 
 
     }
 }

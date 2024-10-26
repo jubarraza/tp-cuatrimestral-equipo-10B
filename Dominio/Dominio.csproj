@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
+    <Compile Include="Comentario.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Prioridad.cs" />

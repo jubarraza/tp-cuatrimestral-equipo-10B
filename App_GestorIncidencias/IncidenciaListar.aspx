@@ -16,9 +16,9 @@
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:BoundField HeaderText="Prioridad" DataField="Prioridad" />
             <asp:BoundField HeaderText="Tipo" DataField="Tipo" />
-            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" />
-          <%--< <asp:BoundField HeaderText="FechaBaja" DataField="Fecha de Baja" />
-            <asp:BoundField HeaderText="Resolucion" DataField="Resolución" />--%>
+            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta"  />
+            <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre"/>
+            <asp:BoundField HeaderText="Resolución" DataField="Resolucion" />
 
         </Columns>
 

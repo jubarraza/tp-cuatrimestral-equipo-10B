@@ -23,15 +23,21 @@ namespace Negocio
                     Incidencia aux = new Incidencia();
                     aux.Id = (int)datos.Lector["codigo"];
                     aux.Cliente = (int)datos.Lector["Cliente"];
-                    aux.Usuario = (int)datos.Lector["Usuario"];                  
+                    aux.Usuario = (int)datos.Lector["Usuario"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Estado = (int)datos.Lector["Estado"];
                     aux.Prioridad = (int)datos.Lector["Prioridad"];
                     aux.Tipo = (int)datos.Lector["Tipo"];
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
-                    //aux.FechaBaja = DateTime.Parse(datos.Lector["FechaBaja"].ToString());
-                    //aux.Resolucion = (string)datos.Lector["Resolucion"];
+                    if (!(datos.Lector["FechaCierre"] is DBNull))
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+
+                    if (!(datos.Lector["Resolucion"] is DBNull))
+                        aux.Resolucion = (string)datos.Lector["Resolucion"];
+                    else
+                        aux.Resolucion = "Pendiente";
+
                     lista.Add(aux);
                 }
                 return lista;

@@ -47,7 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
+<<<<<<< HEAD
     <Compile Include="Empleado.cs" />
+=======
+    <Compile Include="Comentario.cs" />
+>>>>>>> 1a47d2c34678c4b45bf8625fba265154e775f62c
     <Compile Include="Persona.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Prioridad.cs" />

@@ -8,6 +8,7 @@ namespace Dominio
 {
     public class Comentario
     {
+
         public int id {  get; set; }
         
         public int Cod_Incidencia {  get; set; }
@@ -17,5 +18,6 @@ namespace Dominio
         public DateTime Fecha { get; set; }
 
         public int Cod_Usuario {  get; set; }
+
     }
 }

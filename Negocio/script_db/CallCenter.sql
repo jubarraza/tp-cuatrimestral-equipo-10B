@@ -75,3 +75,5 @@ insert into PERSONAS
 values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
+
+create table Empleados()

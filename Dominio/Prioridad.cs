@@ -12,6 +12,4 @@ namespace Dominio
         public string Nombre { get; set; }
         public bool Activa { get; set; }
     }
-
-    //aca hago un cambio sin conflicto
 }

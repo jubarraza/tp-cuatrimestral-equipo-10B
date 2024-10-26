@@ -75,5 +75,3 @@ insert into PERSONAS
 values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
-
--- Esto un cambio que va a traer conflicto...

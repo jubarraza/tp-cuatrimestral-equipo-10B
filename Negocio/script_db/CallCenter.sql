@@ -72,3 +72,19 @@ values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
 
+--EMPLEADOS
+create table EMPLEADOS(
+IdPersona int not null,
+Legajo int identity(100001,1) not null primary key,
+Contraseña varchar(20),
+TipoUsuario tinyint not null,
+FechaIngreso date not null check(FechaIngreso <= getdate()),
+Activo bit not null,
+foreign key (IdPersona) references PERSONAS(Id)
+)
+
+set dateformat dmy
+insert into EMPLEADOS(IdPersona,Contraseña,TipoUsuario,FechaIngreso,Activo)
+values(1,'Milhouse',3,'26-10-2024',1),
+(2,'Springfield',2,'26-10-2023',0),
+(3,'Nodirenada',1,'10-10-2020',1);

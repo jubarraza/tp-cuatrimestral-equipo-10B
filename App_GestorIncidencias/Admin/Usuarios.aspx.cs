@@ -12,9 +12,9 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            PersonaNegocio negocio = new PersonaNegocio();
-            gvPersonas.DataSource = negocio.listar();
-            gvPersonas.DataBind();
+            EmpleadoNegocio negocio = new EmpleadoNegocio();
+            gvEmpleados.DataSource = negocio.listar();
+            gvEmpleados.DataBind();
         }
     }
 }

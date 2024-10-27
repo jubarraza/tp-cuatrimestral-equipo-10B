@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Comentario.cs" />
     <Compile Include="Persona.cs" />

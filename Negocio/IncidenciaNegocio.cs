@@ -16,7 +16,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion, INC.Estado, INC.Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC");
+                datos.setearConsulta("select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion, ESt.Nombre as Estado,Prio.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on inc.Estado = est.Id\r\nleft join PRIORIDADES as Prio on INC.Prioridad = Prio.Id");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -25,8 +25,8 @@ namespace Negocio
                     aux.Cliente = (int)datos.Lector["Cliente"];
                     aux.Usuario = (int)datos.Lector["Usuario"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.Estado = (int)datos.Lector["Estado"];
-                    aux.Prioridad = (int)datos.Lector["Prioridad"];
+                    aux.Estado = (string)datos.Lector["Estado"];
+                    aux.Prioridad = (string)datos.Lector["Prioridad"];
                     aux.Tipo = (int)datos.Lector["Tipo"];
                     DateTime date = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
                     aux.FechaAlta = date.Date.ToString("d");

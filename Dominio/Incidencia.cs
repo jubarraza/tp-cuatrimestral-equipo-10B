@@ -16,9 +16,9 @@ namespace Dominio
 
         public string Descripcion { get; set; } 
 
-        public int Estado { get; set; } 
+        public string Estado { get; set; } 
 
-        public int Prioridad { get; set; } 
+        public string Prioridad { get; set; } 
 
         public int Tipo { get; set; } 
 

@@ -28,10 +28,19 @@ namespace Negocio
                     aux.Estado = (int)datos.Lector["Estado"];
                     aux.Prioridad = (int)datos.Lector["Prioridad"];
                     aux.Tipo = (int)datos.Lector["Tipo"];
-                    aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
+                    DateTime date = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
+                    aux.FechaAlta = date.Date.ToString("d");
 
                     if (!(datos.Lector["FechaCierre"] is DBNull))
-                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+                    {
+                        date = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+                        aux.FechaCierre = date.Date.ToString("d");
+                    }
+                    else
+                    {
+                        aux.FechaCierre = " ";
+                    }
+                       
 
                     if (!(datos.Lector["Resolucion"] is DBNull))
                         aux.Resolucion = (string)datos.Lector["Resolucion"];

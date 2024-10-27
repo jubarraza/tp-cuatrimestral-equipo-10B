@@ -22,9 +22,9 @@ namespace Dominio
 
         public int Tipo { get; set; } 
 
-        public DateTime FechaAlta { get; set; } 
+        public string FechaAlta { get; set; } 
 
-        public DateTime FechaCierre { get; set; } 
+        public string  FechaCierre { get; set; } 
 
         public string Resolucion { get; set; } 
 

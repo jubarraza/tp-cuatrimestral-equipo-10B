@@ -38,11 +38,21 @@ namespace App_GestorIncidencias
         {
             try
             {
-               /* Incidencia incidencia = new Incidencia();
+                Incidencia incidencia = new Incidencia();
                 incidencia.Cliente = int.Parse(txtCliente.Text);
                 incidencia.Usuario = int.Parse(txtUsuario.Text);
                 incidencia.Descripcion = TxtDescripcion.Text;
-                */
+                incidencia.Estado = new Estado();
+                incidencia.Estado.Id = 1;
+                incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
+                incidencia.Tipo = 2;
+                
+
+
+
+
+
+                
 
 
             }

@@ -16,7 +16,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion, ESt.Nombre as Estado,Prio.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on inc.Estado = est.Id\r\nleft join PRIORIDADES as Prio on INC.Prioridad = Prio.Id");
+                datos.setearConsulta("select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -25,22 +25,20 @@ namespace Negocio
                     aux.Cliente = (int)datos.Lector["Cliente"];
                     aux.Usuario = (int)datos.Lector["Usuario"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.Estado = (string)datos.Lector["Estado"];
-                    aux.Prioridad = (string)datos.Lector["Prioridad"];
+                    aux.Estado = new Estado();
+                    aux.Estado.Id = (int)datos.Lector["IdEstado"];
+                    aux.Estado.Nombre = (string)datos.Lector["Estado"];
+                    aux.Prioridad = new Prioridad();
+                    aux.Prioridad.Id = (int)datos.Lector["IdPrioridad"];
+                    aux.Prioridad.Nombre = (string)datos.Lector["Prioridad"];
                     aux.Tipo = (int)datos.Lector["Tipo"];
-                    DateTime date = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
-                    aux.FechaAlta = date.Date.ToString("d");
+                    aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
                     if (!(datos.Lector["FechaCierre"] is DBNull))
                     {
-                        date = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
-                        aux.FechaCierre = date.Date.ToString("d");
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
                     }
-                    else
-                    {
-                        aux.FechaCierre = " ";
-                    }
-                       
+          
 
                     if (!(datos.Lector["Resolucion"] is DBNull))
                         aux.Resolucion = (string)datos.Lector["Resolucion"];

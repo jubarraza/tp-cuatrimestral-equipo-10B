@@ -10,9 +10,9 @@ namespace Dominio
     {
         public Persona persona { get; set; }
         public int Dni { get; set; }
-        public string Password { get; set; }
+        public string Contraseña { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public int Telefono { get; set; } ///Crear Clase Telefonos
+        public long Telefono { get; set; } ///Crear Clase Telefonos
         public string Direccion { get; set; } ///ClaseDireccion
         public bool Activo { get; set; }
 

@@ -64,9 +64,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Clientes.aspx" />
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
-    <Content Include="Admin\Usuarios.aspx" />
+    <Content Include="Admin\Empleados.aspx" />
     <Content Include="AgregarIncidencia.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Admin\HomeAdmin.aspx" />
@@ -76,6 +77,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Clientes.aspx.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Clientes.aspx.designer.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Estados.aspx.cs">
       <DependentUpon>Estados.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -90,12 +98,12 @@
     <Compile Include="Admin\Prioridades.aspx.designer.cs">
       <DependentUpon>Prioridades.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Usuarios.aspx.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="Admin\Empleados.aspx.cs">
+      <DependentUpon>Empleados.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\Usuarios.aspx.designer.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="Admin\Empleados.aspx.designer.cs">
+      <DependentUpon>Empleados.aspx</DependentUpon>
     </Compile>
     <Compile Include="AgregarIncidencia.aspx.cs">
       <DependentUpon>AgregarIncidencia.aspx</DependentUpon>

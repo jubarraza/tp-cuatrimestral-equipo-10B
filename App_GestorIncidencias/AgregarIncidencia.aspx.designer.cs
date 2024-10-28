@@ -33,13 +33,13 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtId;
 
         /// <summary>
-        /// txCliente control.
+        /// txtCliente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtCliente;
 
         /// <summary>
         /// txtUsuario control.
@@ -49,6 +49,24 @@ namespace App_GestorIncidencias
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+
+        /// <summary>
+        /// TxtDescripcion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtDescripcion;
+
+        /// <summary>
+        /// ddlPrioridad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPrioridad;
 
         /// <summary>
         /// btnAceptar control.

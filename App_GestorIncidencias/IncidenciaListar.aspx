@@ -24,16 +24,19 @@
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:BoundField HeaderText="Prioridad" DataField="Prioridad" />
             <asp:BoundField HeaderText="Tipo" DataField="Tipo" />
-            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta"  />
-            <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre"/>
+            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" />
+            <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre" />
             <asp:BoundField HeaderText="Resolución" DataField="Resolucion" />
-            <asp:CommandField HeaderText="Modificar"  ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png"  />      
+            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
 
         </Columns>
-
-
     </asp:GridView>
 
-    
+    <br />
+    <div class="mb-3">
+        <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-primary" runat="server" />
+    </div>
+
+
 
 </asp:Content>

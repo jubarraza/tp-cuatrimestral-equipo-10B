@@ -25,7 +25,12 @@ namespace App_GestorIncidencias
 
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Response.Redirect("AgregarIncidencia.aspx", false);  
+            //Response.Redirect("AgregarIncidencia.aspx", false);  
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarIncidencia.aspx", false);
         }
     }
 }

@@ -31,7 +31,6 @@
             <div class="mb-3">
                 <asp:Button Text="Ingresar" runat="server" ID="btnIngresar" CssClass="btn btn-success card-img" />
             </div>
-
         </div>
 
     </div>

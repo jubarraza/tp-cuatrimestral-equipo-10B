@@ -73,6 +73,7 @@
     <Content Include="Admin\HomeAdmin.aspx" />
     <Content Include="Global.asax" />
     <Content Include="IncidenciaListar.aspx" />
+    <Content Include="PageError.aspx" />
     <Content Include="Recursos\CallC.png" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="MiMaster.Master.designer.cs">
       <DependentUpon>MiMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PageError.aspx.cs">
+      <DependentUpon>PageError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageError.aspx.designer.cs">
+      <DependentUpon>PageError.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -89,14 +89,13 @@ values(1,'Milhouse',3,'26-10-2024',1),
 (2,'Springfield',2,'26-10-2023',0),
 (3,'Nodirenada',1,'10-10-2020',1);
 
-
 --CLIENTES
 create table CLIENTES(
 IdPersona int not null,
 Dni int not null,
 Contraseña varchar(20) not null,
 FechaNacimiento date not null check(FechaNacimiento <= dateadd(year,-18, getdate())),
-Telefono int,
+Telefono bigint,
 Direccion varchar(50) not null,
 Activo bit not null,
 foreign key (IdPersona) references PERSONAS(Id)
@@ -110,7 +109,31 @@ insert into PERSONAS
 values('Milhouse','Vanhouten','Milhouse2024@hotmail.com.ar');
 
 set dateformat dmy
-insert into CLIENTES(IdPersona, Dni, Contraseña, FechaNacimiento, Telefono, Direccion, Activo)
-values (4,12345678,'Perfectirijillo','27-10-1964',2604123412,'Avenida siempre viva 741',1),
+insert into CLIENTES
+(IdPersona, Dni, Contraseña, FechaNacimiento, Telefono, Direccion, Activo) values 
+(4,12345678,'Perfectirijillo','27-10-1964',2604123412,'Avenida siempre viva 741',1),
 (5,87654321,'Abuelo','27-10-1927',0800123412,'Casa de Jubilados Springfield',0),
 (6,12312312,'Bart','27-10-2000',1127272727,'Con sus padres',1);
+
+--Eliminacion Columna Telefono de Clase Clientes
+alter table CLIENTES
+drop column Telefono
+
+--Se Agrega Restriccion Unique a IdPersona
+alter table CLIENTES
+add constraint uq_IdPersona unique (IdPersona)
+
+--Telefonos
+create table TELEFONOS(
+IdTelefono int identity(1,1) primary key,
+IdPersona int not null,
+NumeroTelefono bigint not null,
+foreign key (IdPersona) references CLIENTES(IdPersona)
+)
+
+insert into TELEFONOS
+(IdPersona, NumeroTelefono)
+VALUES
+(4,10101010),
+(4,20202020),
+(5,30303030);

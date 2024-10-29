@@ -13,6 +13,7 @@
 
     <br />
 
+
     <asp:GridView ID="dgvIncidencias" runat="server" DataKeyNames="Id"
         CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvIncidencias_SelectedIndexChanged">
 
@@ -24,11 +25,10 @@
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:BoundField HeaderText="Prioridad" DataField="Prioridad" />
             <asp:BoundField HeaderText="Tipo" DataField="Tipo" />
-            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" />
-            <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre" />
+            <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" DataFormatString="{0:dd/MM/yyyy}"/>
+            <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre"/>
             <asp:BoundField HeaderText="Resolución" DataField="Resolucion" />
             <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
-
         </Columns>
     </asp:GridView>
 

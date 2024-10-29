@@ -11,7 +11,7 @@
                 <asp:BoundField HeaderText="Email" DataField="persona.Email" />
                 <asp:BoundField HeaderText="Dni" DataField="Dni" />
                 <asp:BoundField HeaderText="Fecha Nacimiento" DataField="FechaNacimiento" DataFormatString="{0:yyyy-MM-dd}" HtmlEncode="false"/>
-                <asp:BoundField HeaderText="Telefono" DataField="Telefono" />
+                <asp:BoundField HeaderText="Telefonos" DataField="telefono.NumeroTelefono" />
                 <asp:BoundField HeaderText="Direccion" DataField="Direccion" />
                 <asp:BoundField HeaderText="Dni" DataField="Dni" />
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />

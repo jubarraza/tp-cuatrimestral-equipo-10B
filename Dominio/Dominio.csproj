@@ -55,6 +55,7 @@
     <Compile Include="Prioridad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Incidencia.cs" />
+    <Compile Include="Telefono.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

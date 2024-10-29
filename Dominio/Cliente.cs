@@ -12,7 +12,7 @@ namespace Dominio
         public int Dni { get; set; }
         public string Contraseña { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public long Telefono { get; set; } ///Crear Clase Telefonos
+        public Telefono telefono { get; set; } ///Crear Clase Telefonos
         public string Direccion { get; set; } ///ClaseDireccion
         public bool Activo { get; set; }
 

@@ -16,5 +16,10 @@ namespace App_GestorIncidencias.Admin
             gvEmpleados.DataSource = negocio.listar();
             gvEmpleados.DataBind();
         }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Admin/AgregarEmpleado.aspx");
+        }
     }
 }

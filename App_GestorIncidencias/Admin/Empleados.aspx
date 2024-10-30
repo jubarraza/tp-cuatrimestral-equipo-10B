@@ -15,6 +15,11 @@
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
             </Columns>
         </asp:GridView>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
+      <button type="button" class="btn btn-warning">Editar</button>
+      <button type="button" class="btn btn-danger">Eliminar</button>
+    </div>
         
     </div>
 </asp:Content>

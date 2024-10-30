@@ -10,8 +10,8 @@
                 <asp:BoundField HeaderText="Apellido" DataField="persona.Apellido" />
                 <asp:BoundField HeaderText="Email" DataField="persona.Email" />
                 <asp:BoundField HeaderText="Legajo" DataField="Legajo" />
-                <asp:BoundField HeaderText="TipoUsuario" DataField="TipoUsuario" />
-                <asp:BoundField HeaderText="FechaIngreso" DataField="FechaIngreso" DataFormatString="{0:yyyy-MM-dd}" HtmlEncode="false" />
+                <asp:BoundField HeaderText="Tipo Usuario" DataField="TipoUsuario" />
+                <asp:BoundField HeaderText="Fecha Ingreso" DataField="FechaIngreso" DataFormatString="{0:yyyy-MM-dd}" HtmlEncode="false" />
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
             </Columns>
         </asp:GridView>

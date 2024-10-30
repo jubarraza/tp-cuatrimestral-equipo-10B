@@ -58,5 +58,36 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void AgregarIncidencia(Incidencia nueva)
+        {   
+
+            AccesoDatos datos   = new AccesoDatos();
+            
+            try
+            {
+                datos.setearConsulta("insert into INCIDENCIAS values (@Cliente, @Usuario, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
+                datos.setearParametro("@cliente", nueva.Cliente);
+                datos.setearParametro("@Usuario", nueva.Usuario);
+                datos.setearParametro("@Descripcion", nueva.Descripcion);
+                datos.setearParametro("@Estado", nueva.Estado);
+                datos.setearParametro("@Prioridad", nueva.Prioridad);
+                datos.setearParametro("@Tipo", nueva.Tipo);
+                datos.setearParametro("@FechaAlta", nueva.FechaAlta);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
     }
 }

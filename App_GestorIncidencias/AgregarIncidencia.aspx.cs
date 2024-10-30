@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
+
 namespace App_GestorIncidencias
 {
     public partial class AgregarIncidencia : System.Web.UI.Page
@@ -39,6 +40,7 @@ namespace App_GestorIncidencias
             try
             {
                 Incidencia incidencia = new Incidencia();
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
                 incidencia.Cliente = int.Parse(txtCliente.Text);
                 incidencia.Usuario = int.Parse(txtUsuario.Text);
                 incidencia.Descripcion = TxtDescripcion.Text;
@@ -46,20 +48,15 @@ namespace App_GestorIncidencias
                 incidencia.Estado.Id = 1;
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
                 incidencia.Tipo = 2;
-                
-
-
-
-
-
-                
-
+                incidencia.FechaAlta = DateTime.Now;
+                negocio.AgregarIncidencia(incidencia);
+                Response.Redirect("IncidenciaListar.aspx", false);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Session.Add("PageError.aspx", ex);   
+              
             }
         }
     }

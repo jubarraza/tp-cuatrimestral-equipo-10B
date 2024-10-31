@@ -9,13 +9,24 @@ namespace Negocio
 {
     public class EstadoNegocio
     {
-        public List<Estado> listar()
+        public List<Estado> listar(int id = 0)
         {
             List<Estado> lista = new List<Estado>();
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select Id, Nombre, EstadoFinal, Activo from ESTADOS");
+                string consulta;
+                if (id != 0)
+                {
+                    consulta = "select Id, Nombre, EstadoFinal, Activo from ESTADOS where id = " + id;
+                }
+                else
+                {
+                    consulta = "select Id, Nombre, EstadoFinal, Activo from ESTADOS";
+                }
+
+
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -38,5 +49,8 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+
     }
 }

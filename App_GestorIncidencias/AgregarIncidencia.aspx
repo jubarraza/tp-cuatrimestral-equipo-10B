@@ -25,7 +25,11 @@
             </div>
             <div class="mb-3">
                 <label for="ddlPrioridad" class="form-label">Prioridad: </label>
-                <asp:DropDownList runat="server" ID="ddlPrioridad" CssClass="form-select"> </asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlPrioridad" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="mb-3">
+                <label for="ddlEstado" class="form-label">Estado: </label>
+                <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-select"></asp:DropDownList>
             </div>
             <div class="mb-3">
                 <asp:Button Text="Aceptar" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />

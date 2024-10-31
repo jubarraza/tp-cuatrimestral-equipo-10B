@@ -20,11 +20,18 @@ namespace App_GestorIncidencias
                 try
                 {
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
-                    List<Prioridad> list = prioridadNegocio.listar();
-                    ddlPrioridad.DataSource = list;
+                    List<Prioridad> prioridades = prioridadNegocio.listar();
+                    ddlPrioridad.DataSource = prioridades;
                     ddlPrioridad.DataValueField = "Id";
                     ddlPrioridad.DataTextField = "Nombre";
                     ddlPrioridad.DataBind();
+
+                    EstadoNegocio estado = new EstadoNegocio();
+                    List<Estado> estados = estado.listar(1); 
+                    ddlEstado.DataSource = estados;
+                    ddlEstado.DataValueField= "Id";
+                    ddlEstado.DataTextField = "Nombre";
+                    ddlEstado.DataBind();
                 }
                 catch (Exception ex)
                 {
@@ -44,8 +51,9 @@ namespace App_GestorIncidencias
                 incidencia.Cliente = int.Parse(txtCliente.Text);
                 incidencia.Usuario = int.Parse(txtUsuario.Text);
                 incidencia.Descripcion = TxtDescripcion.Text;
-                incidencia.Estado = new Estado();
+                incidencia.Estado = new Estado();            
                 incidencia.Estado.Id = 1;
+                incidencia.Prioridad = new Prioridad();
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
                 incidencia.Tipo = 2;
                 incidencia.FechaAlta = DateTime.Now;

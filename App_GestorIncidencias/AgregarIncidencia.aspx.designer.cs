@@ -69,6 +69,15 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.DropDownList ddlPrioridad;
 
         /// <summary>
+        /// ddlEstado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+
+        /// <summary>
         /// btnAceptar control.
         /// </summary>
         /// <remarks>

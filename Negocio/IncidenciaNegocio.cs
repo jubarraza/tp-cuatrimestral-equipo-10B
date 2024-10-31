@@ -70,8 +70,8 @@ namespace Negocio
                 datos.setearParametro("@cliente", nueva.Cliente);
                 datos.setearParametro("@Usuario", nueva.Usuario);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
-                datos.setearParametro("@Estado", nueva.Estado);
-                datos.setearParametro("@Prioridad", nueva.Prioridad);
+                datos.setearParametro("@Estado", nueva.Estado.Id);
+                datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
                 datos.setearParametro("@Tipo", nueva.Tipo);
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
                 datos.ejecutarAccion();

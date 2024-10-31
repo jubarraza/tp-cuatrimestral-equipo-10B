@@ -25,7 +25,8 @@ namespace App_GestorIncidencias
 
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Response.Redirect("AgregarIncidencia.aspx", false);  
+            string id = dgvIncidencias.SelectedDataKey.Value.ToString();
+            Response.Redirect("GestionarIncidencia.aspx?=" + id);  
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)

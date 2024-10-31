@@ -39,6 +39,13 @@ namespace App_GestorIncidencias
                     Session.Add("Error al cargar DropDownList", ex);
                     throw;
                 }
+
+
+
+                //if(Request.)
+
+
+
             }
         }
 

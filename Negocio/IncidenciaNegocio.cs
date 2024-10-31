@@ -10,13 +10,16 @@ namespace Negocio
 {
     public class IncidenciaNegocio
     {
-        public List<Incidencia> listar()
+        public List<Incidencia> listar(string id = "")
         {
             List<Incidencia> lista = new List<Incidencia>();
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id");
+                string consulta = "select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
+                if(id != "")
+                    consulta = consulta + "and INC.ID = " + id;
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {

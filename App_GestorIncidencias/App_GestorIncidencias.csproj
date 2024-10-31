@@ -69,7 +69,7 @@
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
-    <Content Include="AgregarIncidencia.aspx" />
+    <Content Include="GestionarIncidencia.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Admin\HomeAdmin.aspx" />
     <Content Include="Global.asax" />
@@ -114,12 +114,12 @@
     <Compile Include="Admin\Empleados.aspx.designer.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AgregarIncidencia.aspx.cs">
-      <DependentUpon>AgregarIncidencia.aspx</DependentUpon>
+    <Compile Include="GestionarIncidencia.aspx.cs">
+      <DependentUpon>GestionarIncidencia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AgregarIncidencia.aspx.designer.cs">
-      <DependentUpon>AgregarIncidencia.aspx</DependentUpon>
+    <Compile Include="GestionarIncidencia.aspx.designer.cs">
+      <DependentUpon>GestionarIncidencia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

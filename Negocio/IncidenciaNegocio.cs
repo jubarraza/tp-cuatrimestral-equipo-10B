@@ -79,10 +79,40 @@ namespace Negocio
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
                 datos.ejecutarAccion();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
-                throw;
+
+        public void ModificarIncidencia(Incidencia nueva)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("update incidencias set cliente = @cliente, Usuario = @Usuario, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, Tipo = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion =  @Resolucion where codigo = @Id");
+                datos.setearParametro("@cliente", nueva.Cliente);
+                datos.setearParametro("@Usuario", nueva.Usuario);
+                datos.setearParametro("@Descripcion", nueva.Descripcion);
+                datos.setearParametro("@Estado", nueva.Estado.Id);
+                datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
+                datos.setearParametro("@Tipo", nueva.Tipo);
+                datos.setearParametro("@FechaAlta", nueva.FechaAlta);
+                datos.setearParametro("@FechaCierre", nueva.FechaCierre);
+                datos.setearParametro("@Resolucion", nueva.Resolucion);
+                datos.setearParametro("@Id", nueva.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {

@@ -15,9 +15,9 @@ namespace App_GestorIncidencias
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled = false;
-            if(!IsPostBack)
+            try
             {
-                try
+                if (!IsPostBack)
                 {
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
                     List<Prioridad> prioridades = prioridadNegocio.listar();
@@ -27,25 +27,24 @@ namespace App_GestorIncidencias
                     ddlPrioridad.DataBind();
 
                     EstadoNegocio estado = new EstadoNegocio();
-                    List<Estado> estados = estado.listar(1); 
+                    List<Estado> estados = estado.listar(1);
                     ddlEstado.DataSource = estados;
-                    ddlEstado.DataValueField= "Id";
+                    ddlEstado.DataValueField = "Id";
                     ddlEstado.DataTextField = "Nombre";
                     ddlEstado.DataBind();
                 }
-                catch (Exception ex)
-                {
-
-                    Session.Add("Error al cargar DropDownList", ex);
-                    throw;
-                }
 
 
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+                //if(id != "" && )
 
-                //if(Request.)
 
+            }
+            catch (Exception ex)
+            {
 
-
+                Session.Add("Error al cargar DropDownList", ex);
+                throw;
             }
         }
 
@@ -58,7 +57,7 @@ namespace App_GestorIncidencias
                 incidencia.Cliente = int.Parse(txtCliente.Text);
                 incidencia.Usuario = int.Parse(txtUsuario.Text);
                 incidencia.Descripcion = TxtDescripcion.Text;
-                incidencia.Estado = new Estado();            
+                incidencia.Estado = new Estado();
                 incidencia.Estado.Id = 1;
                 incidencia.Prioridad = new Prioridad();
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
@@ -70,8 +69,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-                Session.Add("PageError.aspx", ex);   
-              
+                Session.Add("PageError.aspx", ex);
+
             }
         }
     }

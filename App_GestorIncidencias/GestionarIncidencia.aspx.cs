@@ -17,27 +17,52 @@ namespace App_GestorIncidencias
             txtId.Enabled = false;
             try
             {
+                string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
+                id = "1005";
+                
                 if (!IsPostBack)
-                {
+                {   
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
                     List<Prioridad> prioridades = prioridadNegocio.listar();
                     ddlPrioridad.DataSource = prioridades;
                     ddlPrioridad.DataValueField = "Id";
                     ddlPrioridad.DataTextField = "Nombre";
-                    ddlPrioridad.DataBind();
+                    ddlPrioridad.DataBind();                                                  
 
-                    EstadoNegocio estado = new EstadoNegocio();
-                    List<Estado> estados = estado.listar(1);
-                    ddlEstado.DataSource = estados;
-                    ddlEstado.DataValueField = "Id";
-                    ddlEstado.DataTextField = "Nombre";
-                    ddlEstado.DataBind();
+                    
+
+                    if (id != "")
+                    {   
+                        IncidenciaNegocio negocio = new IncidenciaNegocio();
+                        EstadoNegocio estado = new EstadoNegocio();
+                        List<Estado> estados = estado.listar();
+                        ddlEstado.DataSource = estados;
+                        ddlEstado.DataValueField = "Id";
+                        ddlEstado.DataTextField = "Nombre";
+                        ddlEstado.DataBind();
+
+                        Incidencia seleccion = (negocio.listar(id)[0]);
+                        txtId.Text = id;
+                        txtCliente.Text = seleccion.Cliente.ToString();
+                        txtUsuario.Text = seleccion.Usuario.ToString();
+                        TxtDescripcion.Text = seleccion.Descripcion.ToString();
+                        ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                        ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
+                       
+
+                        txtId.ReadOnly = true;
+                    }
+                    else
+                    {
+                        EstadoNegocio estado = new EstadoNegocio();
+                        List<Estado> estados = estado.listar(1);
+                        ddlEstado.DataSource = estados;
+                        ddlEstado.DataValueField = "Id";
+                        ddlEstado.DataTextField = "Nombre";
+                        ddlEstado.DataBind();
+                    }
+
                 }
-
-
-                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                //if(id != "" && )
-
 
             }
             catch (Exception ex)

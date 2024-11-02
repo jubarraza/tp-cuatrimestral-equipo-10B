@@ -25,13 +25,13 @@ namespace App_GestorIncidencias
 
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = dgvIncidencias.SelectedDataKey.Value.ToString();
-            Response.Redirect("GestionarIncidencia.aspx?=" + id);  
+            string Id = dgvIncidencias.SelectedDataKey.Value.ToString();
+            Response.Redirect("GestionarIncidencia.aspx?=" + Id);  
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AgregarIncidencia.aspx", false);
+            Response.Redirect("GestionarIncidencia.aspx", false);
         }
     }
 }

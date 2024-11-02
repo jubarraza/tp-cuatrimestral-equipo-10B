@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,10 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            txtLegajo.Enabled = false;
+            EmpleadoNegocio negocio = new EmpleadoNegocio();
+            int ultimoLegajo = negocio.obtenerUltimoLegajo();
+            txtLegajo.Text = ultimoLegajo.ToString();
 
         }
     }

@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-6">
             <label for="lblApellido" class="form-label">Apellido:</label>
-            <input type="text" class="form-control" id="txtApellido">
+            <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server"></asp:TextBox>            
           </div>
           <div class="col-12 mt-2">
             <label for="lblEmail" class="form-label">Email:</label>
@@ -20,7 +20,7 @@
           </div>
           <div class="col-md-6 mt-2">
             <label for="lblLegajo" class="form-label">Legajo:</label>
-            <input type="text" class="form-control" id="txtLegajo">
+            <asp:TextBox ID="txtLegajo" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6 mt-2">
             <label for="ddlTipo" class="form-label">Tipo de Usuario: </label>
@@ -32,7 +32,7 @@
           </div>
           <div class="col-md-6 mt-2">
             <label for="lblContraseña" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="txtContraseña">
+            <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6 mt-3">                     
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="chkActivo" checked>

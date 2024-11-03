@@ -18,8 +18,9 @@ namespace App_GestorIncidencias
             try
             {
                 string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
-                id = "1005";
-                
+
+        
+
                 if (!IsPostBack)
                 {   
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();

@@ -83,20 +83,20 @@ go
 set dateformat dmy
 go
 insert into Comentarios
-values (1001, 'Se verifica que no tiene deuda y se procede la baja', '2023/12/13', 2)
+values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
 insert into Comentarios
-values (1000, 'Se solicta comprobante de pago correspondiente', '2023/03/23', 2)
+values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
 insert into Comentarios
-values (1002, 'Plan dentaaaaal', '2024/06/22', 1)
+values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
 insert into Comentarios
-values (1002, 'Lisa necesita frenos', '2024/06/23', 1)
+values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
 insert into Comentarios
 values (1002, 'Plan dentaaaaal', GETDATE(), 1)
 go
 --EMPLEADOS
 create table EMPLEADOS(
-IdPersona int not null,
 Legajo int identity(100001,1) not null primary key,
+IdPersona int not null,
 Contraseña varchar(20) not null,
 TipoUsuario tinyint not null,
 FechaIngreso date not null check(FechaIngreso <= getdate()),
@@ -158,7 +158,7 @@ VALUES
 (4,10101010),
 (4,20202020),
 (5,30303030);
-
+go
 --Creacion de Store Procedure AgregarPersonaEmpleado
 create procedure sp_AgregarPersonaEmpleado
 @Nombre varchar(50),

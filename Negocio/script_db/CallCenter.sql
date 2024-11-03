@@ -71,7 +71,28 @@ insert into PERSONAS
 values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
-
+go
+create table Comentarios(
+id int not null identity(1,1),
+Cod_Incidencia int not null,
+Comentario varchar(200) not null,
+Fecha smalldatetime not null,
+IdUsuario int not null
+)
+go
+set dateformat dmy
+go
+insert into Comentarios
+values (1001, 'Se verifica que no tiene deuda y se procede la baja', '2023/12/13', 2)
+insert into Comentarios
+values (1000, 'Se solicta comprobante de pago correspondiente', '2023/03/23', 2)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', '2024/06/22', 1)
+insert into Comentarios
+values (1002, 'Lisa necesita frenos', '2024/06/23', 1)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', GETDATE(), 1)
+go
 --EMPLEADOS
 create table EMPLEADOS(
 IdPersona int not null,

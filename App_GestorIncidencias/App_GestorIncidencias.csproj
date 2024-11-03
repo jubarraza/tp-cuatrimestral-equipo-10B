@@ -69,6 +69,7 @@
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
+    <Content Include="ComentariosListar.aspx" />
     <Content Include="GestionarIncidencia.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Admin\HomeAdmin.aspx" />
@@ -113,6 +114,13 @@
     </Compile>
     <Compile Include="Admin\Empleados.aspx.designer.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ComentariosListar.aspx.cs">
+      <DependentUpon>ComentariosListar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComentariosListar.aspx.designer.cs">
+      <DependentUpon>ComentariosListar.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionarIncidencia.aspx.cs">
       <DependentUpon>GestionarIncidencia.aspx</DependentUpon>

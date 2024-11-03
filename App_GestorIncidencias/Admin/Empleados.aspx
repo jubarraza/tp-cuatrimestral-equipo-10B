@@ -11,7 +11,7 @@
                 <asp:BoundField HeaderText="Email" DataField="persona.Email" />
                 <asp:BoundField HeaderText="Legajo" DataField="Legajo" />
                 <asp:BoundField HeaderText="Tipo Usuario" DataField="TipoUsuario" />
-                <asp:BoundField HeaderText="Fecha Ingreso" DataField="FechaIngreso" DataFormatString="{0:yyyy-MM-dd}" HtmlEncode="false" />
+                <asp:BoundField HeaderText="Fecha Ingreso" DataField="FechaIngreso" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
             </Columns>
         </asp:GridView>

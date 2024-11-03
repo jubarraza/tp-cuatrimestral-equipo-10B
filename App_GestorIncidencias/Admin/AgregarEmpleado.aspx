@@ -16,7 +16,7 @@
           </div>
           <div class="col-12 mt-2">
             <label for="lblEmail" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="inputEmail4">
+            <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" />
           </div>
           <div class="col-md-6 mt-2">
             <label for="lblLegajo" class="form-label">Legajo:</label>
@@ -34,15 +34,15 @@
             <label for="lblContraseña" class="form-label">Contraseña</label>
             <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
-          <div class="col-md-6 mt-3">                     
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="chkActivo" checked>
-            <label class="form-check-label" for="gridCheck">Activo</label>            
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="chkInactivo">
-            <label class="form-check-label" for="gridCheck">Inactivo</label>
+          <div class="col-md-6 mt-3">
+            <div class="form-check form-check-inline">
+                <asp:RadioButton ID="rbActivo" Text=" Activo" Checked="true" GroupName="Activo" runat="server" />
+                <asp:RadioButton ID="rbInactivo" Text=" Inactivo" GroupName="Activo" runat="server" />
+            </div>
           </div>
           <div class="col-12 mt-3">
-            <button type="button" class="btn btn-success">Aceptar</button>
-            <button type="button" class="btn btn-danger">Cancelar</button>
+            <asp:Button Text="Aceptar" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-success" runat="server" />
+            <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" CssClass="btn btn-danger" runat="server" />
           </div>
         </form>
        </div>

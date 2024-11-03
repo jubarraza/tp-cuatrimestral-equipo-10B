@@ -137,3 +137,29 @@ VALUES
 (4,10101010),
 (4,20202020),
 (5,30303030);
+
+--Creacion de Store Procedure AgregarPersonaEmpleado
+create procedure sp_AgregarPersonaEmpleado
+@Nombre varchar(50),
+@Apellido varchar(50),
+@Email varchar(80),
+@Contraseña varchar(20),
+@TipoUsuario tinyint,
+@FechaIngreso date,
+@Activo bit
+as begin
+begin transaction;
+begin try
+	declare @IdPersona int;
+	insert into PERSONAS(Nombre,Apellido,Email)
+	values(@Nombre,@Apellido,@Email);
+	set @IdPersona = SCOPE_IDENTITY();
+	insert into EMPLEADOS(IdPersona,Contraseña,TipoUsuario,FechaIngreso,Activo)
+	values(@IdPersona,@Contraseña,@TipoUsuario,@FechaIngreso,@Activo);
+	commit transaction
+end try
+begin catch
+rollback transaction;
+throw;
+end catch
+end;

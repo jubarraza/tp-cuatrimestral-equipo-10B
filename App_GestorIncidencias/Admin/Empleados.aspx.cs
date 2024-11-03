@@ -21,5 +21,10 @@ namespace App_GestorIncidencias.Admin
         {
             Response.Redirect("~/Admin/AgregarEmpleado.aspx");
         }
+
+        protected void gvEmpleados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string legajoSeleccionado = gvEmpleados.SelectedDataKey.Value.ToString();
+        }
     }
 }

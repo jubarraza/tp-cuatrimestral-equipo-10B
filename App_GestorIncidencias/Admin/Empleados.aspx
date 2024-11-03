@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
         <h1>Menu de administración de Empleados</h1>
-        <asp:GridView ID="gvEmpleados" CssClass="table" AutoGenerateColumns="false" runat="server">
+        <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged" CssClass="table table-striped" AutoGenerateColumns="false" runat="server">
             <Columns>
                 <asp:BoundField HeaderText="Nombre" DataField="persona.Nombre" />
                 <asp:BoundField HeaderText="Apellido" DataField="persona.Apellido" />
@@ -13,6 +13,7 @@
                 <asp:BoundField HeaderText="Tipo Usuario" DataField="TipoUsuario" />
                 <asp:BoundField HeaderText="Fecha Ingreso" DataField="FechaIngreso" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
+                <asp:CommandField ShowSelectButton="true" SelectText="👈" HeaderText="Seleccionar" />
             </Columns>
         </asp:GridView>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

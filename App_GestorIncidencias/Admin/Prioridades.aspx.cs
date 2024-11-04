@@ -21,5 +21,17 @@ namespace App_GestorIncidencias.Admin
 
             }
         }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GestionarPrioridades.aspx", false);
+        }
+
+        protected void gvPrioridades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = gvPrioridades.SelectedDataKey.Value.ToString();
+            Response.Redirect("GestionarPrioridades.aspx?id=" + id);
+
+        }
     }
 }

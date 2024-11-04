@@ -10,7 +10,8 @@ namespace Dominio
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public bool Activa { get; set; }
+        public bool Visible { get; set; }
+        public bool Activo { get; set; }
 
         public override string ToString()
         {

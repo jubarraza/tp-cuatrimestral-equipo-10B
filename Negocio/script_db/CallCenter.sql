@@ -27,16 +27,17 @@ go
 create table PRIORIDADES(
 Id int identity(1,1) not null primary key,
 Nombre varchar(30) not null unique,
-Activa bit not null)
+Visible bit NOT NULL, 
+Activo bit not null)
 go
-insert into PRIORIDADES (Nombre, Activa)
-values ('Urgente',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Alta',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Media',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Baja',1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Urgente',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Alta',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Media',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Baja',1,1);
 go
 --ESTADOS--
 create table ESTADOS(

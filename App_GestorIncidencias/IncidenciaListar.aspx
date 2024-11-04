@@ -35,6 +35,7 @@
     <br />
     <div class="mb-3">
         <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-primary" runat="server" />
+        <asp:Button Text="Comentarios" ID="BtnComentarios" OnClick="BtnComentarios_Click"  CssClass="btn btn-primary" runat="server" />
     </div>
 
 

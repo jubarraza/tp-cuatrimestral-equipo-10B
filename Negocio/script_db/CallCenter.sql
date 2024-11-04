@@ -30,7 +30,7 @@ go
 
 -- COMENTARIOS
 create table COMENTARIOS(
-id bigint not null identity(1,1),
+id int not null identity(1,1),
 Cod_Incidencia int not null,
 Comentario varchar(200) not null,
 Fecha smalldatetime not null,

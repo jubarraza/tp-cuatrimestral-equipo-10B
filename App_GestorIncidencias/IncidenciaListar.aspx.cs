@@ -33,5 +33,10 @@ namespace App_GestorIncidencias
         {
             Response.Redirect("GestionarIncidencia.aspx", false);
         }
+
+        protected void BtnComentarios_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ComentariosListar.aspx", false);
+        }
     }
 }

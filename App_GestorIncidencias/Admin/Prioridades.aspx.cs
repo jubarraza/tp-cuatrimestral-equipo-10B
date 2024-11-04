@@ -33,5 +33,20 @@ namespace App_GestorIncidencias.Admin
             Response.Redirect("GestionarPrioridades.aspx?id=" + id);
 
         }
+
+        protected void gvPrioridades_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string id = gvPrioridades.DataKeys[e.RowIndex].Value.ToString();
+            Session.Add("idEliminar", id);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+        }
+
+        protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
+        {
+            PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
+            int id = int.Parse(Session["idEliminar"].ToString());
+            prioridadNegocio.Eliminar(id);
+            Response.Redirect("Prioridades.aspx", false);
+        }
     }
 }

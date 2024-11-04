@@ -28,7 +28,7 @@
             <div class="mb-3">
                 <div class="form-check form-switch form-control-lg ms-1">
                     <input class="form-check-input" type="checkbox" role="switch" id="chkActiva" checked runat="server">
-                    <label class="form-check-label" for="chkActiva">Activa</label>
+                    <label class="form-check-label" for="chkActiva">Visible</label>
                 </div>
             </div>
 

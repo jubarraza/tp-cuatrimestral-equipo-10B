@@ -28,7 +28,7 @@ namespace App_GestorIncidencias.Admin
                         
                         txtId.Text = PrioridadSeleccionada.Id.ToString();
                         txtNombre.Text = PrioridadSeleccionada.Nombre;
-                        chkActiva.Checked = PrioridadSeleccionada.Activa;
+                        chkActiva.Checked = PrioridadSeleccionada.Visible;
                     }
                 }
 
@@ -49,7 +49,8 @@ namespace App_GestorIncidencias.Admin
                 PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
 
                 nueva.Nombre = txtNombre.Text;
-                nueva.Activa = chkActiva.Checked;
+                nueva.Visible = chkActiva.Checked;
+                nueva.Activo = true;
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -74,5 +75,6 @@ namespace App_GestorIncidencias.Admin
         {
             Response.Redirect("Prioridades.aspx", false);
         }
+
     }
 }

@@ -15,14 +15,15 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select Id, Nombre, Activa from PRIORIDADES");
+                datos.setearConsulta("select Id, Nombre, Visible, Activo from PRIORIDADES WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Prioridad aux = new Prioridad();
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Activa = (bool)datos.Lector["Activa"];
+                    aux.Visible = (bool)datos.Lector["Visible"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
 
                     lista.Add(aux);
                 }
@@ -44,10 +45,9 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Prioridades (Nombre, Activa) VALUES (@Nombre, @Activa)");
-                datos.setearParametro("@Id", nuevo.Id);
+                datos.setearConsulta("INSERT INTO Prioridades (Nombre, Visible, Activo) VALUES (@Nombre, @Visible, 1)");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
-                datos.setearParametro("@Activa", nuevo.Activa);
+                datos.setearParametro("@Visible", nuevo.Visible);
 
                 datos.ejecutarAccion();
 
@@ -87,10 +87,10 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE Prioridades SET Nombre = @Nombre, Activa = @Activa WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Prioridades SET Nombre = @Nombre, Visible = @Visible WHERE Id = @Id");
                 datos.setearParametro("@Id", nueva.Id);
                 datos.setearParametro("@Nombre", nueva.Nombre);
-                datos.setearParametro("@Activa", nueva.Activa);
+                datos.setearParametro("@Visible", nueva.Visible);
 
                 datos.ejecutarAccion();
             }
@@ -102,6 +102,24 @@ namespace Negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Prioridades SET Activo = 0 WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 

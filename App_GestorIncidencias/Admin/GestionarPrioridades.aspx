@@ -33,7 +33,7 @@
             </div>
 
             <div class="mb-3 btn-group-lg btn">
-                <asp:Button Text="Aceptar" runat="server" CssClass="btn btn-primary" ID="btnAceptar" OnClick="btnAceptar_Click"/>
+                <asp:Button Text="Guardar" runat="server" CssClass="btn btn-success" ID="btnAceptar" OnClick="btnAceptar_Click"/>
                 <asp:Button Text="Cancelar" runat="server" CssClass="btn btn-secondary" ID="btnCancelar" OnClick="btnCancelar_Click"/>
             </div>
         </div>

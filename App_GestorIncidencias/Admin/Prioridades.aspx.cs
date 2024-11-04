@@ -1,4 +1,5 @@
 ﻿using Negocio;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,16 @@ namespace App_GestorIncidencias.Admin
             int id = int.Parse(Session["idEliminar"].ToString());
             prioridadNegocio.Eliminar(id);
             Response.Redirect("Prioridades.aspx", false);
+        }
+
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<Prioridad> listaPrioridades = (List<Prioridad>)Session["listaPrioridades"];
+
+            List<Prioridad> listaFiltrada = listaPrioridades.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+
+            gvPrioridades.DataSource = listaFiltrada;
+            gvPrioridades.DataBind();
         }
     }
 }

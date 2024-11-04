@@ -28,12 +28,14 @@
 
         </div>
 
-        <div class="row justify-content-end">
-
-            <div class="mb-3 col-4 col-sm-auto col-md-auto">
+        <div class="row">
+            <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
+                <asp:Label Text="Buscar" runat="server" CssClass="" />
+                <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true"/>
+            </div>
+            <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
                 <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" ID="btnAgregar" OnClick="btnAgregar_Click" />
             </div>
-
         </div>
 
         <asp:UpdatePanel runat="server">

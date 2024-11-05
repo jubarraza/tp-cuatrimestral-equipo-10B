@@ -36,13 +36,16 @@ namespace App_GestorIncidencias.Admin
         protected void gvDirecciones_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string id = gvDirecciones.DataKeys[e.RowIndex].Value.ToString();
-            Session.Add("idEliminar", id);
+            Session.Add("idDireccionEliminar", id);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
-
+            DireccionNegocio negocio = new DireccionNegocio();
+            long id = long.Parse(Session["idDireccionEliminar"].ToString());
+            negocio.eliminarDireccion(id);
+            Response.Redirect("Direcciones.aspx", false);
         }
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)

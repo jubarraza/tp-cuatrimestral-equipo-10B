@@ -38,14 +38,14 @@ namespace App_GestorIncidencias.Admin
         protected void gvPrioridades_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string id = gvPrioridades.DataKeys[e.RowIndex].Value.ToString();
-            Session.Add("idEliminar", id);
+            Session.Add("idPrioridadEliminar", id);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
             PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
-            int id = int.Parse(Session["idEliminar"].ToString());
+            int id = int.Parse(Session["idPrioridadEliminar"].ToString());
             prioridadNegocio.Eliminar(id);
             Response.Redirect("Prioridades.aspx", false);
         }

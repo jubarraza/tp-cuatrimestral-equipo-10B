@@ -76,7 +76,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <asp:Button Text="Eliminar Prioridad" CssClass="btn btn-danger" ID="btnEliminarConfirmado" runat="server" OnClick="btnEliminarConfirmado_Click" />
+                <asp:Button Text="Eliminar Direccion" CssClass="btn btn-danger" ID="btnEliminarConfirmado" runat="server" OnClick="btnEliminarConfirmado_Click" />
             </div>
         </div>
     </div>

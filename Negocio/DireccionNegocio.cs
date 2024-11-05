@@ -257,5 +257,27 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void eliminarDireccion(long id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Direcciones SET Activo = 0 WHERE Id = " + id);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

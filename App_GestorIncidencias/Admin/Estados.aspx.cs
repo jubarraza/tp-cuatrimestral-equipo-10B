@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,16 @@ namespace App_GestorIncidencias.Admin
                 gvEstados.DataBind();
 
             }
+        }
+
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<Estado> listaEstados = (List<Estado>)Session["listaEstados"];
+
+            List<Estado> listaFiltrada = listaEstados.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+
+            gvEstados.DataSource = listaFiltrada;
+            gvEstados.DataBind();
         }
     }
 }

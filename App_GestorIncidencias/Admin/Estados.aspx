@@ -14,15 +14,13 @@
 
      </div>
 
-     <div class="row justify-content-end">
-
-         <div class="mb-3 col-4 col-sm-auto col-md-auto">
-             <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" />
-             <asp:Button Text="Editar" CssClass="btn btn-warning" runat="server" />
-             <asp:Button Text="Eliminar" CssClass="btn btn-danger" runat="server" />
+         <div class="row">
+             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
+                 <asp:Label Text="Buscar" runat="server" CssClass="" />
+                 <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true" />
+             </div>
          </div>
 
-     </div>
      <div class="row justify-content-center">
 
          <div>

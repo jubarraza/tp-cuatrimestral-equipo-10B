@@ -13,15 +13,31 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtLegajo.Enabled = false;
-            EmpleadoNegocio negocio = new EmpleadoNegocio();
-            int ultimoLegajo = negocio.obtenerUltimoLegajo();
-            txtLegajo.Text = ultimoLegajo.ToString();
-            List<Empleado> lista = negocio.listar();
-            ddlTipoUsuario.DataSource = lista;
-            ddlTipoUsuario.DataValueField = "TipoUsuario";
-            ddlTipoUsuario.DataTextField = "TipoUsuario";
-            ddlTipoUsuario.DataBind();
+            if (Request.QueryString["Legajo"] == null)
+            {
+                txtLegajo.Enabled = false;
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                int ultimoLegajo = negocio.obtenerUltimoLegajo();
+                txtLegajo.Text = ultimoLegajo.ToString();
+                List<Empleado> lista = negocio.listar();
+
+                ddlTipoUsuario.DataSource = lista;
+                ddlTipoUsuario.DataValueField = "TipoUsuario";
+                ddlTipoUsuario.DataTextField = "TipoUsuario";
+                ddlTipoUsuario.DataBind();
+            }
+            else
+            {
+                int Legajo = int.Parse(Request.QueryString["Legajo"].ToString());
+                txtLegajo.Enabled = false;
+                List<Empleado> temporal = (List<Empleado>)Session["listaEmpleados"];
+                Empleado seleccionado = temporal.Find(x => x.Legajo == Legajo);
+                txtNombre.Text = seleccionado.persona.Nombre;
+                txtApellido.Text = seleccionado.persona.Apellido;
+
+                txtLegajo.Text = Legajo.ToString();
+
+            }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -43,6 +59,10 @@ namespace App_GestorIncidencias.Admin
             {
                 nuevo.Activo = false;
             }
+            
+            List<Empleado> temporal = (List<Empleado>)Session["listaEmpleados"];
+            temporal.Add(nuevo);
+
             negocio.agregar(nuevo);
             Response.Redirect("~/Admin/Empleados.aspx");
         }

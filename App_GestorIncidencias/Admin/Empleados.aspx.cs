@@ -12,19 +12,25 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            EmpleadoNegocio negocio = new EmpleadoNegocio();
-            gvEmpleados.DataSource = negocio.listar();
+            if (Session["listaEmpleados"] == null)
+            {
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                Session.Add("listaEmpleados", negocio.listar());
+            }            
+            gvEmpleados.DataSource = Session["listaEmpleados"];
             gvEmpleados.DataBind();
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Admin/AgregarEmpleado.aspx");
+            Response.Redirect("~/Admin/ABMEmpleado.aspx");
         }
 
         protected void gvEmpleados_SelectedIndexChanged(object sender, EventArgs e)
         {
             string legajoSeleccionado = gvEmpleados.SelectedDataKey.Value.ToString();
+            Response.Redirect("ABMEmpleado.aspx?Legajo=" + legajoSeleccionado);
         }
+
     }
 }

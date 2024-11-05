@@ -63,7 +63,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias </a>
 
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="TipoIncidencia.aspx">Tipos de Incidencias</a></li>
+                                    <li><a class="dropdown-item" href="TiposIncidencias.aspx">Tipos de Incidencias</a></li>
                                     <li><a class="dropdown-item" href="Estados.aspx">Estados</a></li>
                                     <li><a class="dropdown-item" href="Prioridades.aspx">Prioridades</a></li>
                                 </ul>

@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IncidenciaNegocio.cs" />
     <Compile Include="TelefonoNegocio.cs" />
+    <Compile Include="TipoIncidenciaNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

@@ -51,6 +51,26 @@ insert into Comentarios
 values (1002, 'Plan dentaaaaal', GETDATE(), 1)
 go
 
+-- TIPO INCIDENCIA
+CREATE TABLE TIPO_INCIDENCIA(
+Id int identity(1,1) not null primary key,
+Nombre varchar(70) not null unique,
+Activo bit not null)
+go
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Producto Defectuoso o Dañado', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Demoras en la Entrega', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Cambio o Devolución', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Garantías y Reparaciones', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Errores en el Pedido', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas con Facturación', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Atención en Tienda Física', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas en el Sitio Web/App', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas con el Envío', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Consulta o Reclamo por Promociones', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Soporte Técnico para Electrodomésticos/Electrónica', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Cobertura de Garantía Extendida', 1);
+go
+
 -- PRIORIDADES
 create table PRIORIDADES(
 Id int identity(1,1) not null primary key,

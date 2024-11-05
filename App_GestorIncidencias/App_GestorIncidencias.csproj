@@ -70,8 +70,10 @@
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\GestionarDirecciones.aspx" />
     <Content Include="Admin\GestionarPrioridades.aspx" />
+    <Content Include="Admin\GestionarTipoIncidencia.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
+    <Content Include="Admin\TiposIncidencias.aspx" />
     <Content Include="ComentariosListar.aspx" />
     <Content Include="GestionarIncidencia.aspx" />
     <Content Include="Default.aspx" />
@@ -125,6 +127,13 @@
     <Compile Include="Admin\GestionarPrioridades.aspx.designer.cs">
       <DependentUpon>GestionarPrioridades.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\GestionarTipoIncidencia.aspx.cs">
+      <DependentUpon>GestionarTipoIncidencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionarTipoIncidencia.aspx.designer.cs">
+      <DependentUpon>GestionarTipoIncidencia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Prioridades.aspx.cs">
       <DependentUpon>Prioridades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -138,6 +147,13 @@
     </Compile>
     <Compile Include="Admin\Empleados.aspx.designer.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TiposIncidencias.aspx.cs">
+      <DependentUpon>TiposIncidencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TiposIncidencias.aspx.designer.cs">
+      <DependentUpon>TiposIncidencias.aspx</DependentUpon>
     </Compile>
     <Compile Include="ComentariosListar.aspx.cs">
       <DependentUpon>ComentariosListar.aspx</DependentUpon>

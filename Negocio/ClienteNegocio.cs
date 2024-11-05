@@ -15,7 +15,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.Contraseña, " +
+                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.UserPassword, " +
                     "T.NumeroTelefono, C.FechaNacimiento, C.Direccion, C.Activo from PERSONAS as P " +
                     "inner join CLIENTES as C on C.IdPersona = P.Id left join TELEFONOS as T on T.IdPersona = C.IdPersona");
                 datos.ejecutarLectura();
@@ -23,12 +23,12 @@ namespace Negocio
                 {
                     Cliente aux = new Cliente();
                     aux.persona = new Persona();
-                    aux.persona.Id = (int)datos.Lector["Id"];
+                    aux.persona.Id = int.Parse(datos.Lector["Id"].ToString());
                     aux.persona.Nombre = (string)datos.Lector["Nombre"];
                     aux.persona.Apellido = (string)datos.Lector["Apellido"];
                     aux.persona.Email = (string)datos.Lector["Email"];
-                    aux.Dni = (int)datos.Lector["Dni"];
-                    aux.Contraseña = (string)datos.Lector["Contraseña"];
+                    aux.Dni = int.Parse(datos.Lector["Dni"].ToString());
+                    aux.Contraseña = (string)datos.Lector["UserPassword"];
                     aux.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
                     aux.telefono = new Telefono();
                     if (!(datos.Lector["NumeroTelefono"] is DBNull))

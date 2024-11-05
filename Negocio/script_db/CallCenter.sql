@@ -1,7 +1,11 @@
+drop database CALLCENTER
+go
 create database CALLCENTER
 go
 use CALLCENTER
 go
+
+-- INCIDENCIAS
 create table INCIDENCIAS(
 codigo int identity(1000,1) not null,
 Cliente int not null,
@@ -23,22 +27,48 @@ values (3,2,'Solicito baja de servicio',4,3,1,'17-03-2023','23-09-2024','Se ha r
 insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad,Tipo, FechaAlta, FechaCierre, Resolucion) 
 values (1,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
 go
---PRIORIDADES--
+
+-- COMENTARIOS
+create table COMENTARIOS(
+id int not null identity(1,1),
+Cod_Incidencia int not null,
+Comentario varchar(200) not null,
+Fecha smalldatetime not null,
+IdUsuario int not null
+)
+go
+set dateformat dmy
+go
+insert into COMENTARIOS
+values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
+insert into Comentarios
+values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
+insert into Comentarios
+values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', GETDATE(), 1)
+go
+
+-- PRIORIDADES
 create table PRIORIDADES(
 Id int identity(1,1) not null primary key,
 Nombre varchar(30) not null unique,
-Activa bit not null)
+Visible bit NOT NULL, 
+Activo bit not null)
 go
-insert into PRIORIDADES (Nombre, Activa)
-values ('Urgente',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Alta',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Media',1);
-insert into PRIORIDADES (Nombre, Activa)
-values ('Baja',1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Urgente',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Alta',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Media',1,1);
+insert into PRIORIDADES (Nombre, Visible, Activo)
+values ('Baja',1,1);
 go
---ESTADOS--
+
+-- ESTADOS
 create table ESTADOS(
 Id int identity(1,1) not null primary key,
 Nombre varchar(30) not null unique,
@@ -58,9 +88,10 @@ values ('Cerrado', 1, 1);
 insert into ESTADOS (Nombre, EstadoFinal, Activo)
 values ('Reabierto', 0, 1);
 go
---PERSONAS
+
+-- PERSONAS
 create table PERSONAS(
-Id int identity(1,1) not null primary key,
+Id bigint identity(1,1) not null primary key,
 Nombre varchar(50) not null,
 Apellido varchar(50) not null,
 Email varchar(80) not null unique)
@@ -72,56 +103,35 @@ values('Homero','Thompson','homerothompson@hotmail.com');
 insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
 go
-create table Comentarios(
-id int not null identity(1,1),
-Cod_Incidencia int not null,
-Comentario varchar(200) not null,
-Fecha smalldatetime not null,
-IdUsuario int not null
-)
-go
-set dateformat dmy
-go
-insert into Comentarios
-values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
-insert into Comentarios
-values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
-insert into Comentarios
-values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
-insert into Comentarios
-values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
-insert into Comentarios
-values (1002, 'Plan dentaaaaal', GETDATE(), 1)
-go
---EMPLEADOS
+
+-- EMPLEADOS
 create table EMPLEADOS(
-Legajo int identity(100001,1) not null primary key,
-IdPersona int not null,
-Contraseña varchar(20) not null,
+Legajo bigint identity(100001,1) not null primary key,
+IdPersona bigint not null,
+UserPassword varchar(20) not null,
 TipoUsuario tinyint not null,
 FechaIngreso date not null check(FechaIngreso <= getdate()),
 Activo bit not null,
 foreign key (IdPersona) references PERSONAS(Id)
 )
-
+GO
 set dateformat dmy
-insert into EMPLEADOS(IdPersona,Contraseña,TipoUsuario,FechaIngreso,Activo)
+insert into EMPLEADOS(IdPersona,UserPassword,TipoUsuario,FechaIngreso,Activo)
 values(1,'Milhouse',3,'26-10-2024',1),
 (2,'Springfield',2,'26-10-2023',0),
 (3,'Nodirenada',1,'10-10-2020',1);
 
---CLIENTES
+-- CLIENTES
 create table CLIENTES(
-IdPersona int not null,
-Dni int not null,
-Contraseña varchar(20) not null,
+IdPersona bigint not null unique,
+Dni bigint not null unique,
+UserPassword varchar(20) not null,
 FechaNacimiento date not null check(FechaNacimiento <= dateadd(year,-18, getdate())),
-Telefono bigint,
 Direccion varchar(50) not null,
 Activo bit not null,
 foreign key (IdPersona) references PERSONAS(Id)
 )
-
+go
 insert into PERSONAS
 values ('Ned','Flanders','Nedflanders@gmail.com');
 insert into PERSONAS
@@ -131,27 +141,20 @@ values('Milhouse','Vanhouten','Milhouse2024@hotmail.com.ar');
 
 set dateformat dmy
 insert into CLIENTES
-(IdPersona, Dni, Contraseña, FechaNacimiento, Telefono, Direccion, Activo) values 
-(4,12345678,'Perfectirijillo','27-10-1964',2604123412,'Avenida siempre viva 741',1),
-(5,87654321,'Abuelo','27-10-1927',0800123412,'Casa de Jubilados Springfield',0),
-(6,12312312,'Bart','27-10-2000',1127272727,'Con sus padres',1);
+(IdPersona, Dni, UserPassword, FechaNacimiento, Direccion, Activo) values 
+(4,12345678,'Perfectirijillo','27-10-1964','Avenida siempre viva 741',1),
+(5,87654321,'Abuelo','27-10-1927','Casa de Jubilados Springfield',0),
+(6,12312312,'Bart','27-10-2000','Con sus padres',1);
 
---Eliminacion Columna Telefono de Clase Clientes
-alter table CLIENTES
-drop column Telefono
 
---Se Agrega Restriccion Unique a IdPersona
-alter table CLIENTES
-add constraint uq_IdPersona unique (IdPersona)
-
---Telefonos
+-- TELEFONOS
 create table TELEFONOS(
 IdTelefono int identity(1,1) primary key,
-IdPersona int not null,
+IdPersona bigint not null,
 NumeroTelefono bigint not null,
 foreign key (IdPersona) references CLIENTES(IdPersona)
 )
-
+go
 insert into TELEFONOS
 (IdPersona, NumeroTelefono)
 VALUES
@@ -159,24 +162,25 @@ VALUES
 (4,20202020),
 (5,30303030);
 go
+
 --Creacion de Store Procedure AgregarPersonaEmpleado
 create procedure sp_AgregarPersonaEmpleado
 @Nombre varchar(50),
 @Apellido varchar(50),
 @Email varchar(80),
-@Contraseña varchar(20),
+@UserPassword varchar(20),
 @TipoUsuario tinyint,
 @FechaIngreso date,
 @Activo bit
 as begin
 begin transaction;
 begin try
-	declare @IdPersona int;
+	declare @IdPersona bigint;
 	insert into PERSONAS(Nombre,Apellido,Email)
 	values(@Nombre,@Apellido,@Email);
 	set @IdPersona = SCOPE_IDENTITY();
-	insert into EMPLEADOS(IdPersona,Contraseña,TipoUsuario,FechaIngreso,Activo)
-	values(@IdPersona,@Contraseña,@TipoUsuario,@FechaIngreso,@Activo);
+	insert into EMPLEADOS(IdPersona,UserPassword,TipoUsuario,FechaIngreso,Activo)
+	values(@IdPersona,@UserPassword,@TipoUsuario,@FechaIngreso,@Activo);
 	commit transaction
 end try
 begin catch
@@ -184,3 +188,43 @@ rollback transaction;
 throw;
 end catch
 end;
+
+-- PAIS
+CREATE TABLE PAISES(
+Id bigint identity(1,1) not null primary key,
+Nombre varchar(50) not null unique,
+Activo bit not null
+)
+GO
+INSERT INTO PAISES (Nombre, Activo) VALUES ('Argentina', 1);
+INSERT INTO PAISES (Nombre, Activo) VALUES ('Uruguay', 1);
+GO
+
+-- PROVINCIAS
+CREATE TABLE PROVINCIAS(
+Id bigint identity(1,1) not null primary key,
+Nombre varchar(50) not null unique,
+IdPais bigint not null,
+Activo bit not null,
+FOREIGN KEY (IdPais) REFERENCES PAISES (Id)
+)
+go
+INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Buenos Aires', 1, 1);
+INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Cordoba', 1, 1);
+INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Santa Fe', 1, 1);
+INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Mendoza', 1, 1);
+go
+
+-- DIRECCIONES
+CREATE TABLE DIRECCIONES(
+Id bigint identity(1,1) not null primary key,
+Calle varchar(70) not null,
+Numero bigint not null,
+Localidad varchar(70) not null, 
+IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id),
+DniCliente bigint not null FOREIGN KEY REFERENCES CLIENTES (Dni),
+Activo bit not null
+)
+go
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, IdProvincia, DniCliente, Activo) VALUES ('Calle', 1234, 'Rosario', 3, 12345678, 1);
+go

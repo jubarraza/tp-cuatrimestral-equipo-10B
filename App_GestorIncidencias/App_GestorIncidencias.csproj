@@ -67,6 +67,7 @@
     <Content Include="Admin\ABMEmpleado.aspx" />
     <Content Include="Admin\Clientes.aspx" />
     <Content Include="Admin\Estados.aspx" />
+    <Content Include="Admin\GestionarPrioridades.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
     <Content Include="ComentariosListar.aspx" />
@@ -100,6 +101,13 @@
     </Compile>
     <Compile Include="Admin\Estados.aspx.designer.cs">
       <DependentUpon>Estados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GestionarPrioridades.aspx.cs">
+      <DependentUpon>GestionarPrioridades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionarPrioridades.aspx.designer.cs">
+      <DependentUpon>GestionarPrioridades.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Prioridades.aspx.cs">
       <DependentUpon>Prioridades.aspx</DependentUpon>

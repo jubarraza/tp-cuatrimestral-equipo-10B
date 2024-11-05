@@ -31,10 +31,10 @@
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
                 <asp:Label Text="Buscar" runat="server" CssClass="" />
-                <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true"/>
+                <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged"/>
             </div>
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
-                <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" ID="btnAgregar" />
+                <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" ID="btnAgregar" OnClick="btnAgregar_Click" />
             </div>
         </div>
 
@@ -44,14 +44,14 @@
 
                     <div>
                         <asp:GridView ID="gvDirecciones" runat="server" DataKeyNames="Id"
-                            CssClass="table" AutoGenerateColumns="false">
+                            CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="gvDirecciones_SelectedIndexChanged" OnRowDeleting="gvDirecciones_RowDeleting">
                             <Columns>
                                 <asp:BoundField HeaderText="ID" DataField="Id" />
                                 <asp:BoundField HeaderText="Calle" DataField="Calle" />
                                 <asp:BoundField HeaderText="Numero" DataField="Numero" />
                                 <asp:BoundField HeaderText="Localidad" DataField="Localidad" />
                                 <asp:BoundField HeaderText="CodPostal" DataField="CodPostal" />
-                                <asp:BoundField HeaderText="Provincia" DataField="Provincia" />
+                                <asp:BoundField HeaderText="Provincia" DataField="Provincia.Nombre" />
                                 <asp:BoundField HeaderText="Pais" DataField="Pais" />
                                 <asp:BoundField HeaderText="Cliente" DataField="Usuario.Persona" />
                                 <asp:CommandField HeaderText="Editar" ControlStyle-CssClass="ms-2" ShowSelectButton="true" SelectText="<img src='https://cdn-icons-png.flaticon.com/512/32/32355.png' style='width:25px; height:25px;' alt='Editar'/>" />
@@ -76,7 +76,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <asp:Button Text="Eliminar Prioridad" CssClass="btn btn-danger" ID="btnEliminarConfirmado" runat="server" />
+                <asp:Button Text="Eliminar Prioridad" CssClass="btn btn-danger" ID="btnEliminarConfirmado" runat="server" OnClick="btnEliminarConfirmado_Click" />
             </div>
         </div>
     </div>

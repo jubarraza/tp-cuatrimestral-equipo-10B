@@ -220,11 +220,11 @@ CREATE TABLE DIRECCIONES(
 Id bigint identity(1,1) not null primary key,
 Calle varchar(70) not null,
 Numero bigint not null,
-Localidad varchar(70) not null, 
+Localidad varchar(70) not null,
+CodPostal varchar(20) not null,
 IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id),
 DniCliente bigint not null FOREIGN KEY REFERENCES CLIENTES (Dni),
-Activo bit not null
-)
+Activo bit not null)
 go
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, IdProvincia, DniCliente, Activo) VALUES ('Calle', 1234, 'Rosario', 3, 12345678, 1);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, DniCliente, Activo) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 3, 12345678, 1);
 go

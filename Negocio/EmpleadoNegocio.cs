@@ -24,11 +24,11 @@ namespace Negocio
                 {
                     Empleado aux = new Empleado();
                     aux.persona = new Persona();
-                    aux.persona.Id = (int)datos.Lector["Id"];
+                    aux.persona.Id = int.Parse(datos.Lector["Id"].ToString());
                     aux.persona.Nombre = (string)datos.Lector["Nombre"];
                     aux.persona.Apellido = (string)datos.Lector["Apellido"];
                     aux.persona.Email = (string)datos.Lector["Email"];
-                    aux.Legajo = (int)datos.Lector["Legajo"];
+                    aux.Legajo = int.Parse(datos.Lector["Legajo"].ToString());
                     aux.TipoUsuario = Convert.ToInt32(datos.Lector["TipoUsuario"]);
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
                     aux.Activo = (bool)datos.Lector["Activo"];

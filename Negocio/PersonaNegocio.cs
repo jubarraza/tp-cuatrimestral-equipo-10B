@@ -20,7 +20,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Persona aux = new Persona();
-                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Id = (long)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Apellido = (string)datos.Lector["Apellido"];
                     aux.Email = (string)datos.Lector["Email"];

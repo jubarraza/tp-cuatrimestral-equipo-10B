@@ -17,7 +17,7 @@ namespace App_GestorIncidencias.Admin
             {
                 txtLegajo.Enabled = false;
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
-                int ultimoLegajo = negocio.obtenerUltimoLegajo();
+                long ultimoLegajo = negocio.obtenerUltimoLegajo();
                 txtLegajo.Text = ultimoLegajo.ToString();
                 List<Empleado> lista = negocio.listar();
 
@@ -28,7 +28,7 @@ namespace App_GestorIncidencias.Admin
             }
             else
             {
-                int Legajo = int.Parse(Request.QueryString["Legajo"].ToString());
+                long Legajo = long.Parse(Request.QueryString["Legajo"].ToString());
                 txtLegajo.Enabled = false;
                 List<Empleado> temporal = (List<Empleado>)Session["listaEmpleados"];
                 Empleado seleccionado = temporal.Find(x => x.Legajo == Legajo);

@@ -24,11 +24,11 @@ namespace Negocio
                 {
                     Empleado aux = new Empleado();
                     aux.persona = new Persona();
-                    aux.persona.Id = int.Parse(datos.Lector["Id"].ToString());
+                    aux.persona.Id = long.Parse(datos.Lector["Id"].ToString());
                     aux.persona.Nombre = (string)datos.Lector["Nombre"];
                     aux.persona.Apellido = (string)datos.Lector["Apellido"];
                     aux.persona.Email = (string)datos.Lector["Email"];
-                    aux.Legajo = int.Parse(datos.Lector["Legajo"].ToString());
+                    aux.Legajo = long.Parse(datos.Lector["Legajo"].ToString());
                     aux.TipoUsuario = Convert.ToInt32(datos.Lector["TipoUsuario"]);
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
                     aux.Activo = (bool)datos.Lector["Activo"];
@@ -47,17 +47,17 @@ namespace Negocio
             }
         }
 
-        public int obtenerUltimoLegajo()
+        public long obtenerUltimoLegajo()
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("select max(Legajo) from EMPLEADOS");
                 datos.ejecutarLectura();
-                int ultimoLegajo = 0;
+                long ultimoLegajo = 0;
                 if (datos.Lector.Read())
                 {
-                    ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : datos.Lector.GetInt32(0);
+                    ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : datos.Lector.GetInt64(0);
                 }
 
                 return ultimoLegajo+1;

@@ -66,6 +66,7 @@
   <ItemGroup>
     <Content Include="Admin\ABMEmpleado.aspx" />
     <Content Include="Admin\Clientes.aspx" />
+    <Content Include="Admin\Direcciones.aspx" />
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\GestionarPrioridades.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
@@ -94,6 +95,13 @@
     </Compile>
     <Compile Include="Admin\Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Direcciones.aspx.cs">
+      <DependentUpon>Direcciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Direcciones.aspx.designer.cs">
+      <DependentUpon>Direcciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Estados.aspx.cs">
       <DependentUpon>Estados.aspx</DependentUpon>

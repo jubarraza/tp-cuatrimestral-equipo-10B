@@ -55,20 +55,21 @@ go
 CREATE TABLE TIPO_INCIDENCIA(
 Id int identity(1,1) not null primary key,
 Nombre varchar(70) not null unique,
+Visible bit not null,
 Activo bit not null)
 go
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Producto Defectuoso o Dañado', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Demoras en la Entrega', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Cambio o Devolución', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Garantías y Reparaciones', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Errores en el Pedido', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas con Facturación', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Atención en Tienda Física', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas en el Sitio Web/App', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Problemas con el Envío', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Consulta o Reclamo por Promociones', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Soporte Técnico para Electrodomésticos/Electrónica', 1);
-INSERT INTO TIPO_INCIDENCIA (Nombre, Activo) VALUES ('Cobertura de Garantía Extendida', 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Demoras en la Entrega', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Producto Defectuoso o Dañado', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Cambio o Devolución', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Garantías y Reparaciones', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Errores en el Pedido', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Problemas con Facturación', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Atención en Tienda Física', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Problemas en el Sitio Web/App', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Problemas con el Envío', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Consulta o Reclamo por Promociones', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Soporte Técnico para Electrodomésticos/Electrónica', 1, 1);
+INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES ('Cobertura de Garantía Extendida', 1, 1);
 go
 
 -- PRIORIDADES

@@ -56,5 +56,71 @@ namespace Negocio
             return null;
 
         }
+
+        public void Agregar(TipoIncidencia nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO TIPO_INCIDENCIA (Nombre, Visible, Activo) VALUES (@Nombre, @Visible, 1)");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Visible", nuevo.Visible);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Modificar(TipoIncidencia nueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE TIPO_INCIDENCIA SET Nombre = @Nombre, Visible = @Visible WHERE Id = @Id");
+                datos.setearParametro("@Id", nueva.Id);
+                datos.setearParametro("@Nombre", nueva.Nombre);
+                datos.setearParametro("@Visible", nueva.Visible);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE TIPO_INCIDENCIA SET Activo = 0 WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

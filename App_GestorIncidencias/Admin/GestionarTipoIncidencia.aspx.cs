@@ -45,7 +45,32 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                TipoIncidencia nueva = new TipoIncidencia();
+                TipoIncidenciaNegocio negocio = new TipoIncidenciaNegocio();
 
+                nueva.Nombre = txtNombre.Text;
+                nueva.Visible = chkActiva.Checked;
+                nueva.Activo = true;
+
+                if (Request.QueryString["id"] != null)
+                {
+                    nueva.Id = int.Parse(txtId.Text);
+                    negocio.Modificar(nueva);
+                }
+                else
+                {
+                    negocio.Agregar(nueva);
+                }
+
+                Response.Redirect("TiposIncidencias.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                //redireccionar a una pantalla de error
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

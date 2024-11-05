@@ -51,7 +51,7 @@ namespace App_GestorIncidencias.Admin
         {
             TipoIncidenciaNegocio negocio = new TipoIncidenciaNegocio();
             int id = int.Parse(Session["idTipoIncidenciaEliminar"].ToString());
-            //negocio.Eliminar(id);
+            negocio.Eliminar(id);
             Response.Redirect("TiposIncidencias.aspx", false);
         }
 

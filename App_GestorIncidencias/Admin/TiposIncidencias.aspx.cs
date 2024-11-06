@@ -57,7 +57,7 @@ namespace App_GestorIncidencias.Admin
                 Session.Add("idTipoIncidenciaEliminar", id);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("PageError.aspx", false);

@@ -10,7 +10,7 @@ using Negocio;
 
 namespace App_GestorIncidencias
 {
-    public partial class AgregarIncidencia : System.Web.UI.Page
+    public partial class GestionarIncidencia : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +19,10 @@ namespace App_GestorIncidencias
             {
                 string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
 
-        
+                ComentarioNegocio Cnegocio = new ComentarioNegocio();
+                dgvComentarios.DataSource = Cnegocio.Listar(id);
+                dgvComentarios.DataBind();
+
 
                 if (!IsPostBack)
                 {   
@@ -98,6 +101,12 @@ namespace App_GestorIncidencias
                 Session.Add("PageError.aspx", ex);
 
             }
+        }
+
+        protected void dgvComentarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string Id = dgvComentarios.SelectedDataKey.Value.ToString();
+            Response.Redirect("GestionarComentario.aspx?Id=" + Id);
         }
     }
 }

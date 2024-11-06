@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionarIncidencia.aspx.cs" Inherits="App_GestorIncidencias.AgregarIncidencia" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionarIncidencia.aspx.cs" Inherits="App_GestorIncidencias.GestionarIncidencia" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -38,6 +38,23 @@
         </div>
 
 
+    </div>
+    <br />
+
+    <div>
+    <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Cod_Incidencia" CssClass="table" AutoGenerateColumns="false">
+
+        <Columns>
+            <asp:BoundField HeaderText="Id" DataField="Id" />
+            <asp:BoundField HeaderText="Ticket" DataField="Cod_Incidencia" />
+            <asp:BoundField HeaderText="Comentario" DataField="ComentarioGestion" />
+            <asp:BoundField HeaderText="Fecha de Alta" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:BoundField HeaderText="Usuario" DataField="Cod_Usuario" />
+            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" />
+        </Columns>
+    </asp:GridView>
+
+    <br />
     </div>
 
 

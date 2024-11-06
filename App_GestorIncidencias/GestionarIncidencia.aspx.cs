@@ -10,7 +10,7 @@ using Negocio;
 
 namespace App_GestorIncidencias
 {
-    public partial class AgregarIncidencia : System.Web.UI.Page
+    public partial class GestionarIncidencia : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

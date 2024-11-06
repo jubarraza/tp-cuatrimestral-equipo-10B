@@ -11,7 +11,7 @@ namespace App_GestorIncidencias
 {
 
 
-    public partial class ComentariosListar
+    public partial class GestionarComentario
     {
 
         /// <summary>

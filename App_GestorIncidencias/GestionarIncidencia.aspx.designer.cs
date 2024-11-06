@@ -11,7 +11,7 @@ namespace App_GestorIncidencias
 {
 
 
-    public partial class AgregarIncidencia
+    public partial class GestionarIncidencia
     {
 
         /// <summary>

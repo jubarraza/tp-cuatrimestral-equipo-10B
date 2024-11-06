@@ -226,14 +226,15 @@ CREATE TABLE PROVINCIAS(
 Id bigint identity(1,1) not null primary key,
 Nombre varchar(50) not null unique,
 IdPais bigint not null,
+Visible bit not null,
 Activo bit not null,
 FOREIGN KEY (IdPais) REFERENCES PAISES (Id)
 )
 go
-INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Buenos Aires', 1, 1);
-INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Cordoba', 1, 1);
-INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Santa Fe', 1, 1);
-INSERT INTO PROVINCIAS (Nombre, IdPais, Activo) VALUES ('Mendoza', 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Buenos Aires', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Cordoba', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Fe', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Mendoza', 1, 1, 1);
 go
 
 -- DIRECCIONES

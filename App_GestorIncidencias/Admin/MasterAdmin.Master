@@ -54,8 +54,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Configuraciones</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="#">Paises</a></li>
-                                    <li><a class="dropdown-item" href="#">Provincias</a></li>
+                                    <li><a class="dropdown-item" href="Paises.aspx">Paises</a></li>
+                                    <li><a class="dropdown-item" href="Provincias.aspx">Provincias</a></li>
                                 </ul>
                             </li>
 

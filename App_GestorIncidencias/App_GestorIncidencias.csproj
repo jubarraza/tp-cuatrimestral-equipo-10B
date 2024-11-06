@@ -69,10 +69,14 @@
     <Content Include="Admin\Direcciones.aspx" />
     <Content Include="Admin\Estados.aspx" />
     <Content Include="Admin\GestionarDirecciones.aspx" />
+    <Content Include="Admin\GestionarPaises.aspx" />
     <Content Include="Admin\GestionarPrioridades.aspx" />
+    <Content Include="Admin\GestionarProvincias.aspx" />
     <Content Include="Admin\GestionarTipoIncidencia.aspx" />
+    <Content Include="Admin\Paises.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
+    <Content Include="Admin\Provincias.aspx" />
     <Content Include="Admin\TiposIncidencias.aspx" />
     <Content Include="GestionarComentario.aspx" />
     <Content Include="GestionarIncidencia.aspx" />
@@ -120,6 +124,13 @@
     <Compile Include="Admin\GestionarDirecciones.aspx.designer.cs">
       <DependentUpon>GestionarDirecciones.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\GestionarPaises.aspx.cs">
+      <DependentUpon>GestionarPaises.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionarPaises.aspx.designer.cs">
+      <DependentUpon>GestionarPaises.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\GestionarPrioridades.aspx.cs">
       <DependentUpon>GestionarPrioridades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -127,12 +138,26 @@
     <Compile Include="Admin\GestionarPrioridades.aspx.designer.cs">
       <DependentUpon>GestionarPrioridades.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\GestionarProvincias.aspx.cs">
+      <DependentUpon>GestionarProvincias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionarProvincias.aspx.designer.cs">
+      <DependentUpon>GestionarProvincias.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\GestionarTipoIncidencia.aspx.cs">
       <DependentUpon>GestionarTipoIncidencia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\GestionarTipoIncidencia.aspx.designer.cs">
       <DependentUpon>GestionarTipoIncidencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Paises.aspx.cs">
+      <DependentUpon>Paises.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Paises.aspx.designer.cs">
+      <DependentUpon>Paises.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Prioridades.aspx.cs">
       <DependentUpon>Prioridades.aspx</DependentUpon>
@@ -147,6 +172,13 @@
     </Compile>
     <Compile Include="Admin\Empleados.aspx.designer.cs">
       <DependentUpon>Empleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Provincias.aspx.cs">
+      <DependentUpon>Provincias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Provincias.aspx.designer.cs">
+      <DependentUpon>Provincias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\TiposIncidencias.aspx.cs">
       <DependentUpon>TiposIncidencias.aspx</DependentUpon>

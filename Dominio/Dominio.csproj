@@ -51,11 +51,13 @@
     <Compile Include="Direccion.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Comentario.cs" />
+    <Compile Include="Pais.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Prioridad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Incidencia.cs" />
+    <Compile Include="Provincia.cs" />
     <Compile Include="Telefono.cs" />
     <Compile Include="TipoIncidencia.cs" />
   </ItemGroup>

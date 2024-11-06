@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,12 @@ namespace App_GestorIncidencias.Admin
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            List<Direccion> listaDirecciones = (List<Direccion>)Session["listaDirecciones"];
 
+            List<Direccion> listaFiltrada = listaDirecciones.FindAll(x => x.Calle.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+
+            gvDirecciones.DataSource = listaFiltrada;
+            gvDirecciones.DataBind();
         }
     }
 }

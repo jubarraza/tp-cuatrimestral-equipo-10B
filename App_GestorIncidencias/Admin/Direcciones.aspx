@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
-                <asp:Label Text="Buscar" runat="server" CssClass="" />
+                <asp:Label Text="Buscar por Calle" runat="server" CssClass="" />
                 <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged"/>
             </div>
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
@@ -52,7 +52,7 @@
                                 <asp:BoundField HeaderText="Localidad" DataField="Localidad" />
                                 <asp:BoundField HeaderText="CodPostal" DataField="CodPostal" />
                                 <asp:BoundField HeaderText="Provincia" DataField="Provincia.Nombre" />
-                                <asp:BoundField HeaderText="Pais" DataField="Pais" />
+                                <asp:BoundField HeaderText="Pais" DataField="Provincia.Pais.Nombre" />
                                 <asp:BoundField HeaderText="Cliente" DataField="Usuario.Persona" />
                                 <asp:CommandField HeaderText="Editar" ControlStyle-CssClass="ms-2" ShowSelectButton="true" SelectText="<img src='https://cdn-icons-png.flaticon.com/512/32/32355.png' style='width:25px; height:25px;' alt='Editar'/>" />
                                 <asp:CommandField HeaderText="Eliminar" ControlStyle-CssClass="ms-3" ShowDeleteButton="true" DeleteText="<img src='https://cdn-icons-png.flaticon.com/512/1214/1214594.png' style='width:25px; height:25px;' alt='Eliminar'/>" />

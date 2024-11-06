@@ -18,14 +18,15 @@ namespace App_GestorIncidencias.Admin
 
             if (!IsPostBack)
             {
-                DireccionNegocio negocio = new DireccionNegocio();
-                ddlProvincias.DataSource = negocio.listarProvincias();
+                ProvinciaNegocio negocio = new ProvinciaNegocio();
+                ddlProvincias.DataSource = negocio.listarProvincias(true);
                 ddlProvincias.DataValueField = "Id";
                 ddlProvincias.DataTextField = "Nombre";
                 ddlProvincias.DataBind();
 
-                Provincia prov = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
-                txtPais.Text = negocio.buscarNombrePais(prov);
+                long idProv = long.Parse(ddlProvincias.SelectedValue);
+                Provincia prov = negocio.buscarProvincia(idProv);
+                txtPais.Text = prov.pais.Nombre;
 
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
                 ddlClientes.DataSource = clienteNegocio.listar();
@@ -36,14 +37,15 @@ namespace App_GestorIncidencias.Admin
 
                 if (Request.QueryString["id"] != null)
                 {
-                    direSeleccionada = negocio.buscarDireccion(long.Parse(Request.QueryString["id"]));
+                    DireccionNegocio direccionNegocio = new DireccionNegocio();
+                    direSeleccionada = direccionNegocio.buscarDireccion(long.Parse(Request.QueryString["id"]));
                     txtId.Text = direSeleccionada.Id.ToString();
                     txtCalle.Text = direSeleccionada.Calle;
                     txtNumero.Text = direSeleccionada.Numero.ToString();
                     txtLocalidad.Text = direSeleccionada.Localidad;
                     txtCP.Text = direSeleccionada.CodPostal;
                     ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
-                    txtPais.Text = direSeleccionada.Pais;
+                    txtPais.Text = direSeleccionada.provincia.pais.Nombre;
                     ddlClientes.SelectedValue = direSeleccionada.Usuario.Dni.ToString();
                 }
             }
@@ -92,10 +94,10 @@ namespace App_GestorIncidencias.Admin
 
         protected void ddlProvincias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DireccionNegocio negocio = new DireccionNegocio();
+            ProvinciaNegocio negocio = new ProvinciaNegocio();
             Provincia prov = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
 
-            txtPais.Text = negocio.buscarNombrePais(prov);
+            txtPais.Text = prov.pais.Nombre;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "select INC.codigo, INC.Cliente, INC.Usuario, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
+                string consulta = "select INC.codigo, INC.Cliente, INC.cliente, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
                 if(id != "")
                     consulta = consulta + " where INC.codigo = " + id;
                 datos.setearConsulta(consulta);
@@ -26,7 +26,7 @@ namespace Negocio
                     Incidencia aux = new Incidencia();
                     aux.Id = (int)datos.Lector["codigo"];
                     aux.Cliente = (int)datos.Lector["Cliente"];
-                    aux.Usuario = (int)datos.Lector["Usuario"];
+                    aux.Usuario = (int)datos.Lector["cliente"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Estado = new Estado();
                     aux.Estado.Id = (int)datos.Lector["IdEstado"];
@@ -69,9 +69,9 @@ namespace Negocio
             
             try
             {
-                datos.setearConsulta("insert into INCIDENCIAS values (@Cliente, @Usuario, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
+                datos.setearConsulta("insert into INCIDENCIAS values (@Cliente, @cliente, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
                 datos.setearParametro("@cliente", nueva.Cliente);
-                datos.setearParametro("@Usuario", nueva.Usuario);
+                datos.setearParametro("@cliente", nueva.Usuario);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.setearParametro("@Estado", nueva.Estado.Id);
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
@@ -97,9 +97,9 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("update incidencias set cliente = @cliente, Usuario = @Usuario, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, Tipo = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion =  @Resolucion where codigo = @Id");
+                datos.setearConsulta("update incidencias set cliente = @cliente, cliente = @cliente, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, Tipo = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion =  @Resolucion where codigo = @Id");
                 datos.setearParametro("@cliente", nueva.Cliente);
-                datos.setearParametro("@Usuario", nueva.Usuario);
+                datos.setearParametro("@cliente", nueva.Usuario);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.setearParametro("@Estado", nueva.Estado.Id);
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);

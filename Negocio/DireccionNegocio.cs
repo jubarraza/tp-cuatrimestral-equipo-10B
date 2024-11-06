@@ -36,7 +36,7 @@ namespace Negocio
                     aux.provincia.pais = negocioPais.buscarPais(aux.provincia);
                     ClienteNegocio clienteNegocio = new ClienteNegocio();
                     long dni = (long)datos.Lector["DniCliente"];
-                    aux.Usuario = clienteNegocio.BuscarCliente(dni);
+                    aux.cliente = clienteNegocio.BuscarCliente(dni);
                     aux.Activo = (bool)datos.Lector["Activo"];
                     
                     lista.Add(aux);
@@ -77,11 +77,12 @@ namespace Negocio
                     PaisNegocio negocioPais = new PaisNegocio();
                     aux.provincia.pais.Id = (long)datos.Lector["IdPais"];
                     aux.provincia.pais = negocioPais.buscarPais(aux.provincia);
-                    ClienteNegocio clienteNegocio = new ClienteNegocio();
-                    long dni = (long)datos.Lector["DniCliente"];
-                    aux.Usuario = clienteNegocio.BuscarCliente(dni);
+                    aux.cliente = new Cliente();
+                    aux.cliente.Dni = (long)datos.Lector["DniCliente"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                 }
+
+
                 return aux;
             }
             catch (Exception ex)
@@ -106,7 +107,7 @@ namespace Negocio
                 datos.setearParametro("@Localidad", nuevo.Localidad);
                 datos.setearParametro("@CP", nuevo.CodPostal);
                 datos.setearParametro("@IdProvincia", nuevo.provincia.Id);
-                datos.setearParametro("@DniCliente", nuevo.Usuario.Dni);
+                datos.setearParametro("@DniCliente", nuevo.cliente.Dni);
 
 
                 datos.ejecutarAccion();
@@ -135,7 +136,7 @@ namespace Negocio
                 datos.setearParametro("@Localidad", nuevo.Localidad);
                 datos.setearParametro("@CP", nuevo.CodPostal);
                 datos.setearParametro("@IdProvincia", nuevo.provincia.Id);
-                datos.setearParametro("@DniCliente", nuevo.Usuario.Dni);
+                datos.setearParametro("@DniCliente", nuevo.cliente.Dni);
 
 
                 datos.ejecutarAccion();

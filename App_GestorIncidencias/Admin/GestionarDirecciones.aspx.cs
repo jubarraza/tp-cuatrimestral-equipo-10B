@@ -48,8 +48,16 @@ namespace App_GestorIncidencias.Admin
                         txtCP.Text = direSeleccionada.CodPostal;
                         ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
                         txtPais.Text = direSeleccionada.provincia.pais.Nombre;
-                        ddlClientes.SelectedValue = direSeleccionada.Usuario.Dni.ToString();
+                        ddlClientes.SelectedValue = direSeleccionada.cliente.Dni.ToString();
                     }
+
+                    if (Request.QueryString["dni"] != null)
+                    {
+                        long dni = long.Parse(Request.QueryString["dni"]);
+                        ddlClientes.SelectedValue = dni.ToString();
+                        ddlClientes.Enabled = false;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -79,8 +87,8 @@ namespace App_GestorIncidencias.Admin
                 nueva.CodPostal = txtCP.Text;
                 nueva.provincia = new Provincia();
                 nueva.provincia.Id = long.Parse(ddlProvincias.SelectedValue);
-                nueva.Usuario = new Dominio.Cliente();
-                nueva.Usuario.Dni = long.Parse(ddlClientes.SelectedValue);
+                nueva.cliente = new Dominio.Cliente();
+                nueva.cliente.Dni = long.Parse(ddlClientes.SelectedValue);
                 nueva.Activo = true;
 
                 if (Request.QueryString["id"] != null)
@@ -98,7 +106,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("../PageError.aspx", false);
             }
         }
 
@@ -114,7 +122,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("../PageError.aspx", false);
             }
             
         }

@@ -146,9 +146,8 @@ values(1,'Milhouse',3,'26-10-2024',1),
 create table CLIENTES(
 IdPersona bigint not null unique,
 Dni bigint not null unique,
-UserPassword varchar(20) not null,
 FechaNacimiento date not null check(FechaNacimiento <= dateadd(year,-18, getdate())),
-Direccion varchar(50) not null,
+IdDireccion bigint not null,
 Activo bit not null,
 foreign key (IdPersona) references PERSONAS(Id)
 )
@@ -162,10 +161,10 @@ values('Milhouse','Vanhouten','Milhouse2024@hotmail.com.ar');
 
 set dateformat dmy
 insert into CLIENTES
-(IdPersona, Dni, UserPassword, FechaNacimiento, Direccion, Activo) values 
-(4,12345678,'Perfectirijillo','27-10-1964','Avenida siempre viva 741',1),
-(5,87654321,'Abuelo','27-10-1927','Casa de Jubilados Springfield',0),
-(6,12312312,'Bart','27-10-2000','Con sus padres',1);
+(IdPersona, Dni, FechaNacimiento, IdDireccion, Activo) values 
+(4,12345678,'27-10-1964',1,1),
+(5,87654321,'27-10-1927',2,0),
+(6,12312312,'27-10-2000',1,1);
 
 
 -- TELEFONOS
@@ -249,4 +248,5 @@ DniCliente bigint not null FOREIGN KEY REFERENCES CLIENTES (Dni),
 Activo bit not null)
 go
 INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, DniCliente, Activo) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 3, 12345678, 1);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, DniCliente, Activo) VALUES ('Callecita', 4321, 'Viñedo', 'C1818' , 4, 87654321, 1);
 go

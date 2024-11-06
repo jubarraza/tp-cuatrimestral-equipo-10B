@@ -10,5 +10,6 @@ namespace Dominio
     {
         public int IdTelefono { get; set; }
         public long NumeroTelefono { get; set; }
+        public Persona persona { get; set; }
     }
 }

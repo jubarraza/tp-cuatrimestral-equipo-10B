@@ -64,7 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\ABMEmpleado.aspx" />
+    <Content Include="Admin\ABMempleado.aspx" />
     <Content Include="Admin\Clientes.aspx" />
     <Content Include="Admin\Direcciones.aspx" />
     <Content Include="Admin\Estados.aspx" />
@@ -85,12 +85,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\ABMEmpleado.aspx.cs">
-      <DependentUpon>ABMEmpleado.aspx</DependentUpon>
+    <Compile Include="Admin\ABMempleado.aspx.cs">
+      <DependentUpon>ABMempleado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\ABMEmpleado.aspx.designer.cs">
-      <DependentUpon>ABMEmpleado.aspx</DependentUpon>
+    <Compile Include="Admin\ABMempleado.aspx.designer.cs">
+      <DependentUpon>ABMempleado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Clientes.aspx.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>

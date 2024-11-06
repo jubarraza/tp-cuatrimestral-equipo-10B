@@ -11,14 +11,22 @@ namespace Negocio
 {
     public class EmpleadoNegocio
     {
-        public List<Empleado> listar()
+        public List<Empleado> listar(string legajo = "")
         {
             List<Empleado> lista = new List<Empleado>();
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.TipoUsuario," +
-                    " E.FechaIngreso, E.Activo from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id;");
+                string consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, E.TipoUsuario, E.FechaIngreso, E.Activo " +
+                  "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id";
+
+                if (!string.IsNullOrEmpty(legajo))
+                {
+                    consulta += " where E.Legajo = @Legajo";
+                    datos.setearParametro("@Legajo", legajo);
+                }
+
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -29,6 +37,7 @@ namespace Negocio
                     aux.persona.Apellido = (string)datos.Lector["Apellido"];
                     aux.persona.Email = (string)datos.Lector["Email"];
                     aux.Legajo = long.Parse(datos.Lector["Legajo"].ToString());
+                    aux.UserPassword = (string)datos.Lector["UserPassword"];
                     aux.TipoUsuario = Convert.ToInt32(datos.Lector["TipoUsuario"]);
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
                     aux.Activo = (bool)datos.Lector["Activo"];
@@ -82,7 +91,7 @@ namespace Negocio
                 datos.setearParametro("@Nombre", empleado.persona.Nombre);
                 datos.setearParametro("@Apellido", empleado.persona.Apellido);
                 datos.setearParametro("@Email", empleado.persona.Email);
-                datos.setearParametro("@UserPassword", empleado.Contraseña);
+                datos.setearParametro("@UserPassword", empleado.UserPassword);
                 datos.setearParametro("@TipoUsuario", empleado.TipoUsuario);
                 datos.setearParametro("@FechaIngreso", empleado.FechaIngreso);
                 datos.setearParametro("@Activo", empleado.Activo);

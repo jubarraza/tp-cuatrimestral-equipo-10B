@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="ABMEmpleado.aspx.cs" Inherits="App_GestorIncidencias.Admin.AgregarEmpleado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="ABMempleado.aspx.cs" Inherits="App_GestorIncidencias.Admin.ABMempleado" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -27,12 +27,12 @@
             <asp:DropDownList ID="ddlTipoUsuario" CssClass="form-select" runat="server"></asp:DropDownList>
           </div>
           <div class="col-md-6 mt-2">
-            <label class="form-label">Fecha de Nacimiento:</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtFechaNacimiento" TextMode="Date" />
+            <label class="form-label">Fecha de Ingreso:</label>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtFechaIngreso" TextMode="Date" />
           </div>
           <div class="col-md-6 mt-2">
-            <label for="lblContraseña" class="form-label">Contraseña</label>
-            <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server"></asp:TextBox>
+            <label for="lblUserPassword" class="form-label">Contraseña</label>
+            <asp:TextBox ID="txtUserPassword" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6 mt-3">
             <div class="form-check form-check-inline">

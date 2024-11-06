@@ -9,13 +9,15 @@ using System.Web.UI.WebControls;
 
 namespace App_GestorIncidencias.Admin
 {
-    public partial class AgregarEmpleado : System.Web.UI.Page
+    public partial class ABMempleado : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["Legajo"] == null)
-            {
-                txtLegajo.Enabled = false;
+            txtLegajo.Enabled = false;
+            string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
+            if (!IsPostBack && legajo == "")
+            {                
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
                 long ultimoLegajo = negocio.obtenerUltimoLegajo();
                 txtLegajo.Text = ultimoLegajo.ToString();
@@ -26,22 +28,25 @@ namespace App_GestorIncidencias.Admin
                 ddlTipoUsuario.DataTextField = "TipoUsuario";
                 ddlTipoUsuario.DataBind();
             }
-            else
+            
+            if (legajo != "" && !IsPostBack)
             {
-                long Legajo = long.Parse(Request.QueryString["Legajo"].ToString());
-                txtLegajo.Enabled = false;
-                List<Empleado> temporal = (List<Empleado>)Session["listaEmpleados"];
-                Empleado seleccionado = temporal.Find(x => x.Legajo == Legajo);
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                Empleado seleccionado = negocio.listar(legajo)[0];
+                Session.Add("empleadoSeleccionado", seleccionado);
                 txtNombre.Text = seleccionado.persona.Nombre;
                 txtApellido.Text = seleccionado.persona.Apellido;
-
-                txtLegajo.Text = Legajo.ToString();
+                txtEmail.Text = seleccionado.persona.Email;
+                txtLegajo.Text = seleccionado.Legajo.ToString();
+                ddlTipoUsuario.SelectedValue = seleccionado.TipoUsuario.ToString();
+                txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString();
+                txtUserPassword.Text = seleccionado.UserPassword;               
 
             }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
-        {
+        {            
             EmpleadoNegocio negocio = new EmpleadoNegocio();
             Empleado nuevo = new Empleado();
             nuevo.persona = new Persona();
@@ -49,8 +54,8 @@ namespace App_GestorIncidencias.Admin
             nuevo.persona.Apellido = txtApellido.Text;
             nuevo.persona.Email = txtEmail.Text;
             nuevo.TipoUsuario = int.Parse(ddlTipoUsuario.SelectedValue);
-            nuevo.FechaIngreso = DateTime.Parse(txtFechaNacimiento.Text);
-            nuevo.Contraseña = txtContraseña.Text;
+            nuevo.FechaIngreso = DateTime.Parse(txtFechaIngreso.Text);
+            nuevo.UserPassword = txtUserPassword.Text;
             if (rbActivo.Checked)
             {
                 nuevo.Activo = true;
@@ -59,12 +64,10 @@ namespace App_GestorIncidencias.Admin
             {
                 nuevo.Activo = false;
             }
-            
-            List<Empleado> temporal = (List<Empleado>)Session["listaEmpleados"];
-            temporal.Add(nuevo);
 
             negocio.agregar(nuevo);
             Response.Redirect("~/Admin/Empleados.aspx");
+
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

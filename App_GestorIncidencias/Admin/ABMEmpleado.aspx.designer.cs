@@ -11,7 +11,7 @@ namespace App_GestorIncidencias.Admin
 {
 
 
-    public partial class AgregarEmpleado
+    public partial class ABMempleado
     {
 
         /// <summary>
@@ -60,22 +60,22 @@ namespace App_GestorIncidencias.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoUsuario;
 
         /// <summary>
-        /// Control txtFechaNacimiento.
+        /// Control txtFechaIngreso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaNacimiento;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaIngreso;
 
         /// <summary>
-        /// Control txtContraseña.
+        /// Control txtUserPassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtUserPassword;
 
         /// <summary>
         /// Control rbActivo.

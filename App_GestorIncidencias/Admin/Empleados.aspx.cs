@@ -5,19 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Dominio;
 
 namespace App_GestorIncidencias.Admin
 {
     public partial class Usuarios : System.Web.UI.Page
     {
+        public List<Empleado> listaEmpleados { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["listaEmpleados"] == null)
-            {
-                EmpleadoNegocio negocio = new EmpleadoNegocio();
-                Session.Add("listaEmpleados", negocio.listar());
-            }            
-            gvEmpleados.DataSource = Session["listaEmpleados"];
+            EmpleadoNegocio negocio = new EmpleadoNegocio();
+            listaEmpleados = negocio.listar();
+            gvEmpleados.DataSource = listaEmpleados;
             gvEmpleados.DataBind();
         }
 

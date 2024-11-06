@@ -36,8 +36,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
             }
         }
 
@@ -67,7 +67,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                //redireccionar a una pantalla de error
+                Response.Redirect("PageError.aspx", false);
             }
         }
 

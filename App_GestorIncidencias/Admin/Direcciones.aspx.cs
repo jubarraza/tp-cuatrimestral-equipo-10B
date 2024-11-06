@@ -36,27 +36,54 @@ namespace App_GestorIncidencias.Admin
 
         protected void gvDirecciones_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string id = gvDirecciones.DataKeys[e.RowIndex].Value.ToString();
-            Session.Add("idDireccionEliminar", id);
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+            try
+            {
+                string id = gvDirecciones.DataKeys[e.RowIndex].Value.ToString();
+                Session.Add("idDireccionEliminar", id);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
-            DireccionNegocio negocio = new DireccionNegocio();
-            long id = long.Parse(Session["idDireccionEliminar"].ToString());
-            negocio.eliminarDireccion(id);
-            Response.Redirect("Direcciones.aspx", false);
+            try
+            {
+                DireccionNegocio negocio = new DireccionNegocio();
+                long id = long.Parse(Session["idDireccionEliminar"].ToString());
+                negocio.eliminarDireccion(id);
+                Response.Redirect("Direcciones.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            List<Direccion> listaDirecciones = (List<Direccion>)Session["listaDirecciones"];
+            try
+            {
+                List<Direccion> listaDirecciones = (List<Direccion>)Session["listaDirecciones"];
 
-            List<Direccion> listaFiltrada = listaDirecciones.FindAll(x => x.Calle.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+                List<Direccion> listaFiltrada = listaDirecciones.FindAll(x => x.Calle.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
-            gvDirecciones.DataSource = listaFiltrada;
-            gvDirecciones.DataBind();
+                gvDirecciones.DataSource = listaFiltrada;
+                gvDirecciones.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
     }
 }

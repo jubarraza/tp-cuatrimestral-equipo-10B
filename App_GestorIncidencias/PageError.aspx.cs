@@ -11,7 +11,8 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Error"] != null)
+                txtError.Text = (string)Session["Error"];
         }
     }
 }

@@ -16,39 +16,49 @@ namespace App_GestorIncidencias.Admin
         {
             txtId.Enabled= false;
 
-            if (!IsPostBack)
+            try
             {
-                ProvinciaNegocio negocio = new ProvinciaNegocio();
-                ddlProvincias.DataSource = negocio.listarProvincias(true);
-                ddlProvincias.DataValueField = "Id";
-                ddlProvincias.DataTextField = "Nombre";
-                ddlProvincias.DataBind();
-
-                long idProv = long.Parse(ddlProvincias.SelectedValue);
-                Provincia prov = negocio.buscarProvincia(idProv);
-                txtPais.Text = prov.pais.Nombre;
-
-                ClienteNegocio clienteNegocio = new ClienteNegocio();
-                ddlClientes.DataSource = clienteNegocio.listar();
-                ddlClientes.DataValueField = "Dni";
-                ddlClientes.DataTextField = "persona";
-                ddlClientes.DataBind();
-
-
-                if (Request.QueryString["id"] != null)
+                if (!IsPostBack)
                 {
-                    DireccionNegocio direccionNegocio = new DireccionNegocio();
-                    direSeleccionada = direccionNegocio.buscarDireccion(long.Parse(Request.QueryString["id"]));
-                    txtId.Text = direSeleccionada.Id.ToString();
-                    txtCalle.Text = direSeleccionada.Calle;
-                    txtNumero.Text = direSeleccionada.Numero.ToString();
-                    txtLocalidad.Text = direSeleccionada.Localidad;
-                    txtCP.Text = direSeleccionada.CodPostal;
-                    ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
-                    txtPais.Text = direSeleccionada.provincia.pais.Nombre;
-                    ddlClientes.SelectedValue = direSeleccionada.Usuario.Dni.ToString();
+                    ProvinciaNegocio negocio = new ProvinciaNegocio();
+                    ddlProvincias.DataSource = negocio.listarProvincias(true);
+                    ddlProvincias.DataValueField = "Id";
+                    ddlProvincias.DataTextField = "Nombre";
+                    ddlProvincias.DataBind();
+
+                    long idProv = long.Parse(ddlProvincias.SelectedValue);
+                    Provincia prov = negocio.buscarProvincia(idProv);
+                    txtPais.Text = prov.pais.Nombre;
+
+                    ClienteNegocio clienteNegocio = new ClienteNegocio();
+                    ddlClientes.DataSource = clienteNegocio.listar();
+                    ddlClientes.DataValueField = "Dni";
+                    ddlClientes.DataTextField = "persona";
+                    ddlClientes.DataBind();
+
+
+                    if (Request.QueryString["id"] != null)
+                    {
+                        DireccionNegocio direccionNegocio = new DireccionNegocio();
+                        direSeleccionada = direccionNegocio.buscarDireccion(long.Parse(Request.QueryString["id"]));
+                        txtId.Text = direSeleccionada.Id.ToString();
+                        txtCalle.Text = direSeleccionada.Calle;
+                        txtNumero.Text = direSeleccionada.Numero.ToString();
+                        txtLocalidad.Text = direSeleccionada.Localidad;
+                        txtCP.Text = direSeleccionada.CodPostal;
+                        ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
+                        txtPais.Text = direSeleccionada.provincia.pais.Nombre;
+                        ddlClientes.SelectedValue = direSeleccionada.Usuario.Dni.ToString();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+
+            
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -88,16 +98,25 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                //redireccionar a una pantalla de error
+                Response.Redirect("PageError.aspx", false);
             }
         }
 
         protected void ddlProvincias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ProvinciaNegocio negocio = new ProvinciaNegocio();
-            Provincia prov = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
+            try
+            {
+                ProvinciaNegocio negocio = new ProvinciaNegocio();
+                Provincia prov = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
 
-            txtPais.Text = prov.pais.Nombre;
+                txtPais.Text = prov.pais.Nombre;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
     }
 }

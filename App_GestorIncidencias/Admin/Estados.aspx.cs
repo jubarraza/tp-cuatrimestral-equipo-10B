@@ -25,12 +25,21 @@ namespace App_GestorIncidencias.Admin
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            List<Estado> listaEstados = (List<Estado>)Session["listaEstados"];
+            try
+            {
+                List<Estado> listaEstados = (List<Estado>)Session["listaEstados"];
 
-            List<Estado> listaFiltrada = listaEstados.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+                List<Estado> listaFiltrada = listaEstados.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
-            gvEstados.DataSource = listaFiltrada;
-            gvEstados.DataBind();
+                gvEstados.DataSource = listaFiltrada;
+                gvEstados.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
     }
 }

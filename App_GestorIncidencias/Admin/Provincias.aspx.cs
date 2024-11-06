@@ -24,12 +24,21 @@ namespace App_GestorIncidencias.Admin
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            List<Provincia> listaProvincias = (List<Provincia>)Session["listaProvincias"];
+            try
+            {
+                List<Provincia> listaProvincias = (List<Provincia>)Session["listaProvincias"];
 
-            List<Provincia> listaFiltrada = listaProvincias.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+                List<Provincia> listaFiltrada = listaProvincias.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
-            gvProvincias.DataSource = listaFiltrada;
-            gvProvincias.DataBind();
+                gvProvincias.DataSource = listaFiltrada;
+                gvProvincias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -45,17 +54,34 @@ namespace App_GestorIncidencias.Admin
 
         protected void gvProvincias_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string id = gvProvincias.DataKeys[e.RowIndex].Value.ToString();
-            Session.Add("idProvinciaEliminar", id);
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+            try
+            {
+                string id = gvProvincias.DataKeys[e.RowIndex].Value.ToString();
+                Session.Add("idProvinciaEliminar", id);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
-            ProvinciaNegocio negocio = new ProvinciaNegocio();
-            long id = long.Parse(Session["idProvinciaEliminar"].ToString());
-            negocio.Eliminar(id);
-            Response.Redirect("Provincias.aspx", false);
+            try
+            {
+                ProvinciaNegocio negocio = new ProvinciaNegocio();
+                long id = long.Parse(Session["idProvinciaEliminar"].ToString());
+                negocio.Eliminar(id);
+                Response.Redirect("Provincias.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+            
         }
     }
 }

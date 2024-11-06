@@ -39,6 +39,23 @@
 
 
     </div>
+    <br />
+
+    <div>
+    <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Id" CssClass="table" AutoGenerateColumns="false">
+
+        <Columns>
+            <asp:BoundField HeaderText="Id" DataField="Id" />
+            <asp:BoundField HeaderText="Ticket" DataField="Cod_Incidencia" />
+            <asp:BoundField HeaderText="Comentario" DataField="ComentarioGestion" />
+            <asp:BoundField HeaderText="Fecha de Alta" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:BoundField HeaderText="Usuario" DataField="Cod_Usuario" />
+            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" />
+        </Columns>
+    </asp:GridView>
+
+    <br />
+    </div>
 
 
 

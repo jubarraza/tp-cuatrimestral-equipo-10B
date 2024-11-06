@@ -12,15 +12,10 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ComentarioNegocio negocio = new ComentarioNegocio();
-            dgvComentarios.DataSource = negocio.Listar();
-            dgvComentarios.DataBind();
+            
                 
         }
 
-        protected void dgvComentarios_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

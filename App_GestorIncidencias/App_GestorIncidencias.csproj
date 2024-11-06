@@ -74,7 +74,7 @@
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
     <Content Include="Admin\TiposIncidencias.aspx" />
-    <Content Include="ComentariosListar.aspx" />
+    <Content Include="GestionarComentario.aspx" />
     <Content Include="GestionarIncidencia.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Admin\HomeAdmin.aspx" />
@@ -155,12 +155,12 @@
     <Compile Include="Admin\TiposIncidencias.aspx.designer.cs">
       <DependentUpon>TiposIncidencias.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ComentariosListar.aspx.cs">
-      <DependentUpon>ComentariosListar.aspx</DependentUpon>
+    <Compile Include="GestionarComentario.aspx.cs">
+      <DependentUpon>GestionarComentario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ComentariosListar.aspx.designer.cs">
-      <DependentUpon>ComentariosListar.aspx</DependentUpon>
+    <Compile Include="GestionarComentario.aspx.designer.cs">
+      <DependentUpon>GestionarComentario.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionarIncidencia.aspx.cs">
       <DependentUpon>GestionarIncidencia.aspx</DependentUpon>

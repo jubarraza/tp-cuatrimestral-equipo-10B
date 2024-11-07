@@ -94,7 +94,7 @@ namespace Negocio
                 datos.setearParametro("@Apellido", empleado.persona.Apellido);
                 datos.setearParametro("@Email", empleado.persona.Email);
                 datos.setearParametro("@UserPassword", empleado.UserPassword);
-                datos.setearParametro("@TipoUsuario", empleado.tipoUsuario);
+                datos.setearParametro("@TipoUsuario", empleado.tipoUsuario.IdTipoUsuario);
                 datos.setearParametro("@FechaIngreso", empleado.FechaIngreso);
                 datos.setearParametro("@Activo", empleado.Activo);
                 datos.ejecutarAccion();

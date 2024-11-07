@@ -55,7 +55,7 @@ namespace App_GestorIncidencias.Admin
             nuevo.persona.Apellido = txtApellido.Text;
             nuevo.persona.Email = txtEmail.Text;
             nuevo.tipoUsuario = new TipoUsuario();
-            nuevo.tipoUsuario.Tipo = ddlTipoUsuario.SelectedValue;
+            nuevo.tipoUsuario.IdTipoUsuario = int.Parse(ddlTipoUsuario.SelectedValue);
             nuevo.FechaIngreso = DateTime.Parse(txtFechaIngreso.Text);
             nuevo.UserPassword = txtUserPassword.Text;
             if (rbActivo.Checked)

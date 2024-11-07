@@ -11,7 +11,7 @@ namespace Negocio
     {
 
         
-        public List<Comentario> Listar(string Cod_Inc = "")
+        public List<Comentario> Listar(string valor = "", bool Todos = true)
         {
             List<Comentario> comentarios = new List<Comentario>();
             AccesoDatos datos = new AccesoDatos();
@@ -19,8 +19,18 @@ namespace Negocio
             try
             {
               string consulta = "select com.id, com.Cod_Incidencia, com.Comentario, com.Fecha, com.IdUsuario from COMENTARIOS as com";
-              if (Cod_Inc != "")
-                   consulta = consulta + " where com.Cod_Incidencia = " + Cod_Inc;
+              if (valor != "")
+                {
+                    if(Todos)
+                    {
+                        consulta = consulta + " where com.Cod_Incidencia = " + valor;
+                    }
+                    else
+                    {
+                        consulta = consulta + " where com.id = " + valor;
+                    }
+                }
+                   
                datos.setearConsulta(consulta);
                datos.ejecutarLectura();
                while (datos.Lector.Read())
@@ -44,13 +54,80 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
 
+
+        public void Agregar(Comentario comentario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("insert into COMENTARIOS values (@Cod_incidencia, @comentario, @Fecha, @idUsuario)");
+                datos.setearParametro("@Cod_incidencia", comentario.Cod_Incidencia);
+                datos.setearParametro("@Comentario", comentario.ComentarioGestion);
+                datos.setearParametro("@Fecha", comentario.Fecha);
+                datos.setearParametro("@idUsuario", comentario.Cod_Usuario);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
 
 
         }
 
 
 
+        public void Modificar(Comentario comentario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("update COMENTARIOS set Comentario = @Comentario where id = @id");
+                datos.setearParametro("@Comentario", comentario.ComentarioGestion);
+                datos.setearParametro("@id", comentario.id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("delete from COMENTARIOS where id=@id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+        }
 
 
 

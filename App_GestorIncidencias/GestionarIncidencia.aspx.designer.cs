@@ -87,6 +87,15 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.Button btnAceptar;
 
         /// <summary>
+        /// BtnComentar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnComentar;
+
+        /// <summary>
         /// dgvComentarios control.
         /// </summary>
         /// <remarks>

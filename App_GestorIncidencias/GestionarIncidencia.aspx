@@ -32,9 +32,11 @@
                 <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-select"></asp:DropDownList>
             </div>
             <div class="mb-3">
-                <asp:Button Text="Aceptar" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />
-                <a href="IncidenciaListar.aspx">Cancelar</a>
+                <asp:Button Text="Modificar" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />
+                <asp:Button Text="Nuevo Comentario" ID="BtnComentar" OnClick="BtnComentar_Click" CssClass="btn btn-primary" runat="server" />
+                <a href="IncidenciaListar.aspx">Volver</a>
             </div>
+
         </div>
 
 
@@ -42,19 +44,19 @@
     <br />
 
     <div>
-    <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Cod_Incidencia" CssClass="table" AutoGenerateColumns="false">
+        <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Id" CssClass="table" AutoGenerateColumns="false">
 
-        <Columns>
-            <asp:BoundField HeaderText="Id" DataField="Id" />
-            <asp:BoundField HeaderText="Ticket" DataField="Cod_Incidencia" />
-            <asp:BoundField HeaderText="Comentario" DataField="ComentarioGestion" />
-            <asp:BoundField HeaderText="Fecha de Alta" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField HeaderText="Usuario" DataField="Cod_Usuario" />
-            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" />
-        </Columns>
-    </asp:GridView>
+            <Columns>
+                <asp:BoundField HeaderText="Id" DataField="Id" />
+                <asp:BoundField HeaderText="Ticket" DataField="Cod_Incidencia" />
+                <asp:BoundField HeaderText="Comentario" DataField="ComentarioGestion" />
+                <asp:BoundField HeaderText="Fecha de Alta" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                <asp:BoundField HeaderText="Usuario" DataField="Cod_Usuario" />
+                <asp:CommandField HeaderText="Seleccionar" ShowSelectButton="true" />
+            </Columns>
+        </asp:GridView>
 
-    <br />
+        <br />
     </div>
 
 

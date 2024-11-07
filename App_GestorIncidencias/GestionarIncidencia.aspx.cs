@@ -19,11 +19,6 @@ namespace App_GestorIncidencias
             {
                 string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
 
-                ComentarioNegocio Cnegocio = new ComentarioNegocio();
-                dgvComentarios.DataSource = Cnegocio.Listar(id);
-                dgvComentarios.DataBind();
-
-
                 if (!IsPostBack)
                 {   
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
@@ -52,7 +47,11 @@ namespace App_GestorIncidencias
                         TxtDescripcion.Text = seleccion.Descripcion.ToString();
                         ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
                         ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
-                       
+
+                        ComentarioNegocio Cnegocio = new ComentarioNegocio();
+                        dgvComentarios.DataSource = Cnegocio.Listar(id);
+                        dgvComentarios.DataBind();
+
 
                         txtId.ReadOnly = true;
                     }
@@ -107,6 +106,12 @@ namespace App_GestorIncidencias
         {
             string Id = dgvComentarios.SelectedDataKey.Value.ToString();
             Response.Redirect("GestionarComentario.aspx?Id=" + Id);
+        }
+
+        protected void BtnComentar_Click(object sender, EventArgs e)
+        {
+            string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
+            Response.Redirect("GestionarComentario.aspx?cod=" + id);
         }
     }
 }

@@ -23,7 +23,7 @@
                 <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" />
             </div>
             <div class="mb-3">
-                <label for="txtFecha" class="form-label">Fecha: </label>
+                <label for="txtFecha" class="form-label" DataFormatString="{0:dd/MM/yyyy}">Fecha: </label>
                 <asp:TextBox runat="server" ID="txtFecha" CssClass="form-control" />
             </div>
             <div class="mb-3">
@@ -32,4 +32,10 @@
             </div>
         </div>
     </div>
+     <br />
+ <div class="mb-3">
+     <asp:Button Text="Agregar" ID="btnActualizar"  OnClick="btnActualizar_Click" CssClass="btn btn-primary" runat="server" /> 
+     <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" /> 
+     <a href="IncidenciaListar.aspx">Volver</a>
+ </div>
 </asp:Content>

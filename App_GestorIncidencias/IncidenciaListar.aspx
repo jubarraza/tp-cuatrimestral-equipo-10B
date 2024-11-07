@@ -28,7 +28,7 @@
             <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" DataFormatString="{0:dd/MM/yyyy}"/>
             <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre"/>
             <asp:BoundField HeaderText="Resolución" DataField="Resolucion" />
-            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
+            <asp:CommandField HeaderText="Ver" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
         </Columns>
     </asp:GridView>
 

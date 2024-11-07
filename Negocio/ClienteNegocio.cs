@@ -154,5 +154,29 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void eliminarCliente(long dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Clientes SET Activo = 0 WHERE Dni = " + dni);
+
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }

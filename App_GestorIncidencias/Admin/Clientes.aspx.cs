@@ -41,13 +41,24 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("../PageError.aspx", false);
             }
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                long id = long.Parse(Session["idClienteEliminar"].ToString());
+                clienteNegocio.eliminarCliente(id);
+                Response.Redirect("Clientes.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -69,7 +80,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("../PageError.aspx", false);
             }
         }
     }

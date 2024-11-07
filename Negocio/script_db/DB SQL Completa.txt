@@ -263,6 +263,35 @@ throw;
 end catch
 end;
 
+--Store Procedure ModificarEmpleado
+create procedure sp_ModificarEmpleado
+@Legajo bigint,
+@Nombre varchar(50),
+@Apellido varchar(50),
+@Email varchar(80),
+@UserPassword varchar(20),
+@TipoUsuario tinyint,
+@FechaIngreso date,
+@Activo bit
+as
+begin
+    begin transaction;
+    begin try
+        update dbo.PERSONAS
+        set Nombre = @Nombre, Apellido = @Apellido, Email = @Email
+        where Id = (select IdPersona from dbo.EMPLEADOS where Legajo = @Legajo);
+        update dbo.EMPLEADOS
+        set UserPassword = @UserPassword, TipoUsuario = @TipoUsuario, FechaIngreso = @FechaIngreso, 
+            Activo = @Activo
+        where Legajo = @Legajo;
+        commit transaction;
+    end try
+    begin catch
+        rollback transaction;
+        throw;
+    end catch
+end;
+
 
 -- VISTA DE PROVINCIAS Y PAISES
 CREATE OR ALTER VIEW vw_ProvinciaYPais AS

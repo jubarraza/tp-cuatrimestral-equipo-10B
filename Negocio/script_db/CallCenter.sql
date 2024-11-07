@@ -1,8 +1,8 @@
-drop database CALLCENTER
+DROP DATABASE IF EXISTS CALLCENTER;
 go
-create database CALLCENTER
+create database CALLCENTER;
 go
-use CALLCENTER
+use CALLCENTER;
 go
 
 -- INCIDENCIAS
@@ -152,14 +152,58 @@ values(1,'Milhouse',3,'26-10-2024',1),
 (2,'Springfield',2,'26-10-2023',0),
 (3,'Nodirenada',1,'10-10-2020',1);
 
+-- PAIS
+CREATE TABLE PAISES(
+Id bigint identity(1,1) not null primary key,
+Nombre varchar(50) not null unique,
+Activo bit not null
+)
+GO
+INSERT INTO PAISES (Nombre, Activo) VALUES ('Argentina', 1);
+INSERT INTO PAISES (Nombre, Activo) VALUES ('Uruguay', 1);
+GO
+
+-- PROVINCIAS
+CREATE TABLE PROVINCIAS(
+Id bigint identity(1,1) not null primary key,
+Nombre varchar(50) not null unique,
+IdPais bigint not null,
+Visible bit not null,
+Activo bit not null,
+FOREIGN KEY (IdPais) REFERENCES PAISES (Id)
+)
+go
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Buenos Aires', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Cordoba', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Fe', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Mendoza', 1, 1, 1);
+GO
+
+-- DIRECCIONES
+CREATE TABLE DIRECCIONES(
+Id bigint identity(1,1) not null primary key,
+Calle varchar(70) not null,
+Numero bigint not null,
+Localidad varchar(70) not null,
+CodPostal varchar(20) not null,
+IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id),
+Activo bit not null)
+go
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 3, 1);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Callecita', 4321, 'Viñedo', 'C1818' , 4, 1);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Callezota', 41, 'Playa', 'C2218' , 2, 1);
+go
+
+
 -- CLIENTES
 create table CLIENTES(
-IdPersona bigint not null unique,
+IdPersona bigint not null primary key,
 Dni bigint not null unique,
 FechaNacimiento date not null check(FechaNacimiento <= dateadd(year,-18, getdate())),
 IdDireccion bigint not null,
 Activo bit not null,
-foreign key (IdPersona) references PERSONAS(Id)
+foreign key (IdPersona) references PERSONAS(Id),
+foreign key (IdDireccion) references DIRECCIONES(Id)
 )
 go
 insert into PERSONAS
@@ -174,7 +218,8 @@ insert into CLIENTES
 (IdPersona, Dni, FechaNacimiento, IdDireccion, Activo) values 
 (4,12345678,'27-10-1964',1,1),
 (5,87654321,'27-10-1927',2,0),
-(6,12312312,'27-10-2000',1,1);
+(6,12312312,'27-10-2000',3,1);
+go
 
 -- TELEFONOS
 create table TELEFONOS(
@@ -218,44 +263,53 @@ throw;
 end catch
 end;
 
--- PAIS
-CREATE TABLE PAISES(
-Id bigint identity(1,1) not null primary key,
-Nombre varchar(50) not null unique,
-Activo bit not null
-)
-GO
-INSERT INTO PAISES (Nombre, Activo) VALUES ('Argentina', 1);
-INSERT INTO PAISES (Nombre, Activo) VALUES ('Uruguay', 1);
-GO
+--Store Procedure ModificarEmpleado
+create procedure sp_ModificarEmpleado
+@Legajo bigint,
+@Nombre varchar(50),
+@Apellido varchar(50),
+@Email varchar(80),
+@UserPassword varchar(20),
+@TipoUsuario tinyint,
+@FechaIngreso date,
+@Activo bit
+as
+begin
+    begin transaction;
+    begin try
+        update dbo.PERSONAS
+        set Nombre = @Nombre, Apellido = @Apellido, Email = @Email
+        where Id = (select IdPersona from dbo.EMPLEADOS where Legajo = @Legajo);
+        update dbo.EMPLEADOS
+        set UserPassword = @UserPassword, TipoUsuario = @TipoUsuario, FechaIngreso = @FechaIngreso, 
+            Activo = @Activo
+        where Legajo = @Legajo;
+        commit transaction;
+    end try
+    begin catch
+        rollback transaction;
+        throw;
+    end catch
+end;
 
--- PROVINCIAS
-CREATE TABLE PROVINCIAS(
-Id bigint identity(1,1) not null primary key,
-Nombre varchar(50) not null unique,
-IdPais bigint not null,
-Visible bit not null,
-Activo bit not null,
-FOREIGN KEY (IdPais) REFERENCES PAISES (Id)
-)
-go
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Buenos Aires', 1, 1, 1);
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Cordoba', 1, 1, 1);
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Fe', 1, 1, 1);
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Mendoza', 1, 1, 1);
-go
-
--- DIRECCIONES
-CREATE TABLE DIRECCIONES(
-Id bigint identity(1,1) not null primary key,
-Calle varchar(70) not null,
-Numero bigint not null,
-Localidad varchar(70) not null,
-CodPostal varchar(20) not null,
-IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id),
-DniCliente bigint not null FOREIGN KEY REFERENCES CLIENTES (Dni),
-Activo bit not null)
-go
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, DniCliente, Activo) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 3, 12345678, 1);
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, DniCliente, Activo) VALUES ('Callecita', 4321, 'Viñedo', 'C1818' , 4, 87654321, 1);
-go
+-- Procedure para Creacion de Cliente
+CREATE OR ALTER PROCEDURE sp_RegistrarCliente
+@Nombre varchar(50),
+@Apellido varchar(50),
+@Email varchar(80),
+@Dni bigint,
+@FechaNac date,
+@IdDireccion bigint
+as BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO PERSONAS (Nombre, Apellido, Email) Values (@Nombre, @Apellido, @Email);
+		Declare @IdPersona bigint
+		Set @IdPersona = (SELECT @@IDENTITY)
+		INSERT INTO Clientes (IdPersona, Dni, FechaNacimiento, IdDireccion, Activo)  VALUES(@IdPersona, @Dni, @FechaNac, @IdDireccion, 1)
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+		END CATCH
+		END

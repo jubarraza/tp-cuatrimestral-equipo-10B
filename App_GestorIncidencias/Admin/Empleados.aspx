@@ -10,7 +10,7 @@
                 <asp:BoundField HeaderText="Apellido" DataField="persona.Apellido" />
                 <asp:BoundField HeaderText="Email" DataField="persona.Email" />
                 <asp:BoundField HeaderText="Legajo" DataField="Legajo" />
-                <asp:BoundField HeaderText="Tipo Usuario" DataField="TipoUsuario" />
+                <asp:BoundField HeaderText="Tipo Usuario" DataField="tipoUsuario.Tipo" />
                 <asp:BoundField HeaderText="Fecha Ingreso" DataField="FechaIngreso" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
                 <asp:CommandField HeaderText="Seleccionar" ShowSelectButton="true" SelectText="👈" />
@@ -18,7 +18,6 @@
         </asp:GridView>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
-      <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-warning" runat="server" />
       <button type="button" class="btn btn-danger">Eliminar</button>
     </div>
         

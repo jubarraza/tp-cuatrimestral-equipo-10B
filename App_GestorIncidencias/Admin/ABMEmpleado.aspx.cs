@@ -15,20 +15,21 @@ namespace App_GestorIncidencias.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             txtLegajo.Enabled = false;
-            string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
-            if (!IsPostBack && legajo == "")
+            
+            if (!IsPostBack)
             {                
-                EmpleadoNegocio negocio = new EmpleadoNegocio();
-                long ultimoLegajo = negocio.obtenerUltimoLegajo();
+                EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+                long ultimoLegajo = empleadoNegocio.obtenerUltimoLegajo();
                 txtLegajo.Text = ultimoLegajo.ToString();
-                List<Empleado> lista = negocio.listar();
+                TipoUsuarioNegocio tipoNegocio = new TipoUsuarioNegocio();
+                List<TipoUsuario> lista = tipoNegocio.listar();
 
                 ddlTipoUsuario.DataSource = lista;
-                ddlTipoUsuario.DataValueField = "TipoUsuario";
-                ddlTipoUsuario.DataTextField = "TipoUsuario";
+                ddlTipoUsuario.DataValueField = "IdTipoUsuario";
+                ddlTipoUsuario.DataTextField = "Tipo";
                 ddlTipoUsuario.DataBind();
             }
-            
+            string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
             if (legajo != "" && !IsPostBack)
             {
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
@@ -38,8 +39,8 @@ namespace App_GestorIncidencias.Admin
                 txtApellido.Text = seleccionado.persona.Apellido;
                 txtEmail.Text = seleccionado.persona.Email;
                 txtLegajo.Text = seleccionado.Legajo.ToString();
-                ddlTipoUsuario.SelectedValue = seleccionado.TipoUsuario.ToString();
-                txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString();
+                ddlTipoUsuario.SelectedValue = seleccionado.tipoUsuario.Tipo.ToString();
+                txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString("yyyy-MM-dd");
                 txtUserPassword.Text = seleccionado.UserPassword;               
 
             }
@@ -53,7 +54,8 @@ namespace App_GestorIncidencias.Admin
             nuevo.persona.Nombre = txtNombre.Text;
             nuevo.persona.Apellido = txtApellido.Text;
             nuevo.persona.Email = txtEmail.Text;
-            nuevo.TipoUsuario = int.Parse(ddlTipoUsuario.SelectedValue);
+            nuevo.tipoUsuario = new TipoUsuario();
+            nuevo.tipoUsuario.Tipo = ddlTipoUsuario.SelectedValue;
             nuevo.FechaIngreso = DateTime.Parse(txtFechaIngreso.Text);
             nuevo.UserPassword = txtUserPassword.Text;
             if (rbActivo.Checked)

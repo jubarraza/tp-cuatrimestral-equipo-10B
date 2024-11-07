@@ -11,7 +11,7 @@ namespace Dominio
         public Persona persona { get; set; }
         public long Legajo { get; set; }
         public string UserPassword { get; set; }
-        public int TipoUsuario { get; set; }
+        public TipoUsuario tipoUsuario { get; set; }
         public DateTime FechaIngreso { get; set; }
         public bool Activo { get; set; }
 

@@ -17,8 +17,9 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, E.TipoUsuario, E.FechaIngreso, E.Activo " +
-                  "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id";
+                string consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, T.Tipo, E.FechaIngreso, E.Activo " +
+                  "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id" +
+                  " inner join TIPOS_USUARIOS as T on E.TipoUsuario = T.IdTipoUsuario ";
 
                 if (!string.IsNullOrEmpty(legajo))
                 {
@@ -38,7 +39,8 @@ namespace Negocio
                     aux.persona.Email = (string)datos.Lector["Email"];
                     aux.Legajo = long.Parse(datos.Lector["Legajo"].ToString());
                     aux.UserPassword = (string)datos.Lector["UserPassword"];
-                    aux.TipoUsuario = Convert.ToInt32(datos.Lector["TipoUsuario"]);
+                    aux.tipoUsuario = new TipoUsuario();
+                    aux.tipoUsuario.Tipo = (string)datos.Lector["Tipo"];
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
                     aux.Activo = (bool)datos.Lector["Activo"];
 
@@ -87,12 +89,12 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("sp_AgregarPersonaEmpleado");
+                datos.setearProcedimiento("sp_AgregarEmpleado");
                 datos.setearParametro("@Nombre", empleado.persona.Nombre);
                 datos.setearParametro("@Apellido", empleado.persona.Apellido);
                 datos.setearParametro("@Email", empleado.persona.Email);
                 datos.setearParametro("@UserPassword", empleado.UserPassword);
-                datos.setearParametro("@TipoUsuario", empleado.TipoUsuario);
+                datos.setearParametro("@TipoUsuario", empleado.tipoUsuario);
                 datos.setearParametro("@FechaIngreso", empleado.FechaIngreso);
                 datos.setearParametro("@Activo", empleado.Activo);
                 datos.ejecutarAccion();

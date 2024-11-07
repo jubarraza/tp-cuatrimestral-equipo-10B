@@ -65,5 +65,57 @@ namespace Negocio
                 return listaXCliente;
             }
         }
+
+        public void agregarTelefono(Telefono nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO Telefonos (NumeroTelefono, IdPersona) VALUES (@Numero, @IdPersona)");
+                datos.setearParametro("@NumeroTelefono", nuevo.NumeroTelefono);
+                datos.setearParametro("@IdPersona", nuevo.persona.Id);
+
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void eliminarTelefono(long numero, long idPersona)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("DELETE Telefonos WHERE NumeroTelefono = @NumeroTelefono AND  IdPersona = @IdPersona");
+                datos.setearParametro("@NumeroTelefono", numero);
+                datos.setearParametro("@IdPersona", idPersona);
+
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }

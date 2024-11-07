@@ -36,7 +36,7 @@
             <ContentTemplate>
                 <div class="row justify-content-center">
 
-                    <asp:GridView ID="GridView1" runat="server" DataKeyNames="Id"
+                    <asp:GridView ID="dgvIncidencias" runat="server" DataKeyNames="Id"
                         CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvIncidencias_SelectedIndexChanged">
 
                         <Columns>
@@ -58,3 +58,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
+
+</asp:Content>

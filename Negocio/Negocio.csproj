@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="script_db\CallCenter.sql" />
+    <Content Include="script_db\DB SQL Completa.txt" />
+    <Content Include="script_db\VistaSQL2.sql" />
     <Content Include="script_db\VistaSQL.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

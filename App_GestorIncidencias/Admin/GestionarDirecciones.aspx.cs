@@ -15,6 +15,8 @@ namespace App_GestorIncidencias.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled= false;
+            lblCliente.Visible = false;
+            txtCliente.Visible = false;
 
             try
             {
@@ -30,17 +32,12 @@ namespace App_GestorIncidencias.Admin
                     Provincia prov = negocio.buscarProvincia(idProv);
                     txtPais.Text = prov.pais.Nombre;
 
-                    ClienteNegocio clienteNegocio = new ClienteNegocio();
-                    ddlClientes.DataSource = clienteNegocio.listar();
-                    ddlClientes.DataValueField = "Dni";
-                    ddlClientes.DataTextField = "persona";
-                    ddlClientes.DataBind();
-
 
                     if (Request.QueryString["id"] != null)
                     {
                         DireccionNegocio direccionNegocio = new DireccionNegocio();
-                        direSeleccionada = direccionNegocio.buscarDireccion(long.Parse(Request.QueryString["id"]));
+                        long idDire = long.Parse(Request.QueryString["id"]);
+                        direSeleccionada = direccionNegocio.buscarDireccion(idDire);
                         txtId.Text = direSeleccionada.Id.ToString();
                         txtCalle.Text = direSeleccionada.Calle;
                         txtNumero.Text = direSeleccionada.Numero.ToString();
@@ -48,14 +45,9 @@ namespace App_GestorIncidencias.Admin
                         txtCP.Text = direSeleccionada.CodPostal;
                         ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
                         txtPais.Text = direSeleccionada.provincia.pais.Nombre;
-                        ddlClientes.SelectedValue = direSeleccionada.cliente.Dni.ToString();
-                    }
-
-                    if (Request.QueryString["dni"] != null)
-                    {
-                        long dni = long.Parse(Request.QueryString["dni"]);
-                        ddlClientes.SelectedValue = dni.ToString();
-                        ddlClientes.Enabled = false;
+                        lblCliente.Visible = true;
+                        txtCliente.Visible = true;
+                        txtCliente.Text = direSeleccionada.NombreApellidoCliente;
                     }
 
                 }
@@ -63,7 +55,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("../PageError.aspx", false);
             }
 
             
@@ -87,8 +79,6 @@ namespace App_GestorIncidencias.Admin
                 nueva.CodPostal = txtCP.Text;
                 nueva.provincia = new Provincia();
                 nueva.provincia.Id = long.Parse(ddlProvincias.SelectedValue);
-                nueva.cliente = new Dominio.Cliente();
-                nueva.cliente.Dni = long.Parse(ddlClientes.SelectedValue);
                 nueva.Activo = true;
 
                 if (Request.QueryString["id"] != null)

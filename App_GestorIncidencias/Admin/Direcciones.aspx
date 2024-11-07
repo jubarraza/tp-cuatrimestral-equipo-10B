@@ -30,13 +30,9 @@
 
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
-                <asp:Label Text="Buscar por Calle" runat="server" CssClass="" />
+                <asp:Label Text="Buscar por Cliente" runat="server" CssClass="" />
                 <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged"/>
             </div>
-            <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
-                <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" ID="btnAgregar" OnClick="btnAgregar_Click" />
-            </div>
-        </div>
 
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
@@ -44,7 +40,7 @@
 
                     <div>
                         <asp:GridView ID="gvDirecciones" runat="server" DataKeyNames="Id"
-                            CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="gvDirecciones_SelectedIndexChanged" OnRowDeleting="gvDirecciones_RowDeleting">
+                            CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="gvDirecciones_SelectedIndexChanged">
                             <Columns>
                                 <asp:BoundField HeaderText="ID" DataField="Id" />
                                 <asp:BoundField HeaderText="Calle" DataField="Calle" />
@@ -53,9 +49,8 @@
                                 <asp:BoundField HeaderText="CodPostal" DataField="CodPostal" />
                                 <asp:BoundField HeaderText="Provincia" DataField="Provincia.Nombre" />
                                 <asp:BoundField HeaderText="Pais" DataField="Provincia.Pais.Nombre" />
-                                <asp:BoundField HeaderText="Cliente" DataField="Usuario.Persona" />
+                                <asp:BoundField HeaderText="Cliente" DataField="NombreApellidoCliente" />
                                 <asp:CommandField HeaderText="Editar" ControlStyle-CssClass="ms-2" ShowSelectButton="true" SelectText="<img src='https://cdn-icons-png.flaticon.com/512/32/32355.png' style='width:25px; height:25px;' alt='Editar'/>" />
-                                <asp:CommandField HeaderText="Eliminar" ControlStyle-CssClass="ms-3" ShowDeleteButton="true" DeleteText="<img src='https://cdn-icons-png.flaticon.com/512/1214/1214594.png' style='width:25px; height:25px;' alt='Eliminar'/>" />
                             </Columns>
                         </asp:GridView>
                     </div>
@@ -63,22 +58,4 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-        <!-- Modal -->
-<div class="modal fade" id="ModalConfirmacion" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ModalLabel">⛔ Eliminar Direccion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Confirma que desea eliminar la Direccion?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <asp:Button Text="Eliminar Direccion" CssClass="btn btn-danger" ID="btnEliminarConfirmado" runat="server" OnClick="btnEliminarConfirmado_Click" />
-            </div>
-        </div>
-    </div>
-</div>
 </asp:Content>

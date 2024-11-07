@@ -56,8 +56,8 @@
             </asp:UpdatePanel>
 
             <div class="mb-3">
-                <label for="ddlClientes" class="form-label">Cliente</label>
-                <asp:DropDownList runat="server" ID="ddlClientes" CssClass="form-select"></asp:DropDownList>
+                <asp:Label Text="Cliente" CssClass="form-label" ID="lblCliente" runat="server" />
+                <asp:TextBox runat="server" ID="txtCliente" CssClass="form-control" ReadOnly="true"/>
             </div>
 
 

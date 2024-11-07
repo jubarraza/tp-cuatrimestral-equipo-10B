@@ -12,7 +12,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-<div class="container mt-5 border rounded pt-3">
+<div class="container-fluid mt-5 border rounded pt-3">
 
     <div class="row justify-content-center">
 

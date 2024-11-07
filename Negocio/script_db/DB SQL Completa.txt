@@ -125,6 +125,15 @@ insert into PERSONAS
 values('Jony','Bocacerrada','jonybocacerrada@yahoo.com.ar');
 go
 
+--TIPOS DE USUARIOS
+create table TIPOS_USUARIOS(
+IdTipoUsuario tinyint primary key,
+Tipo varchar(50) not null
+)
+go
+insert into TIPOS_USUARIOS(IdTipoUsuario,Tipo)
+values (1,'Administrador'), (2,'Supervisor'),(3,'Operador');
+
 -- EMPLEADOS
 create table EMPLEADOS(
 Legajo bigint identity(100001,1) not null primary key,
@@ -133,7 +142,8 @@ UserPassword varchar(20) not null,
 TipoUsuario tinyint not null,
 FechaIngreso date not null check(FechaIngreso <= getdate()),
 Activo bit not null,
-foreign key (IdPersona) references PERSONAS(Id)
+foreign key (IdPersona) references PERSONAS(Id),
+foreign key (TipoUsuario) references TIPOS_USUARIOS(IdTipoUsuario)
 )
 GO
 set dateformat dmy
@@ -228,7 +238,7 @@ VALUES
 go
 
 --Creacion de Store Procedure AgregarPersonaEmpleado
-create procedure sp_AgregarPersonaEmpleado
+create procedure sp_AgregarEmpleado
 @Nombre varchar(50),
 @Apellido varchar(50),
 @Email varchar(80),

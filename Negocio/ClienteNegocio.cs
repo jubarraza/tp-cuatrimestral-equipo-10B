@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,6 @@ namespace Negocio
                     aux.direccion.Id = (long)datos.Lector["IdDireccion"];
                     DireccionNegocio direNegocio = new DireccionNegocio();
                     aux.direccion = direNegocio.buscarDireccion(aux.direccion.Id);
-                    //aux.direccion.cliente = new Cliente();
-                    ClienteNegocio clienteNegocio = new ClienteNegocio();
-                    //aux.direccion.cliente = clienteNegocio.BuscarCliente(aux.Dni);
                     aux.Activo = (bool)datos.Lector["Activo"];
 
                     lista.Add(aux);
@@ -53,16 +51,14 @@ namespace Negocio
             }
 
         }
-
         public Cliente BuscarCliente(long dni)
         {
             Cliente aux = new Cliente();
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, " +
-                    "T.NumeroTelefono, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
-                    "inner join CLIENTES as C on C.IdPersona = P.Id left join TELEFONOS as T on T.IdPersona = C.IdPersona WHERE C.Dni = " + dni);
+                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
+                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Dni = " + dni);
 
                 datos.ejecutarLectura();
 
@@ -76,9 +72,7 @@ namespace Negocio
                     aux.persona.Email = (string)datos.Lector["Email"];
                     aux.Dni = long.Parse(datos.Lector["Dni"].ToString());
                     aux.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    aux.telefono = new Telefono();
-                    if (!(datos.Lector["NumeroTelefono"] is DBNull))
-                        aux.telefono.NumeroTelefono = (long)datos.Lector["NumeroTelefono"];
+
                     aux.direccion = new Direccion();
                     DireccionNegocio direccionNegocio = new DireccionNegocio();
                     aux.direccion.Id = (long)datos.Lector["IdDireccion"];
@@ -99,21 +93,22 @@ namespace Negocio
             }
 
         }
-
-        public void agregarCliente(Cliente nuevo)
+        public int agregarCliente(Cliente nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("INSERT INTO Clientes (IdPersona, Dni, FechaNacimiento, IdDireccion, Activo) VALUES (@IdPersona, @Dni, @FechaNac, @IdDireccion, 1)");
-                datos.setearParametro("@IdPersona", nuevo.persona.Id);
+                datos.setearProcedimiento("sp_RegistrarCliente");
+                datos.setearParametro("@Nombre", nuevo.persona.Nombre);
+                datos.setearParametro("@Apellido", nuevo.persona.Apellido);
+                datos.setearParametro("@Email", nuevo.persona.Email);
                 datos.setearParametro("@Dni", nuevo.Dni);
                 datos.setearParametro("@FechaNac", nuevo.FechaNacimiento);
                 datos.setearParametro("@IdDireccion", nuevo.direccion.Id);
 
 
-                datos.ejecutarAccion();
+               return datos.EjecutarAccionScalar();
 
             }
             catch (Exception ex)
@@ -126,7 +121,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
         public void modificarCliente(Cliente nuevo)
         {
             AccesoDatos datos = new AccesoDatos();

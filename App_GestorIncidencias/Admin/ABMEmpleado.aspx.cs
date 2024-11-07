@@ -67,7 +67,16 @@ namespace App_GestorIncidencias.Admin
                 nuevo.Activo = false;
             }
 
-            negocio.agregar(nuevo);
+            if (Request.QueryString["Legajo"] != null)
+            {
+                nuevo.Legajo = int.Parse(Request.QueryString["Legajo"]);
+                negocio.modificar(nuevo);
+            }
+            else
+            {
+                negocio.agregar(nuevo);
+            }
+            
             Response.Redirect("~/Admin/Empleados.aspx");
 
         }

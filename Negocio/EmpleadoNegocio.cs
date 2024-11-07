@@ -84,19 +84,19 @@ namespace Negocio
             }
         }
 
-        public void agregar(Empleado empleado)
+        public void agregar(Empleado nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearProcedimiento("sp_AgregarEmpleado");
-                datos.setearParametro("@Nombre", empleado.persona.Nombre);
-                datos.setearParametro("@Apellido", empleado.persona.Apellido);
-                datos.setearParametro("@Email", empleado.persona.Email);
-                datos.setearParametro("@UserPassword", empleado.UserPassword);
-                datos.setearParametro("@TipoUsuario", empleado.tipoUsuario.IdTipoUsuario);
-                datos.setearParametro("@FechaIngreso", empleado.FechaIngreso);
-                datos.setearParametro("@Activo", empleado.Activo);
+                datos.setearParametro("@Nombre", nuevo.persona.Nombre);
+                datos.setearParametro("@Apellido", nuevo.persona.Apellido);
+                datos.setearParametro("@Email", nuevo.persona.Email);
+                datos.setearParametro("@UserPassword", nuevo.UserPassword);
+                datos.setearParametro("@TipoUsuario", nuevo.tipoUsuario.IdTipoUsuario);
+                datos.setearParametro("@FechaIngreso", nuevo.FechaIngreso);
+                datos.setearParametro("@Activo", nuevo.Activo);
                 datos.ejecutarAccion();
 
             }
@@ -109,5 +109,33 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void modificar(Empleado modificar)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("sp_ModificarEmpleado");
+                datos.setearParametro("@Legajo", modificar.Legajo);
+                datos.setearParametro("@Nombre", modificar.persona.Nombre);
+                datos.setearParametro("@Apellido", modificar.persona.Apellido);
+                datos.setearParametro("@Email", modificar.persona.Email);
+                datos.setearParametro("@UserPassword", modificar.UserPassword);
+                datos.setearParametro("@TipoUsuario", modificar.tipoUsuario.IdTipoUsuario);
+                datos.setearParametro("@FechaIngreso", modificar.FechaIngreso);
+                datos.setearParametro("@Activo", modificar.Activo);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

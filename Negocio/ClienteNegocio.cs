@@ -32,9 +32,9 @@ namespace Negocio
                     aux.direccion.Id = (long)datos.Lector["IdDireccion"];
                     DireccionNegocio direNegocio = new DireccionNegocio();
                     aux.direccion = direNegocio.buscarDireccion(aux.direccion.Id);
-                    aux.direccion.cliente = new Cliente();
+                    //aux.direccion.cliente = new Cliente();
                     ClienteNegocio clienteNegocio = new ClienteNegocio();
-                    aux.direccion.cliente = clienteNegocio.BuscarCliente(aux.Dni);
+                    //aux.direccion.cliente = clienteNegocio.BuscarCliente(aux.Dni);
                     aux.Activo = (bool)datos.Lector["Activo"];
 
                     lista.Add(aux);

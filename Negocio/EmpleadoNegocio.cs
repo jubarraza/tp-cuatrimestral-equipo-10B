@@ -71,7 +71,7 @@ namespace Negocio
                     ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : datos.Lector.GetInt64(0);
                 }
 
-                return ultimoLegajo+1;
+                return ultimoLegajo + 1;
 
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@ namespace Negocio
             }
         }
 
-        public void agregar(Empleado nuevo)
+        public void Agregar(Empleado nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -110,7 +110,7 @@ namespace Negocio
             }
         }
 
-        public void modificar(Empleado modificar)
+        public void Modificar(Empleado modificar)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -134,6 +134,21 @@ namespace Negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public void Eliminar(long legajo)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearProcedimiento("sp_EliminarEmpleado");
+                datos.setearParametro("@Legajo", legajo);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

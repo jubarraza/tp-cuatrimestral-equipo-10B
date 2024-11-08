@@ -70,11 +70,11 @@ namespace App_GestorIncidencias.Admin
             if (Request.QueryString["Legajo"] != null)
             {
                 nuevo.Legajo = int.Parse(Request.QueryString["Legajo"]);
-                negocio.modificar(nuevo);
+                negocio.Modificar(nuevo);
             }
             else
             {
-                negocio.agregar(nuevo);
+                negocio.Agregar(nuevo);
             }
             
             Response.Redirect("~/Admin/Empleados.aspx");
@@ -83,6 +83,21 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            Response.Redirect("~/Admin/Empleados.aspx");
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                long legajo = long.Parse(Request.QueryString["Legajo"]);
+                negocio.Eliminar(legajo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             Response.Redirect("~/Admin/Empleados.aspx");
         }
     }

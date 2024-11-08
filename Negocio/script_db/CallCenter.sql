@@ -237,7 +237,7 @@ VALUES
 (5,30303030);
 go
 
---Creacion de Store Procedure AgregarPersonaEmpleado
+--Store Procedure AgregarEmpleado
 create procedure sp_AgregarEmpleado
 @Nombre varchar(50),
 @Apellido varchar(50),
@@ -290,6 +290,32 @@ begin
         rollback transaction;
         throw;
     end catch
+end;
+
+--Store Procedure EliminarEmpleado
+create procedure sp_EliminarEmpleado
+@Legajo bigint
+as
+begin
+    begin transaction;
+    begin try
+        declare @IdPersona bigint;
+        select @IdPersona = IdPersona from EMPLEADOS where Legajo = @Legajo;
+        if @IdPersona is not null
+        begin
+            delete from EMPLEADOS where Legajo = @Legajo;
+            delete from PERSONAS where Id = @IdPersona;
+            commit transaction;
+        end
+		else
+		begin
+            rollback transaction;
+        end
+    end try
+    begin catch
+        rollback transaction;
+        throw;
+    end catch
 end;
 
 -- Procedure para Creacion de Cliente

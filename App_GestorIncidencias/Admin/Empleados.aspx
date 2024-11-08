@@ -18,7 +18,6 @@
         </asp:GridView>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
-      <button type="button" class="btn btn-danger">Eliminar</button>
     </div>
         
     </div>

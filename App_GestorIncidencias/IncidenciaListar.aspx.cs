@@ -17,16 +17,16 @@ namespace App_GestorIncidencias
             {
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
                 Session.Add("listaIncidencias", negocio.listar());
-                dgvIncidencias.DataSource = Session["listaIncidencias"];
-                dgvIncidencias.DataBind();
+                //dgvIncidencias.DataSource = Session["listaIncidencias"];
+                //dgvIncidencias.DataBind();
 
             }
         }
 
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string Id = dgvIncidencias.SelectedDataKey.Value.ToString();
-            Response.Redirect("GestionarIncidencia.aspx?Id=" + Id);  
+            //string Id = dgvIncidencias.SelectedDataKey.Value.ToString();
+            //Response.Redirect("GestionarIncidencia.aspx?Id=" + Id);  
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)

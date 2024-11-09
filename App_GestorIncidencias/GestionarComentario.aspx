@@ -41,13 +41,26 @@
                     <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtComenatario" CssClass="form-control" />
                 </div>
 
-
+                <% if (band)
+                    { %>
 
                 <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server" />
+                    <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server"/>
                     <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" />
                     <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click"  runat="server" />
                 </div>
+
+                <% }
+                    else
+                    { %>
+
+
+                <div class="mb-3 btn-group-lg btn">
+                <asp:Button Text="Aceptar" ID="BtnAceptar"  CssClass="btn btn-primary" OnClick="BtnAceptar_Click" runat="server" />
+                <asp:Button Text="Volver" ID="BtnCancelar" OnClick="BtnCancelar_Click" runat="server" />
+                </div>
+
+                <% } %>
 
             </div>
         </div>

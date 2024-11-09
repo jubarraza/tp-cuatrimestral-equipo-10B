@@ -14,41 +14,47 @@ namespace App_GestorIncidencias
     {
         private string id;
         private string Cod;
+        public bool band;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {   
+            
+
             id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
             Cod = Request.QueryString["Cod"] != null ? Request.QueryString["Cod"].ToString() : "";
             txtCodIncidencia.Enabled = false;
             txtUsuario.Enabled = false;
             txtFecha.Enabled = false;
-            
+            TxtComenatario.Enabled = false;
+            band = true;
+
+
             if (!IsPostBack)
             {
 
                 try
                 {
 
-
                     if (id != "")
-                    {
+                    {   
+
                         btnModificar.Text = "Modificar";
-                        ComentarioNegocio negocio = new ComentarioNegocio();
-                        Comentario comentario = (negocio.Listar(id, false)[0]);
-                        txtCodIncidencia.Text = comentario.Cod_Incidencia.ToString();
-                        txtUsuario.Text = comentario.Cod_Usuario.ToString();
-                        txtFecha.Text = comentario.Fecha.ToString();
-                        TxtComenatario.Text = comentario.ComentarioGestion.ToString();
+                        ComentarioNegocio negocio2 = new ComentarioNegocio();
+                        Comentario comentario2 = (negocio2.Listar(id, false)[0]);
+                        txtCodIncidencia.Text = comentario2.Cod_Incidencia.ToString();
+                        txtUsuario.Text = comentario2.Cod_Usuario.ToString();
+                        txtFecha.Text = comentario2.Fecha.ToString();
+                        TxtComenatario.Text = comentario2.ComentarioGestion.ToString();
                     }
                     else
                     {
                         if (Cod != "")
                         {
                             btnModificar.Text = "Agregar Comentario";
-                            ComentarioNegocio negocio = new ComentarioNegocio();
-                            Comentario comentario = (negocio.Listar(Cod)[0]);
-                            txtCodIncidencia.Text = comentario.Cod_Incidencia.ToString();
-                            txtUsuario.Text = comentario.Cod_Usuario.ToString();
+                            ComentarioNegocio negocio2 = new ComentarioNegocio();
+                            txtCodIncidencia.Text = Cod;
+                            txtUsuario.Enabled = true;
                             txtFecha.Text = DateTime.Now.ToString();
+                            TxtComenatario.Enabled = true;
                             btnEliminar.Visible = false;
                         }
                     }
@@ -59,7 +65,6 @@ namespace App_GestorIncidencias
 
                     throw ex;
                 }
-
             }
           
 
@@ -92,13 +97,8 @@ namespace App_GestorIncidencias
 
                 if (id != "")
                 {
-                    comentario.id = int.Parse(id);
-                    comentario.Cod_Incidencia = int.Parse(txtCodIncidencia.Text);
-                    comentario.Cod_Usuario = int.Parse(txtUsuario.Text);
-                    comentario.Fecha = DateTime.Parse(txtFecha.Text);
-                    comentario.ComentarioGestion = TxtComenatario.Text;
-                    negocio.Modificar(comentario);
-                    Response.Redirect("IncidenciaListar.aspx", false);
+                    band = false;
+                    TxtComenatario.Enabled = true;
                 }
                 else
                 {
@@ -123,8 +123,36 @@ namespace App_GestorIncidencias
 
         protected void Cancelar_Click(object sender, EventArgs e)
         {
-            string Id = txtCodIncidencia.Text;
-            Response.Redirect("GestionarIncidencia.aspx?Id=" + Id);
+            Cod = txtCodIncidencia.Text;
+            Response.Redirect("GestionarIncidencia.aspx?Id=" + Cod);
+        }
+
+        protected void BtnAceptar_Click(object sender, EventArgs e)
+        {
+            ComentarioNegocio negocio = new ComentarioNegocio();
+            Comentario comentario = new Comentario();
+            try
+            {
+                comentario.id = int.Parse(id);
+                comentario.Cod_Incidencia = int.Parse(txtCodIncidencia.Text);
+                comentario.Cod_Usuario = int.Parse(txtUsuario.Text);
+                comentario.Fecha = DateTime.Parse(txtFecha.Text);
+                comentario.ComentarioGestion = TxtComenatario.Text;
+                negocio.Modificar(comentario);
+                Response.Redirect("IncidenciaListar.aspx", false);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+        }
+
+        protected void BtnCancelar_Click(object sender, EventArgs e)
+        {
+            string Id = Request.QueryString["Id"].ToString();
+            Response.Redirect("GestionarComentario.aspx?Id=" + Id);
         }
     }
 }

@@ -46,7 +46,7 @@
 
                 <div class="mb-3 btn-group-lg btn">
                     <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server"/>
-                    <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" />
+                    <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" OnClientClick="return confirm('¿Confirma la eliminación?')" />
                     <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click"  runat="server" />
                 </div>
 

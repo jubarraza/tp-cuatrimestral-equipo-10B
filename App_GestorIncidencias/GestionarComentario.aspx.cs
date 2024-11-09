@@ -74,7 +74,8 @@ namespace App_GestorIncidencias
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             try
-            {
+            {   
+                
                 int id = int.Parse(Request.QueryString["Id"]);
                 ComentarioNegocio negocio = new ComentarioNegocio();
                 negocio.Eliminar(id);

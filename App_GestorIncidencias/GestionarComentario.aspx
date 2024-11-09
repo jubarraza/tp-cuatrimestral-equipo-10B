@@ -33,8 +33,8 @@
                     <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
-                    <label for="txtFecha" class="form-label" dataformatstring="{0:dd/MM/yyyy}">Fecha: </label>
-                    <asp:TextBox runat="server" ID="txtFecha" CssClass="form-control" />
+                    <label for="txtFecha" class="form-label">Fecha: </label>
+                    <asp:TextBox runat="server" ID="txtFecha" dataformatstring="{0:dd/MM/yyyy}" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
                     <label for="txtComentario" class="form-label">Descripción: </label>
@@ -44,9 +44,9 @@
 
 
                 <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Agregar" ID="btnActualizar" OnClick="btnActualizar_Click" CssClass="btn btn-primary" runat="server" />
+                    <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server" />
                     <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" />
-                    <a href="IncidenciaListar.aspx">Volver</a>
+                    <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click"  runat="server" />
                 </div>
 
             </div>

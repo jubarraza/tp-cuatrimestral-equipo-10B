@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +12,17 @@ namespace App_GestorIncidencias.Admin
 {
     public partial class ABMempleado : System.Web.UI.Page
     {
+        public void habilitarCampos(bool habilitar)
+        {          
+            txtNombre.Enabled = habilitar;
+            txtApellido.Enabled = habilitar;
+            txtEmail.Enabled = habilitar;
+            ddlTipoUsuario.Enabled = habilitar;
+            txtFechaIngreso.Enabled = habilitar;
+            txtUserPassword.Enabled = habilitar;
+
+            UpDatePanel1.Update();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,7 +53,18 @@ namespace App_GestorIncidencias.Admin
                 txtLegajo.Text = seleccionado.Legajo.ToString();
                 ddlTipoUsuario.SelectedValue = seleccionado.tipoUsuario.Tipo.ToString();
                 txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString("yyyy-MM-dd");
-                txtUserPassword.Text = seleccionado.UserPassword;             
+                txtUserPassword.Text = seleccionado.UserPassword;
+                bool activo = seleccionado.Activo;
+                if(activo)
+                {
+                    rbActivo.Checked = activo;
+                }
+                else
+                {
+                    rbInactivo.Checked = !activo;
+                }
+                habilitarCampos(activo);
+
             }
             else
             {
@@ -103,5 +126,14 @@ namespace App_GestorIncidencias.Admin
             }
             Response.Redirect("~/Admin/Empleados.aspx");
         }
+
+        protected void rbActivo_CheckedChanged(object sender, EventArgs e)
+        {
+            bool habilitar = rbActivo.Checked;
+            habilitarCampos(habilitar);           
+            
+        }
+
+
     }
 }

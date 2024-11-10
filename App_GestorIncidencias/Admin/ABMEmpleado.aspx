@@ -2,8 +2,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:ScriptManager ID="ScriptManager" runat="server" ></asp:ScriptManager>
+    
     <div class="container mt-4">
         <h2>Ingrese los Datos del Empleado</h2>
+
+        <asp:UpdatePanel ID="UpDatePanel1" UpdateMode="Conditional" runat="server">
+        <ContentTemplate>
+
         <div class="row">
         <form class="row g-3">
           <div class="col-md-6">
@@ -35,9 +42,9 @@
             <asp:TextBox ID="txtUserPassword" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6 mt-3">
-            <div class="form-check form-check-inline">
-                <asp:RadioButton ID="rbActivo" Text=" Activo" Checked="true" GroupName="Activo" runat="server" />
-                <asp:RadioButton ID="rbInactivo" Text=" Inactivo" GroupName="Activo" runat="server" />
+            <div class="form-check form-check-inline">                
+                <asp:RadioButton AutoPostBack="true" ID="rbActivo" Text=" Activo" Checked="true" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
+                <asp:RadioButton AutoPostBack="true" ID="rbInactivo" Text=" Inactivo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />                
             </div>
           </div>
           <div class="col-12 mt-3">
@@ -47,5 +54,13 @@
           </div>
         </form>
        </div>
+    <Triggers>
+        <asp:AsyncPostBackTrigger ControlID="rbActivo" EventName="CheckedChanged" />
+        <asp:AsyncPostBackTrigger ControlID="rbInactivo" EventName="CheckedChanged" />
+    </Triggers>
+
+                           </ContentTemplate>
+  </asp:UpdatePanel>
+
     </div>
 </asp:Content>

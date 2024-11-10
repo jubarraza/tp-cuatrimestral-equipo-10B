@@ -19,7 +19,7 @@ namespace App_GestorIncidencias.Admin
             if (!IsPostBack)
             {                
                 EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
-                long ultimoLegajo = empleadoNegocio.obtenerUltimoLegajo();
+                long ultimoLegajo = empleadoNegocio.ObtenerUltimoLegajo();
                 txtLegajo.Text = ultimoLegajo.ToString();
                 TipoUsuarioNegocio tipoNegocio = new TipoUsuarioNegocio();
                 List<TipoUsuario> lista = tipoNegocio.listar();
@@ -41,8 +41,11 @@ namespace App_GestorIncidencias.Admin
                 txtLegajo.Text = seleccionado.Legajo.ToString();
                 ddlTipoUsuario.SelectedValue = seleccionado.tipoUsuario.Tipo.ToString();
                 txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString("yyyy-MM-dd");
-                txtUserPassword.Text = seleccionado.UserPassword;               
-
+                txtUserPassword.Text = seleccionado.UserPassword;             
+            }
+            else
+            {
+                btnEliminar.Enabled = false;
             }
         }
 

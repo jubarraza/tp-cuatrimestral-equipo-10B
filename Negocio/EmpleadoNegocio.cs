@@ -58,17 +58,17 @@ namespace Negocio
             }
         }
 
-        public long obtenerUltimoLegajo()
+        public long ObtenerUltimoLegajo()
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("select max(Legajo) from EMPLEADOS");
+                datos.setearConsulta("SELECT IDENT_CURRENT('EMPLEADOS')");
                 datos.ejecutarLectura();
                 long ultimoLegajo = 0;
                 if (datos.Lector.Read())
                 {
-                    ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : datos.Lector.GetInt64(0);
+                    ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : Convert.ToInt64(datos.Lector.GetDecimal(0));
                 }
 
                 return ultimoLegajo + 1;

@@ -16,7 +16,7 @@
                 <asp:CommandField HeaderText="Seleccionar" ShowSelectButton="true" SelectText="👈" />
             </Columns>
         </asp:GridView>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="d-grid gap-2 col-2 mx-auto">
       <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
     </div>
         

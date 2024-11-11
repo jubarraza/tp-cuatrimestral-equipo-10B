@@ -12,6 +12,8 @@ namespace App_GestorIncidencias.Admin
     public partial class GestionarDirecciones : System.Web.UI.Page
     {
         public Direccion direSeleccionada;
+        public Provincia provSeleccionada;
+        public Pais paisSeleccionado;
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled= false;
@@ -29,8 +31,10 @@ namespace App_GestorIncidencias.Admin
                     ddlProvincias.DataBind();
 
                     long idProv = long.Parse(ddlProvincias.SelectedValue);
-                    Provincia prov = negocio.buscarProvincia(idProv);
-                    txtPais.Text = prov.pais.Nombre;
+                    provSeleccionada = negocio.buscarProvincia(idProv);
+                    PaisNegocio paisNegocio = new PaisNegocio();
+                    paisSeleccionado = paisNegocio.buscarPais(provSeleccionada.IdPais);
+                    txtPais.Text = paisSeleccionado.Nombre;
 
 
                     if (Request.QueryString["id"] != null)
@@ -43,8 +47,8 @@ namespace App_GestorIncidencias.Admin
                         txtNumero.Text = direSeleccionada.Numero.ToString();
                         txtLocalidad.Text = direSeleccionada.Localidad;
                         txtCP.Text = direSeleccionada.CodPostal;
-                        ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
-                        txtPais.Text = direSeleccionada.provincia.pais.Nombre;
+                        ddlProvincias.SelectedValue = direSeleccionada.provincia.Id.ToString();
+                        txtPais.Text = direSeleccionada.pais.Nombre;
                         lblCliente.Visible = true;
                         txtCliente.Visible = true;
                         txtCliente.Text = direSeleccionada.NombreApellidoCliente;
@@ -72,6 +76,8 @@ namespace App_GestorIncidencias.Admin
             {
                 Direccion nueva = new Direccion();
                 DireccionNegocio negocio = new DireccionNegocio();
+                ProvinciaNegocio provinciaNegocio = new ProvinciaNegocio();
+                PaisNegocio paisNegocio = new PaisNegocio();
 
                 nueva.Calle = txtCalle.Text;
                 nueva.Numero = long.Parse(txtNumero.Text);
@@ -79,11 +85,13 @@ namespace App_GestorIncidencias.Admin
                 nueva.CodPostal = txtCP.Text;
                 nueva.provincia = new Provincia();
                 nueva.provincia.Id = long.Parse(ddlProvincias.SelectedValue);
+                nueva.provincia = provinciaNegocio.buscarProvincia(nueva.provincia.Id);
+                nueva.pais = paisNegocio.buscarPais(nueva.provincia.IdPais);
                 nueva.Activo = true;
 
                 if (Request.QueryString["id"] != null)
                 {
-                    nueva.Id = int.Parse(txtId.Text);
+                    nueva.Id = long.Parse(txtId.Text);
                     negocio.modificarDireccion(nueva);
                 }
                 else
@@ -105,9 +113,10 @@ namespace App_GestorIncidencias.Admin
             try
             {
                 ProvinciaNegocio negocio = new ProvinciaNegocio();
-                Provincia prov = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
-
-                txtPais.Text = prov.pais.Nombre;
+                PaisNegocio paisNegocio = new PaisNegocio();
+                provSeleccionada = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
+                paisSeleccionado = paisNegocio.buscarPais(provSeleccionada.IdPais);
+                txtPais.Text = paisSeleccionado.Nombre;
             }
             catch (Exception ex)
             {

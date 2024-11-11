@@ -17,6 +17,12 @@ namespace App_GestorIncidencias.Admin
     public partial class GestionarClientes : System.Web.UI.Page
     {
         public Cliente clienteSeleccionado;
+
+        public Provincia provSeleccionada;
+        
+        public Pais paisSeleccionado;
+        public List<Telefono> listaTelefonos { get; set; }
+        public int ContadorTelefonos {get; set;}
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -24,7 +30,6 @@ namespace App_GestorIncidencias.Admin
             {
                 if (!IsPostBack)
                 {
-                    hiddenTelefono.Value = "";
                     btnEditar.Visible = false;
                     ProvinciaNegocio negocio = new ProvinciaNegocio();
                     ddlProvincias.DataSource = negocio.listarProvincias(true);
@@ -33,10 +38,11 @@ namespace App_GestorIncidencias.Admin
                     ddlProvincias.DataBind();
 
                     long idProv = long.Parse(ddlProvincias.SelectedValue);
-                    Provincia prov = negocio.buscarProvincia(idProv);
-                    txtPais.Text = prov.pais.Nombre;
+                    provSeleccionada = negocio.buscarProvincia(idProv);
 
-                    ddlTelefonos.Visible = false;
+                    PaisNegocio paisNegocio = new PaisNegocio();
+                    paisSeleccionado = paisNegocio.buscarPais(provSeleccionada.IdPais);
+                    txtPais.Text = paisSeleccionado.Nombre;
 
                     if (Request.QueryString["dni"] != null)
                     {
@@ -66,39 +72,11 @@ namespace App_GestorIncidencias.Admin
                         txtNumero.Text = direSeleccionada.Numero.ToString();
                         txtLocalidad.Text = direSeleccionada.Localidad;
                         txtCP.Text = direSeleccionada.CodPostal;
-                        ddlProvincias.SelectedValue = direSeleccionada.provincia.Nombre;
-                        txtPais.Text = direSeleccionada.provincia.pais.Nombre;
+                        ddlProvincias.SelectedValue = direSeleccionada.provincia.Id.ToString();
+                        txtPais.Text = direSeleccionada.pais.Nombre;
 
-                        pnlTelefonos.Visible = true;
-                        
+                        CargarTelefonos();
 
-                        TelefonoNegocio negocioTel = new TelefonoNegocio();
-                        List<Telefono> lista = negocioTel.BuscarTelefonos(clienteSeleccionado.persona.Id);
-                        if (lista != null)
-                        {
-                            armarListaPanel(lista);
-
-                            pnlTelefonos.Enabled = false;
-                        }
-
-                    }
-                }
-                else
-                {
-                    if (hiddenTelefono.Value == "-1")
-                    {
-                        //limpiar el campo
-                        hiddenTelefono.Value = string.Empty;
-
-                        TelefonoNegocio negocioTel = new TelefonoNegocio();
-                        List<Telefono> lista = negocioTel.BuscarTelefonos(long.Parse(Session["idPersona"].ToString()));
-
-                        if (lista != null)
-                        {
-                            armarListaPanel(lista);
-
-                            pnlTelefonos.Enabled = false;
-                        }
                     }
                 }
             }
@@ -145,7 +123,7 @@ namespace App_GestorIncidencias.Admin
             txtNombre.ReadOnly = true;
             txtApellido.ReadOnly = true;
             txtEmail.ReadOnly = true;
-            txtDni.ReadOnly = true;
+            txtDni.Enabled = false;
             txtFechaNac.ReadOnly = true;
             txtIdDireccion.ReadOnly = true;
             txtCalle.ReadOnly = true;
@@ -155,6 +133,7 @@ namespace App_GestorIncidencias.Admin
             ddlProvincias.Enabled = false;
             txtPais.ReadOnly = true;
             pnlTelefonos.Enabled = false;
+            pnlTelefonos.Visible = false;
 
         }
 
@@ -163,7 +142,6 @@ namespace App_GestorIncidencias.Admin
             txtNombre.ReadOnly = false;
             txtApellido.ReadOnly = false;
             txtEmail.ReadOnly = false;
-            txtDni.ReadOnly = false;
             txtFechaNac.ReadOnly = false;
             txtIdDireccion.ReadOnly = false;
             txtCalle.ReadOnly = false;
@@ -173,7 +151,7 @@ namespace App_GestorIncidencias.Admin
             pnlTelefonos.Visible = true;
             txtPais.ReadOnly = false;
             pnlTelefonos.Enabled = true;
-
+            ddlProvincias.Enabled = true;
         }
 
         public void cargarPanelTelefonos()
@@ -208,61 +186,58 @@ namespace App_GestorIncidencias.Admin
             btnAceptar.Visible = true;
             btnCancelar.Text = "Cancelar";
 
-            cargarPanelTelefonos();
             btnEditar.Visible = false;
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            //Cliente cliente = new Cliente();
-            //ClienteNegocio clienteNegocio = new ClienteNegocio();
-            //ProvinciaNegocio provinciaNegocio = new ProvinciaNegocio();
-            //DireccionNegocio direccionNegocio = new DireccionNegocio();
-            //TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
+            Cliente cliente = new Cliente();
+            ClienteNegocio clienteNegocio = new ClienteNegocio();
+            ProvinciaNegocio provinciaNegocio = new ProvinciaNegocio();
+            PaisNegocio paisNegocio = new PaisNegocio();
+            DireccionNegocio direccionNegocio = new DireccionNegocio();
+            TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
 
 
-            ////cliente
-            //cliente.persona = new Persona();
-            //cliente.persona.Nombre = txtNombre.Text;
-            //cliente.persona.Apellido = txtApellido.Text;
-            //cliente.persona.Email = txtEmail.Text;
-            //cliente.Dni = long.Parse(txtDni.Text);
-            //cliente.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+            //cliente
+            cliente.persona = new Persona();
+            cliente.persona.Nombre = txtNombre.Text;
+            cliente.persona.Apellido = txtApellido.Text;
+            cliente.persona.Email = txtEmail.Text;
+            cliente.Dni = long.Parse(txtDni.Text);
+            cliente.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+            cliente.Activo = true;
 
-            ////direccion
+            //direccion
 
-            //cliente.direccion = new Direccion();
-            //cliente.direccion.Calle = txtCalle.Text;
-            //cliente.direccion.Numero = long.Parse(txtNumero.Text);
-            //cliente.direccion.Localidad = txtLocalidad.Text;
-            //cliente.direccion.CodPostal = txtCP.Text;
+            cliente.direccion = new Direccion();
+            cliente.direccion.Calle = txtCalle.Text;
+            cliente.direccion.Numero = long.Parse(txtNumero.Text);
+            cliente.direccion.Localidad = txtLocalidad.Text;
+            cliente.direccion.CodPostal = txtCP.Text;
 
-            //cliente.direccion.provincia = new Provincia();
-            //cliente.direccion.provincia = provinciaNegocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
-            //cliente.direccion.Activo = true;
-            
+            cliente.direccion.provincia = new Provincia();
+            cliente.direccion.provincia = provinciaNegocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
 
-            //if (Request.QueryString["dni"] != null)
-            //{
-            //    //cliente.persona.Id = long.Parse(txtIdPersona.Text);
-            //    //GuardarTelefonos(cliente.persona.Id);
-            //    //cliente.direccion.Id = long.Parse(txtIdDireccion.Text);
-            //    //direccionNegocio.modificarDireccion(cliente.direccion);
-            //    //clienteNegocio.modificarCliente(cliente);
+            cliente.direccion.pais = new Pais();
+            cliente.direccion.pais = paisNegocio.buscarPais(cliente.direccion.provincia.IdPais);
 
-            //}
-            //else
-            //{
-                
-            //    int idDireccion = direccionNegocio.agregarDireccion(cliente.direccion);
-            //    long idDire = (long)idDireccion;
-            //    Direccion direauxiliar = new Direccion();
-            //    direauxiliar = direccionNegocio.buscarDireccion(idDire);
-            //    int idClienteCreado = clienteNegocio.agregarCliente(cliente);
-            //    GuardarTelefonos(cliente.persona.Id);
-            //    Response.Redirect("Clientes.aspx", false);
 
-            //}
+            if (Request.QueryString["dni"] != null)
+            {
+                cliente.persona.Id = long.Parse(txtIdPersona.Text);
+                GuardarTelefonos(cliente.persona.Id);
+                cliente.direccion.Id = long.Parse(txtIdDireccion.Text);
+                clienteNegocio.modificarCliente(cliente);
+            }
+            else
+            {
+
+                clienteNegocio.agregarCliente(cliente);
+                cliente = clienteNegocio.BuscarCliente(cliente.Dni);
+                GuardarTelefonos(cliente.persona.Id);
+            }
+            Response.Redirect("Clientes.aspx", false);
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -273,21 +248,25 @@ namespace App_GestorIncidencias.Admin
         protected void GuardarTelefonos(long idPersona)
         {
             List<long> telefonos = new List<long>();
-            foreach (string key in Request.Form.Keys)
+
+            // Recorre las claves del formulario para capturar el array de valores "telefono[]"
+            string[] telefonosArray = Request.Form.GetValues("telefono[]");
+            if (telefonosArray != null)
             {
-                if (key.Contains("telefono"))
+                foreach (string telefonoStr in telefonosArray)
                 {
-                    if (long.TryParse(Request.Form[key], out long numeroTelefono))
+                    if (long.TryParse(telefonoStr, out long numTelefono))
                     {
-                        telefonos.Add(numeroTelefono);
+                        telefonos.Add(numTelefono);
                     }
                 }
             }
 
 
-            if(telefonos.Count > 0)
+            if (telefonos.Count > 0)
             {
                 Telefono telefono = new Telefono();
+                telefono.persona = new Persona();
                 TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
 
                 foreach (long nro in telefonos)
@@ -301,27 +280,114 @@ namespace App_GestorIncidencias.Admin
             }
         }
 
+        protected void repRepetidor_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                //  usamos como contador el indice del elemento actual
+                int contador = e.Item.ItemIndex + 1;
+
+                // Encuentra el control Label dentro del Repeater
+                Label lblTelefono = (Label)e.Item.FindControl("lblTelefono");
+                if (lblTelefono != null)
+                {
+                    lblTelefono.Text = $"Teléfono {contador}";
+                }
+            }
+        }
+
+        protected void ddlProvincias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ProvinciaNegocio negocio = new ProvinciaNegocio();
+                PaisNegocio paisNegocio = new PaisNegocio();
+                provSeleccionada = negocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
+                paisSeleccionado = paisNegocio.buscarPais(provSeleccionada.IdPais);
+                txtPais.Text = paisSeleccionado.Nombre;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
+        }
+
+        protected void btnEliminarTel_Click(object sender, EventArgs e)
+        {
+            Session.Add("idTelefonoAEliminar", ((Button)sender).CommandArgument);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
+        }
+
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(hiddenTelefono.Value))
+            try
             {
-                long numeroTelefono = long.Parse(hiddenTelefono.Value);
-
-                long idPersona = long.Parse(Session["idPersona"].ToString());
-
-                TelefonoNegocio negocio = new TelefonoNegocio();
-                negocio.eliminarTelefono(numeroTelefono, idPersona);
-
-                List<Telefono> lista = negocio.BuscarTelefonos(idPersona);
-                if (lista != null)
-                {
-                    armarListaPanel(lista);
-
-                    pnlTelefonos.Enabled = false;
-                }
-
+                TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
+                int idTelefono = int.Parse(Session["idTelefonoAEliminar"].ToString());
+                telefonoNegocio.eliminarTelefono(idTelefono);
+                CargarTelefonos();
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
+            
 
+        }
+
+        protected void btnEditarTel_Click(object sender, EventArgs e)
+        {
+            Button btnEditarTel = (Button)sender;
+            int idTelefono = int.Parse(btnEditarTel.CommandArgument);
+            Session.Add("idTelEditado", idTelefono);
+
+            // Mostrar el modal.
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModalEdicion();", true);
+
+        }
+
+        protected void btnEditarConfirmado_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtTelefonoEditado.Text))
+            {
+                Telefono telAux = new Telefono();
+                int idTel = int.Parse(hiddenTelefonoEdicion.Value);
+                long nuevoNumero = long.Parse(txtTelefonoEditado.Text);
+
+                telAux.IdTelefono = idTel;
+                telAux.NumeroTelefono = nuevoNumero;
+                telAux.persona = new Persona();
+                telAux.persona.Id = long.Parse(Session["idPersona"].ToString());
+
+                TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
+                telefonoNegocio.editarTelefono(telAux);
+
+                CargarTelefonos();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "errorModal", "alert('Debe ingresar un telefono.');", true);
+            }
+        }
+
+        public void CargarTelefonos()
+        {
+            TelefonoNegocio negocioTel = new TelefonoNegocio();
+            listaTelefonos = negocioTel.BuscarTelefonos(int.Parse(Session["IdPersona"].ToString()));
+            if (listaTelefonos != null)
+            {
+                ContadorTelefonos = listaTelefonos.Count;
+                repRepetidor.Visible = true;
+                repRepetidor.DataSource = listaTelefonos;
+                repRepetidor.DataBind();
+            }
+            else
+            {
+                repRepetidor.DataSource = null;
+                repRepetidor.DataBind();
+            }
         }
     }
 }

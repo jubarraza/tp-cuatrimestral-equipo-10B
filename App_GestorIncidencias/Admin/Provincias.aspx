@@ -48,7 +48,7 @@
                             <Columns>
                                 <asp:BoundField HeaderText="ID" DataField="Id" />
                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                                <asp:BoundField HeaderText="Pais" DataField="Pais.Nombre" />
+                                <asp:BoundField HeaderText="Pais" DataField="IdPais" />
                                 <asp:CheckBoxField HeaderText="Visible" DataField="Visible" ControlStyle-CssClass="ms-3" />
                                 <asp:CommandField HeaderText="Editar" ControlStyle-CssClass="ms-2" ShowSelectButton="true" SelectText="<img src='https://cdn-icons-png.flaticon.com/512/32/32355.png' style='width:25px; height:25px;' alt='Editar'/>" />
                                 <asp:CommandField HeaderText="Eliminar" ControlStyle-CssClass="ms-3" ShowDeleteButton="true" DeleteText="<img src='https://cdn-icons-png.flaticon.com/512/1214/1214594.png' style='width:25px; height:25px;' alt='Eliminar'/>" />

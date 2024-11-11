@@ -66,13 +66,38 @@ namespace Negocio
             }
         }
 
+        public Telefono buscarTelefono(int id)
+        {
+            try
+            {
+                TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
+                List<Telefono> listaTelefonos = telefonoNegocio.listar();
+
+                foreach (Telefono tel in listaTelefonos)
+                {
+                    if (tel.IdTelefono == id)
+                    {
+                        return tel;
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+
+        }
+
         public void agregarTelefono(Telefono nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("INSERT INTO Telefonos (NumeroTelefono, IdPersona) VALUES (@Numero, @IdPersona)");
+                datos.setearConsulta("INSERT INTO Telefonos (NumeroTelefono, IdPersona) VALUES (@NumeroTelefono, @IdPersona)");
                 datos.setearParametro("@NumeroTelefono", nuevo.NumeroTelefono);
                 datos.setearParametro("@IdPersona", nuevo.persona.Id);
 
@@ -116,6 +141,58 @@ namespace Negocio
                 datos.cerrarConexion();
             }
 
+        }
+
+        public void eliminarTelefono(int idTelefono)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("DELETE Telefonos WHERE IdTelefono = @IdTelefono");
+                datos.setearParametro("@IdTelefono", idTelefono);
+
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void editarTelefono(Telefono tel)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE TELEFONOS SET NumeroTelefono = @NumTelefono WHERE IdTelefono = @IdTelefono AND IdPersona = @IdPersona");
+                datos.setearParametro("@NumTelefono", tel.NumeroTelefono);
+                datos.setearParametro("@IdTelefono", tel.IdTelefono);
+                datos.setearParametro("@IdPersona", tel.persona.Id);
+           
+
+                datos.ejecutarAccion();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

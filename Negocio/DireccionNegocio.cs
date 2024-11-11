@@ -16,7 +16,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT d.Id, d.Calle, d.Numero, d.Localidad, d.CodPostal, d.IdProvincia, d.NombreApellidoCliente FROM vw_listaDireccionYCliente d WHERE d.Activo = 1 ");
+                datos.setearConsulta("SELECT d.Id, d.Calle, d.Numero, d.Localidad, d.CodPostal, d.IdProvincia, d.IdPais, d.NombreApellidoCliente FROM vw_listaDireccionYCliente d");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -31,8 +31,11 @@ namespace Negocio
                     ProvinciaNegocio negocioProv = new ProvinciaNegocio();
                     aux.provincia.Id = (long)datos.Lector["IdProvincia"];
                     aux.provincia = negocioProv.buscarProvincia(aux.provincia.Id);
+                    aux.pais = new Pais();
+                    PaisNegocio negocioPais = new PaisNegocio();
+                    aux.pais.Id = (long)datos.Lector["IdPais"];
+                    aux.pais = negocioPais.buscarPais(aux.pais.Id);
                     aux.NombreApellidoCliente = (string)datos.Lector["NombreApellidoCliente"];
-                    aux.Activo = true;
                     
                     lista.Add(aux);
                 }
@@ -54,7 +57,7 @@ namespace Negocio
             Direccion aux = new Direccion();
             try
             {
-                datos.setearConsulta("SELECT Id, Calle, Numero, Localidad, CodPostal, IdProvincia, Provincia, VisibleProvincia, ActivoProvincia, IdPais, Pais, ActivoPais, Activo, IdPersona, NombreApellidoCliente FROM vw_listaDireccionYCliente d WHERE Activo = 1 AND Id = " + id);
+                datos.setearConsulta("SELECT Id, Calle, Numero, Localidad, CodPostal, IdProvincia, Provincia, VisibleProvincia, ActivoProvincia, IdPais, Pais, ActivoPais, IdPersona, NombreApellidoCliente FROM vw_listaDireccionYCliente d WHERE Id = " + id);
 
                 datos.ejecutarLectura();
 
@@ -70,47 +73,17 @@ namespace Negocio
                     aux.provincia.Nombre = (string)datos.Lector["Provincia"];
                     aux.provincia.Visible = (bool)datos.Lector["VisibleProvincia"];
                     aux.provincia.Activo = (bool)datos.Lector["ActivoProvincia"];
-                    aux.provincia.pais = new Pais();
-                    aux.provincia.pais.Id = (long)datos.Lector["IdPais"];
-                    aux.provincia.pais.Nombre = (string)datos.Lector["Pais"];
-                    aux.provincia.pais.Activo = (bool)datos.Lector["ActivoPais"];
+                    aux.pais = new Pais();
+                    aux.pais.Id = (long)datos.Lector["IdPais"];
+                    aux.pais.Nombre = (string)datos.Lector["Pais"];
+                    aux.pais.Activo = (bool)datos.Lector["ActivoPais"];
                     aux.NombreApellidoCliente = (string)datos.Lector["NombreApellidoCliente"];
-                    aux.Activo = true;
                 }
-
 
                 return aux;
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public int agregarDireccion(Direccion nuevo)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("INSERT INTO Direcciones (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES (@Calle, @Numero, @Localidad, @CP, @IdProvincia, 1); SELECT @@IDENTITY");
-                datos.setearParametro("@Calle", nuevo.Calle);
-                datos.setearParametro("@Numero", nuevo.Numero);
-                datos.setearParametro("@Localidad", nuevo.Localidad);
-                datos.setearParametro("@CP", nuevo.CodPostal);
-                datos.setearParametro("@IdProvincia", nuevo.provincia.Id);
-
-
-                return datos.EjecutarAccionScalar();
-
-            }
-            catch (Exception ex)
-            {
-
                 throw ex;
             }
             finally
@@ -132,28 +105,6 @@ namespace Negocio
                 datos.setearParametro("@CP", nuevo.CodPostal);
                 datos.setearParametro("@IdProvincia", nuevo.provincia.Id);
 
-
-                datos.ejecutarAccion();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public void eliminarDireccion(long id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("UPDATE Direcciones SET Activo = 0 WHERE Id = " + id);
 
                 datos.ejecutarAccion();
 

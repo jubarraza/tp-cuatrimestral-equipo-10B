@@ -93,7 +93,7 @@ namespace Negocio
             }
 
         }
-        public int agregarCliente(Cliente nuevo)
+        public void agregarCliente(Cliente nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -105,10 +105,13 @@ namespace Negocio
                 datos.setearParametro("@Email", nuevo.persona.Email);
                 datos.setearParametro("@Dni", nuevo.Dni);
                 datos.setearParametro("@FechaNac", nuevo.FechaNacimiento);
-                datos.setearParametro("@IdDireccion", nuevo.direccion.Id);
+                datos.setearParametro("@Calle", nuevo.direccion.Calle);
+                datos.setearParametro("@Numero", nuevo.direccion.Numero);
+                datos.setearParametro("@Localidad", nuevo.direccion.Localidad);
+                datos.setearParametro("@CodPostal", nuevo.direccion.CodPostal);
+                datos.setearParametro("@IdProvincia", nuevo.direccion.provincia.Id);
 
-
-               return datos.EjecutarAccionScalar();
+                datos.ejecutarAccion();
 
             }
             catch (Exception ex)
@@ -127,21 +130,22 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE Personas SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email WHERE Id = " + nuevo.persona.Id);
+                datos.setearProcedimiento("sp_ModificarCliente");
                 datos.setearParametro("@Nombre", nuevo.persona.Nombre);
                 datos.setearParametro("@Apellido", nuevo.persona.Apellido);
                 datos.setearParametro("@Email", nuevo.persona.Email);
-                datos.ejecutarAccion();
-
-
-
-                datos.setearConsulta("UPDATE Clientes SET Dni = @Dni, FechaNacimiento = @FechaNac, IdDireccion = @IdDireccion WHERE Id = " + nuevo.persona.Id);
                 datos.setearParametro("@Dni", nuevo.Dni);
                 datos.setearParametro("@FechaNac", nuevo.FechaNacimiento);
                 datos.setearParametro("@IdDireccion", nuevo.direccion.Id);
-
+                datos.setearParametro("@Activo", nuevo.Activo);
+                datos.setearParametro("@Calle", nuevo.direccion.Calle);
+                datos.setearParametro("@Numero", nuevo.direccion.Numero);
+                datos.setearParametro("@Localidad", nuevo.direccion.Localidad);
+                datos.setearParametro("@CodPostal", nuevo.direccion.CodPostal);
+                datos.setearParametro("@IdProvincia", nuevo.direccion.provincia.Id);
 
                 datos.ejecutarAccion();
+
 
             }
             catch (Exception ex)

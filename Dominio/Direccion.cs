@@ -15,13 +15,12 @@ namespace Dominio
         public string Localidad { get; set; }
         public string CodPostal { get; set; }
         public Provincia provincia { get; set; }
+        public Pais pais { get; set; }
         public string NombreApellidoCliente { get; set; }
-        public bool Activo { get; set; }
 
         public override string ToString()
         {
-            provincia.pais = new Pais();
-            string dire = Calle +", " + Numero + ", " + Localidad + ". " + provincia.Nombre + ", " + provincia.pais.Nombre ;
+            string dire = Calle +", " + Numero + ", " + Localidad + ". " + provincia.Nombre + ", " + pais.Nombre ;
             return dire;
         }
     }

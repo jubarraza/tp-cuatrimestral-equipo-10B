@@ -39,33 +39,33 @@ namespace Negocio
             }
         }
 
-        public Pais buscarPais(Provincia prov)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            Pais aux = new Pais();
-            try
-            {
-                datos.setearConsulta("SELECT Id, Nombre FROM PAISES p WHERE Activo = 1 AND Id = " + prov.pais.Id);
-                datos.ejecutarLectura();
+        //public Pais buscarPais(Provincia prov)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    Pais aux = new Pais();
+        //    try
+        //    {
+        //        datos.setearConsulta("SELECT Id, Nombre FROM PAISES p WHERE Activo = 1 AND Id = " + prov.IdPais);
+        //        datos.ejecutarLectura();
 
-                while (datos.Lector.Read())
-                {
-                    aux.Id = (long)datos.Lector["Id"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Activo = true;
-                }
+        //        while (datos.Lector.Read())
+        //        {
+        //            aux.Id = (long)datos.Lector["Id"];
+        //            aux.Nombre = (string)datos.Lector["Nombre"];
+        //            aux.Activo = true;
+        //        }
 
-                return aux;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
+        //        return aux;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
 
         public Pais buscarPais(long idPais)
         {

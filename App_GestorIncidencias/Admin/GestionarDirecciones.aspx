@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="GestionarDirecciones.aspx.cs" Inherits="App_GestorIncidencias.Admin.GestionarDirecciones" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="GestionarDirecciones.aspx.cs" Inherits="App_GestorIncidencias.Admin.GestionarDirecciones" EnableEventValidation="true"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

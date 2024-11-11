@@ -23,10 +23,7 @@ namespace Negocio
                     Provincia aux = new Provincia();
                     aux.Id = (long)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.pais = new Pais();
-                    aux.pais.Id = (long)datos.Lector["IdPais"];
-                    PaisNegocio paisNegocio = new PaisNegocio();
-                    aux.pais = paisNegocio.buscarPais(aux);
+                    aux.IdPais = (long)datos.Lector["IdPais"];
                     aux.Visible = (bool)datos.Lector["Visible"];
                     aux.Activo = true;
 
@@ -58,10 +55,7 @@ namespace Negocio
                     Provincia aux = new Provincia();
                     aux.Id = (long)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.pais = new Pais();
-                    aux.pais.Id = (long)datos.Lector["IdPais"];
-                    PaisNegocio paisNegocio = new PaisNegocio();
-                    aux.pais = paisNegocio.buscarPais(aux);
+                    aux.IdPais = (long)datos.Lector["IdPais"];
                     aux.Visible = true;
                     aux.Activo = true;
 
@@ -85,7 +79,7 @@ namespace Negocio
             Provincia aux = new Provincia();
             try
             {
-                datos.setearConsulta("SELECT IdProvincia, Provincia, Visible, IdPais, Pais, Activo FROM vw_ProvinciaYPais WHERE IdProvincia = " + id);
+                datos.setearConsulta("SELECT IdProvincia, Provincia, Visible, IdPais, Activo FROM vw_ProvinciaYPais WHERE IdProvincia = " + id);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -94,10 +88,7 @@ namespace Negocio
                     aux.Nombre = (string)datos.Lector["Provincia"];
                     aux.Visible = (bool)datos.Lector["Visible"];
                     aux.Activo = true;
-                    aux.pais = new Pais();
-                    aux.pais.Id = (long)datos.Lector["IdPais"];
-                    aux.pais.Nombre = (string)datos.Lector["Pais"];
-                    aux.pais.Activo = (bool)datos.Lector["Activo"];
+                    aux.IdPais = (long)datos.Lector["IdPais"];
                 }
 
                 return aux;
@@ -120,7 +111,7 @@ namespace Negocio
             {
                 datos.setearConsulta("INSERT INTO Provincias (Nombre, IdPais, Visible, Activo) VALUES (@Nombre, @IdPais, @Visible, 1)");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
-                datos.setearParametro("@IdPais", nuevo.pais.Id);
+                datos.setearParametro("@IdPais", nuevo.IdPais);
                 datos.setearParametro("@Visible", nuevo.Visible);
 
                 datos.ejecutarAccion();
@@ -147,7 +138,7 @@ namespace Negocio
                 datos.setearParametro("@Id", nueva.Id);
                 datos.setearParametro("@Nombre", nueva.Nombre);
                 datos.setearParametro("@Visible", nueva.Visible);
-                datos.setearParametro("@IdPais", nueva.pais.Id);
+                datos.setearParametro("@IdPais", nueva.IdPais);
 
                 datos.ejecutarAccion();
             }

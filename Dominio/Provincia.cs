@@ -10,9 +10,9 @@ namespace Dominio
     {
         public long Id { get; set; }
         public string Nombre { get; set; }
-        public Pais pais { get; set; }
         public bool Visible { get; set; }
         public bool Activo { get; set; }
+        public long IdPais { get; set; }
 
         public override string ToString()
         {

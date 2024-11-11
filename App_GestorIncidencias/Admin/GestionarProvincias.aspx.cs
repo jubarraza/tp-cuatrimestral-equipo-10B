@@ -12,6 +12,7 @@ namespace App_GestorIncidencias.Admin
     public partial class GestionarProvincias : System.Web.UI.Page
     {
         public Provincia provinciaSeleccionada;
+        public Pais paisSeleccionado;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -35,7 +36,8 @@ namespace App_GestorIncidencias.Admin
                         txtId.Text = provinciaSeleccionada.Id.ToString();
                         txtNombre.Text = provinciaSeleccionada.Nombre;
                         chkActiva.Checked = provinciaSeleccionada.Visible;
-                        ddlPaises.SelectedValue = provinciaSeleccionada.pais.Id.ToString();
+                        paisSeleccionado = negocioPaises.buscarPais(provinciaSeleccionada.IdPais);
+                        ddlPaises.SelectedValue = paisSeleccionado.Id.ToString();
                         
                     }
                 }
@@ -58,8 +60,7 @@ namespace App_GestorIncidencias.Admin
 
                 nueva.Nombre = txtNombre.Text;
                 nueva.Visible = chkActiva.Checked;
-                nueva.pais = new Pais();
-                nueva.pais.Id = long.Parse(ddlPaises.SelectedValue);
+                nueva.IdPais = long.Parse(ddlPaises.SelectedValue);
                 nueva.Activo = true;
 
                 if (Request.QueryString["id"] != null)

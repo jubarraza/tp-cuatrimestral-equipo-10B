@@ -161,6 +161,7 @@ Activo bit not null
 GO
 INSERT INTO PAISES (Nombre, Activo) VALUES ('Argentina', 1);
 INSERT INTO PAISES (Nombre, Activo) VALUES ('Uruguay', 1);
+INSERT INTO PAISES (Nombre, Activo) VALUES ('Peru', 0);
 GO
 
 -- PROVINCIAS
@@ -174,9 +175,32 @@ FOREIGN KEY (IdPais) REFERENCES PAISES (Id)
 )
 go
 INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Buenos Aires', 1, 1, 1);
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Cordoba', 1, 1, 1);
-INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Fe', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('CABA', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Catamarca', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Chaco', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Chubut', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Córdoba', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Corrientes', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Entre Ríos', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Formosa', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Jujuy', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('La Pampa', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('La Rioja', 1, 1, 1);
 INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Mendoza', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Misiones', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Neuquén', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Río Negro', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Salta', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('San Juan', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('San Luis', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Cruz', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santa Fe', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Santiago del Estero', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Tierra del Fuego', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Tucumán', 1, 1, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Montevideo', 1, 2, 1);
+INSERT INTO PROVINCIAS (Nombre, Visible, IdPais, Activo) VALUES ('Salto', 1, 2, 0);
+
 GO
 
 -- DIRECCIONES
@@ -186,12 +210,11 @@ Calle varchar(70) not null,
 Numero bigint not null,
 Localidad varchar(70) not null,
 CodPostal varchar(20) not null,
-IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id),
-Activo bit not null)
+IdProvincia bigint not null FOREIGN KEY REFERENCES PROVINCIAS (Id))
 go
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 3, 1);
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Callecita', 4321, 'Viñedo', 'C1818' , 4, 1);
-INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia, Activo) VALUES ('Callezota', 41, 'Playa', 'C2218' , 2, 1);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia) VALUES ('Calle', 1234, 'Rosario', 'B1646' , 20);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia) VALUES ('Callecita', 4321, 'Viñedo', 'C1818' , 12);
+INSERT INTO DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia) VALUES ('Callezota', 41, 'Retiro', 'C2218' , 1);
 go
 
 
@@ -229,9 +252,7 @@ NumeroTelefono bigint not null,
 foreign key (IdPersona) references CLIENTES(IdPersona)
 )
 go
-insert into TELEFONOS
-(IdPersona, NumeroTelefono)
-VALUES
+insert into TELEFONOS (IdPersona, NumeroTelefono) VALUES
 (4,10101010),
 (4,20202020),
 (5,30303030);
@@ -262,6 +283,7 @@ rollback transaction;
 throw;
 end catch
 end;
+GO
 
 --Store Procedure ModificarEmpleado
 create procedure sp_ModificarEmpleado
@@ -291,6 +313,7 @@ begin
         throw;
     end catch
 end;
+GO
 
 --Store Procedure EliminarEmpleado
 create procedure sp_EliminarEmpleado
@@ -317,25 +340,86 @@ begin
         throw;
     end catch
 end;
+GO
 
 -- Procedure para Creacion de Cliente
-CREATE OR ALTER PROCEDURE sp_RegistrarCliente
+CREATE PROCEDURE sp_RegistrarCliente
 @Nombre varchar(50),
 @Apellido varchar(50),
 @Email varchar(80),
 @Dni bigint,
 @FechaNac date,
-@IdDireccion bigint
+@Calle varchar(70),
+@Numero bigint,
+@Localidad varchar(70),
+@CodPostal varchar(20),
+@IdProvincia bigint
 as BEGIN
-	BEGIN TRANSACTION
+	BEGIN TRANSACTION 
 	BEGIN TRY
-		INSERT INTO PERSONAS (Nombre, Apellido, Email) Values (@Nombre, @Apellido, @Email);
+		Declare @IdDireccion bigint
+		INSERT INTO dbo.DIRECCIONES (Calle, Numero, Localidad, CodPostal, IdProvincia) VALUES (@Calle, @Numero, @Localidad, @CodPostal, @IdProvincia);
+		set @IdDireccion = SCOPE_IDENTITY();
+	
 		Declare @IdPersona bigint
-		Set @IdPersona = (SELECT @@IDENTITY)
-		INSERT INTO Clientes (IdPersona, Dni, FechaNacimiento, IdDireccion, Activo)  VALUES(@IdPersona, @Dni, @FechaNac, @IdDireccion, 1)
+		INSERT INTO dbo.PERSONAS (Nombre, Apellido, Email) Values (@Nombre, @Apellido, @Email);
+		Set @IdPersona = SCOPE_IDENTITY();
+	
+		INSERT INTO dbo.Clientes (IdPersona, Dni, FechaNacimiento, IdDireccion, Activo)  VALUES(@IdPersona, @Dni, @FechaNac, @IdDireccion, 1)
+
 		COMMIT TRANSACTION
+
 	END TRY
 	BEGIN CATCH
+	IF @@TRANCOUNT > 0 
 		ROLLBACK TRANSACTION
-		END CATCH
-		END
+		throw;
+	END CATCH
+END;
+GO
+
+--Procedure Modificacion de Cliente
+create procedure sp_ModificarCliente
+@Nombre varchar(50),
+@Apellido varchar(50),
+@Email varchar(80),
+@Dni bigint,
+@FechaNac date,
+@IdDireccion bigint,
+@Activo bit,
+@Calle varchar(70),
+@Numero bigint,
+@Localidad varchar(70),
+@CodPostal varchar(20),
+@IdProvincia bigint
+as
+begin
+    begin transaction;
+    begin try
+        update dbo.PERSONAS set Nombre = @Nombre, Apellido = @Apellido, Email = @Email where Id = (select IdPersona from dbo.CLIENTES where Dni = @Dni);
+        update dbo.CLIENTES set FechaNacimiento = @FechaNac, IdDireccion = @IdDireccion, Activo = @Activo where Dni = @Dni;
+        update dbo.DIRECCIONES set Calle = @Calle, Numero = @Numero, Localidad = @Localidad, CodPostal= @CodPostal, IdProvincia = @IdProvincia WHERE Id = @IdDireccion; 
+        commit transaction;
+    end try
+    begin catch
+        rollback transaction;
+        throw;
+    end catch
+end;
+GO
+
+-- VISTA DE PROVINCIAS Y PAISES
+CREATE OR ALTER VIEW vw_ProvinciaYPais AS
+SELECT p.Id AS IdProvincia, p.Nombre AS Provincia, p.Visible, p2.Id AS IdPais, p2.Nombre AS Pais, p2.Activo FROM PROVINCIAS p 
+INNER JOIN Paises p2 ON p.IdPais = p2.Id WHERE p.Activo = 1;
+go
+
+--- VISTA LISTA DIRECCIONES
+CREATE OR ALTER VIEW vw_listaDireccionYCliente AS
+SELECT d.Id, d.Calle, d.Numero, d.Localidad, d.CodPostal, d.IdProvincia, p2.Nombre as Provincia, p2.Visible as VisibleProvincia, p2.Activo as ActivoProvincia, p2.IdPais, p3.Nombre as Pais, p3.Activo as ActivoPais, p.Id AS IdPersona, p.Nombre + ' ' + p.Apellido AS NombreApellidoCliente FROM DIRECCIONES d
+INNER JOIN CLIENTES c ON c.IdDireccion = d.Id
+INNER JOIN PERSONAS p ON c.IdPersona = p.Id
+INNER JOIN PROVINCIAS p2 on d.IdProvincia = p2.Id
+INNER JOIN PAISES p3 ON p2.IdPais = p3.Id
+go
+

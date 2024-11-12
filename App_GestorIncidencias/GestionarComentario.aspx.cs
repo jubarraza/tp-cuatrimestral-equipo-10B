@@ -79,7 +79,7 @@ namespace App_GestorIncidencias
                 int id = int.Parse(Request.QueryString["Id"]);
                 ComentarioNegocio negocio = new ComentarioNegocio();
                 negocio.Eliminar(id);
-                Response.Redirect("IncidenciaListar.aspx", false);
+                Response.Redirect("GestionarIncidencia.aspx?Id=" + txtCodIncidencia.Text);
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace App_GestorIncidencias
                         comentario.Fecha = DateTime.Parse(txtFecha.Text);
                         comentario.ComentarioGestion = TxtComenatario.Text;
                         negocio.Agregar(comentario);
-                        Response.Redirect("IncidenciaListar.aspx", false);
+                        Response.Redirect("GestionarIncidencia.aspx?Id=" + Cod);
                     }
                 }
 
@@ -140,7 +140,7 @@ namespace App_GestorIncidencias
                 comentario.Fecha = DateTime.Parse(txtFecha.Text);
                 comentario.ComentarioGestion = TxtComenatario.Text;
                 negocio.Modificar(comentario);
-                Response.Redirect("IncidenciaListar.aspx", false);
+                Response.Redirect("GestionarIncidencia.aspx?Id=" + comentario.Cod_Incidencia);
             }
             catch (Exception)
             {

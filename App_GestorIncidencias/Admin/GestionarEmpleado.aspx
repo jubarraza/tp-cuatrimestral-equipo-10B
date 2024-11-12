@@ -12,11 +12,11 @@
         <div class="row">
         <form class="row g-3">
           <div class="col-md-6">
-            <label for="lblNombre:" class="form-label">Nombre:</label>
+            <label for="lblNombre:" class="form-label">Nombre/s:</label>
             <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6">
-            <label for="lblApellido" class="form-label">Apellido:</label>
+            <label for="lblApellido" class="form-label">Apellido/s:</label>
             <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server"></asp:TextBox>            
           </div>
           <div class="col-12 mt-2">
@@ -36,7 +36,7 @@
             <asp:TextBox runat="server" CssClass="form-control" ID="txtFechaIngreso" TextMode="Date" />
           </div>
           <div class="col-md-6 mt-2">
-            <label for="lblUserPassword" class="form-label">Contraseña</label>
+            <label for="lblUserPassword" class="form-label">Contraseña:</label>
             <asp:TextBox ID="txtUserPassword" CssClass="form-control" runat="server"></asp:TextBox>
           </div>
           <div class="col-md-6 mt-3">
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="col-12 mt-3">
-            <asp:Button Text="Aceptar" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />
+            <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />
             <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" CssClass="btn btn-secondary" runat="server" />
             <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger" runat="server" />
           </div>

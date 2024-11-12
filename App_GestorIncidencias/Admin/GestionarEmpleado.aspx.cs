@@ -34,6 +34,7 @@ namespace App_GestorIncidencias.Admin
                 txtLegajo.Text = ultimoLegajo.ToString();
                 TipoUsuarioNegocio tipoNegocio = new TipoUsuarioNegocio();
                 List<TipoUsuario> lista = tipoNegocio.listar();
+                btnAceptar.Text = "Aceptar";
 
                 ddlTipoUsuario.DataSource = lista;
                 ddlTipoUsuario.DataValueField = "IdTipoUsuario";
@@ -43,6 +44,7 @@ namespace App_GestorIncidencias.Admin
             string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
             if (legajo != "" && !IsPostBack)
             {
+                btnAceptar.Text = "Guardar";
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
                 Empleado seleccionado = negocio.listar(legajo)[0];
                 Session.Add("empleadoSeleccionado", seleccionado);

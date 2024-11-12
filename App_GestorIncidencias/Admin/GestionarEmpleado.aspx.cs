@@ -10,9 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace App_GestorIncidencias.Admin
 {
-    public partial class ABMempleado : System.Web.UI.Page
+    public partial class GestionarEmpleado : System.Web.UI.Page
     {
-        public void habilitarCampos(bool habilitar)
+        public void HabilitarCampos(bool habilitar)
         {          
             txtNombre.Enabled = habilitar;
             txtApellido.Enabled = habilitar;
@@ -20,8 +20,7 @@ namespace App_GestorIncidencias.Admin
             ddlTipoUsuario.Enabled = habilitar;
             txtFechaIngreso.Enabled = habilitar;
             txtUserPassword.Enabled = habilitar;
-
-            UpDatePanel1.Update();
+            btnEliminar.Enabled = habilitar;            
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -63,12 +62,8 @@ namespace App_GestorIncidencias.Admin
                 {
                     rbInactivo.Checked = !activo;
                 }
-                habilitarCampos(activo);
+                HabilitarCampos(activo);
 
-            }
-            else
-            {
-                btnEliminar.Enabled = false;
             }
         }
 
@@ -130,10 +125,9 @@ namespace App_GestorIncidencias.Admin
         protected void rbActivo_CheckedChanged(object sender, EventArgs e)
         {
             bool habilitar = rbActivo.Checked;
-            habilitarCampos(habilitar);           
-            
+            HabilitarCampos(habilitar);         
+         
         }
-
 
     }
 }

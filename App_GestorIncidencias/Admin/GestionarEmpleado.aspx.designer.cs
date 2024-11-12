@@ -11,7 +11,7 @@ namespace App_GestorIncidencias.Admin
 {
 
 
-    public partial class ABMempleado
+    public partial class GestionarEmpleado
     {
 
         /// <summary>

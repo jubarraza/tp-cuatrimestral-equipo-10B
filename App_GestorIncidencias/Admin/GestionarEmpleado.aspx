@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="ABMempleado.aspx.cs" Inherits="App_GestorIncidencias.Admin.ABMempleado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="GestionarEmpleado.aspx.cs" Inherits="App_GestorIncidencias.Admin.GestionarEmpleado" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -7,10 +7,8 @@
     
     <div class="container mt-4">
         <h2>Ingrese los Datos del Empleado</h2>
-
-        <asp:UpdatePanel ID="UpDatePanel1" UpdateMode="Conditional" runat="server">
+        <asp:UpdatePanel ID="UpDatePanel1" runat="server">
         <ContentTemplate>
-
         <div class="row">
         <form class="row g-3">
           <div class="col-md-6">
@@ -43,7 +41,7 @@
           </div>
           <div class="col-md-6 mt-3">
             <div class="form-check form-check-inline">                
-                <asp:RadioButton AutoPostBack="true" ID="rbActivo" Text=" Activo" Checked="true" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
+                <asp:RadioButton AutoPostBack="true" ID="rbActivo" Text=" Activo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
                 <asp:RadioButton AutoPostBack="true" ID="rbInactivo" Text=" Inactivo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />                
             </div>
           </div>
@@ -54,13 +52,7 @@
           </div>
         </form>
        </div>
-    <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="rbActivo" EventName="CheckedChanged" />
-        <asp:AsyncPostBackTrigger ControlID="rbInactivo" EventName="CheckedChanged" />
-    </Triggers>
-
-                           </ContentTemplate>
-  </asp:UpdatePanel>
-
+      </ContentTemplate>
+      </asp:UpdatePanel>
     </div>
 </asp:Content>

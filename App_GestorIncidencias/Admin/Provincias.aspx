@@ -50,7 +50,7 @@
                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                                 <asp:TemplateField HeaderText="País">
                                     <ItemTemplate>
-                                        <%# ObtenerNombrePais(Eval("IdPais")) %>
+                                        <%# Negocio.Helper.ObtenerNombrePais(Eval("IdPais")) %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:CheckBoxField HeaderText="Visible" DataField="Visible" ControlStyle-CssClass="ms-3" />

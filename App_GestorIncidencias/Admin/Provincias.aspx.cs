@@ -41,18 +41,7 @@ namespace App_GestorIncidencias.Admin
             
         }
 
-        public static string ObtenerNombrePais(object idPais)
-        {
-            string nombre;
-            PaisNegocio paisNegocio = new PaisNegocio();
-            Pais aux = new Pais();
-            long id = long.Parse(idPais.ToString());
-
-            aux = paisNegocio.buscarPais(id);
-            nombre = aux.Nombre;
-
-            return nombre;
-        }
+        
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {

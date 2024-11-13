@@ -51,6 +51,7 @@
     <Compile Include="DireccionNegocio.cs" />
     <Compile Include="EmpleadoNegocio.cs" />
     <Compile Include="EstadoNegocio.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="PaisNegocio.cs" />
     <Compile Include="PersonaNegocio.cs" />
     <Compile Include="PrioridadNegocio.cs" />

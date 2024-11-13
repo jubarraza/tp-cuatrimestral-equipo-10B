@@ -26,13 +26,6 @@
 
 
         }
-
-        ////Para eliminar cuando Editamos Cliente
-        //function eliminarFila(boton) {
-        //    var fila = boton.parentNode.parentNode;
-        //    fila.parentNode.removeChild(fila);
-        //}
-
         //modal eliminacion
         function showModal() {
             var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacion'));
@@ -88,11 +81,13 @@
             <div class="mb-3 col-lg-5 col-md-5 col-sm-12">
                 <label for="txtNombre" class="form-label">Nombre</label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" MaxLength="50" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="⛔ El campo Nombre es requerido" CssClass="text-danger" Display="Dynamic" />
             </div>
 
             <div class="mb-3 col-lg-5 col-md-5 col-sm-12">
                 <label for="txtApellido" class="form-label">Apellido</label>
                 <asp:TextBox runat="server" ID="txtApellido" CssClass="form-control" MaxLength="50" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtApellido" ErrorMessage="⛔ El campo Apellido es requerido" CssClass="text-danger" Display="Dynamic" />
             </div>
 
             <div class="mb-3 col-lg-2 col-md-2 col-sm-6">
@@ -103,16 +98,19 @@
             <div class="mb-3 col-lg-2 col-md-3 col-sm-6">
                 <label for="txtDni" class="form-label">Dni</label>
                 <asp:TextBox runat="server" ID="txtDni" CssClass="form-control" MaxLength="20" />
+                <asp:RequiredFieldValidator runat="server" ID="validatorDni" ControlToValidate="txtDni" ErrorMessage="⛔ El campo DNI es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" />
             </div>
 
             <div class="mb-3 col-lg-5 col-md-3 col-sm-12">
                 <label for="txtFechaNac" class="form-label">Fecha Nacimiento</label>
                 <asp:TextBox runat="server" ID="txtFechaNac" TextMode="Date" CssClass="form-control" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtFechaNac" ErrorMessage="⛔ El campo Fecha de Nacimiento es requerido" CssClass="text-danger" Display="Dynamic" />
             </div>
 
             <div class="mb-3 col-lg-5 col-md-6 col-sm-12">
                 <label for="txtEmail" class="form-label">Email</label>
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" MaxLength="80" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail" ErrorMessage="⛔ El campo Email es requerido" CssClass="text-danger" Display="Dynamic" />
             </div>
 
             <asp:UpdatePanel runat="server">
@@ -150,27 +148,31 @@
             <div class="row mb-3">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <label for="txtIdDireccion" class="form-label">Id Direccion</label>
-                    <asp:TextBox runat="server" ID="txtIdDireccion" CssClass="form-control" ReadOnly="true" Enabled="false" MaxLength="50" Placeholder="#" />
+                    <asp:TextBox runat="server" ID="txtIdDireccion" CssClass="form-control" ReadOnly="true" Enabled="false" Placeholder="#" />
                 </div>
 
                 <div class="mb-3 col-lg-5 col-md-5 col-sm-12">
                     <label for="txtCalle" class="form-label">Calle</label>
                     <asp:TextBox runat="server" ID="txtCalle" CssClass="form-control" MaxLength="70" Placeholder="Avenida Tortugas" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCalle" ErrorMessage="⛔ El campo Calle es requerido" CssClass="text-danger" Display="Dynamic" />
                 </div>
 
                 <div class="mb-3 col-lg-5 col-md-4 col-sm-12">
                     <label for="txtNumero" class="form-label">Numero</label>
                     <asp:TextBox runat="server" ID="txtNumero" CssClass="form-control" MaxLength="13" Placeholder="123" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNumero" ErrorMessage="⛔ El campo Numero es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" />
                 </div>
 
                 <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                     <label for="txtLocalidad" class="form-label">Localidad</label>
                     <asp:TextBox runat="server" ID="txtLocalidad" CssClass="form-control" MaxLength="70" Placeholder="San Martin" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtLocalidad" ErrorMessage="⛔ El campo Localidad es requerido" CssClass="text-danger" Display="Dynamic" />
                 </div>
 
                 <div class="mb-3 col-lg-2 col-md-6 col-sm-6">
                     <label for="txtCP" class="form-label">Codigo Postal</label>
                     <asp:TextBox runat="server" ID="txtCP" CssClass="form-control" MaxLength="20" Placeholder="B1644" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCP" ErrorMessage="⛔ El campo Codigo Postal es requerido" CssClass="text-danger" Display="Dynamic" />
                 </div>
             </div>
 

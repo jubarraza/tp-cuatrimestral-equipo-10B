@@ -23,6 +23,7 @@
         <div class="mb-3">
             <label for="txtNombre" class="form-label">Nombre</label>
             <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" MaxLength="50" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="⛔ El campo Nombre es requerido" CssClass="text-danger" Display="Dynamic" />
         </div>
 
         <div class="mb-3 btn-group-lg btn">

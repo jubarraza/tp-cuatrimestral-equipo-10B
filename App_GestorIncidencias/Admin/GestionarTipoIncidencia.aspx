@@ -17,12 +17,13 @@
 
          <div class="mb-3">
              <label for="txtId" class="form-label">Id</label>
-             <asp:TextBox runat="server" ID="txtId" CssClass="form-control" ReadOnly="true" MaxLength="50" />
+             <asp:TextBox runat="server" ID="txtId" CssClass="form-control" ReadOnly="true" />
          </div>
 
          <div class="mb-3">
              <label for="txtNombre" class="form-label">Nombre</label>
-             <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" MaxLength="50" />
+             <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" MaxLength="70" />
+             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="⛔ El campo Nombre es requerido" CssClass="text-danger" Display="Dynamic" />
          </div>
 
          <div class="mb-3">

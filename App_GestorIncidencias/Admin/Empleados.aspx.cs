@@ -15,8 +15,8 @@ namespace App_GestorIncidencias.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             EmpleadoNegocio negocio = new EmpleadoNegocio();
-            listaEmpleados = negocio.listar();
-            gvEmpleados.DataSource = listaEmpleados;
+            Session.Add("ListaEmpleados", negocio.listar());
+            gvEmpleados.DataSource = Session["ListaEmpleados"];             
             gvEmpleados.DataBind();
         }
 
@@ -31,5 +31,13 @@ namespace App_GestorIncidencias.Admin
             Response.Redirect("GestionarEmpleado.aspx?Legajo=" + legajoSeleccionado);
         }
 
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<Empleado> listaEmpleados = (List<Empleado>)Session["ListaEmpleados"];
+            List<Empleado> listaFiltrada = listaEmpleados.FindAll(x => x.persona.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()) || x.persona.Apellido.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+            gvEmpleados.DataSource = listaFiltrada;
+            gvEmpleados.DataBind();
+
+        }
     }
 }

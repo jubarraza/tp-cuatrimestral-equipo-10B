@@ -389,5 +389,11 @@ namespace App_GestorIncidencias.Admin
                 repRepetidor.DataBind();
             }
         }
+
+        protected void txtDni_TextChanged(object sender, EventArgs e)
+        {   
+            if(!Helper.validarSoloNumeros(txtDni.Text))
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "errorModal", "alert('Campo DNI debe ingresar solo numeros.');", true);
+        }
     }
 }

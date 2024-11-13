@@ -97,7 +97,7 @@
 
             <div class="mb-3 col-lg-2 col-md-3 col-sm-6">
                 <label for="txtDni" class="form-label">Dni</label>
-                <asp:TextBox runat="server" ID="txtDni" CssClass="form-control" MaxLength="20" />
+                <asp:TextBox runat="server" ID="txtDni" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtDni_TextChanged" MaxLength="8" />
                 <asp:RequiredFieldValidator runat="server" ID="validatorDni" ControlToValidate="txtDni" ErrorMessage="⛔ El campo DNI es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" />
             </div>
 

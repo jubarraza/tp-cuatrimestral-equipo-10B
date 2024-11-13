@@ -10,12 +10,16 @@
     <div class="mb-3 row">
         <div class="col-md-4">
             <asp:TextBox ID="txtBuscar" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" placeholder="Buscar 🔍" runat="server"></asp:TextBox>
-        </div>  
+        </div>
+        <div class="col-md-8 gap-2 d-md-flex justify-content-md-end">
+          <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
+        </div>   
     </div>
     <asp:UpdatePanel ID="UpDatePanel1" runat="server">
 <ContentTemplate>
     <div class="mb-3 row">
-        <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged" CssClass="table table-hover" AutoGenerateColumns="false" runat="server">
+        <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" CssClass="table table-hover text-center" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged"
+            OnPageIndexChanging="gvEmpleados_PageIndexChanging" AllowPaging="true" PageSize="6" AutoGenerateColumns="false" runat="server">
             <Columns>
                 <asp:BoundField HeaderText="Nombre/s" DataField="persona.Nombre" />
                 <asp:BoundField HeaderText="Apellido/s" DataField="persona.Apellido" />
@@ -29,9 +33,6 @@
         </asp:GridView>
     </div>
           </ContentTemplate>
-      </asp:UpdatePanel>
-    <div class="d-grid gap-2 col-2 mx-auto">
-      <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
-    </div>        
+      </asp:UpdatePanel>     
     </div>
 </asp:Content>

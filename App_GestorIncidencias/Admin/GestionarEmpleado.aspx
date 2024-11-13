@@ -46,9 +46,9 @@
             </div>
           </div>
           <div class="col-12 mt-3">
-            <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" runat="server" />
-            <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" CssClass="btn btn-secondary" runat="server" />
-            <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger" runat="server" />
+            <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary me-md-2" runat="server" />
+            <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" CssClass="btn btn-secondary me-md-2" runat="server" />
+            <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger me-md-2" runat="server" />
           </div>
         </form>
        </div>

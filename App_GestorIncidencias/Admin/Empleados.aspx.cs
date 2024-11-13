@@ -34,10 +34,17 @@ namespace App_GestorIncidencias.Admin
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             List<Empleado> listaEmpleados = (List<Empleado>)Session["ListaEmpleados"];
-            List<Empleado> listaFiltrada = listaEmpleados.FindAll(x => x.persona.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()) || x.persona.Apellido.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+            List<Empleado> listaFiltrada = listaEmpleados.FindAll(x => x.persona.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper())
+            || x.persona.Apellido.ToUpper().Contains(txtBuscar.Text.ToUpper()));
             gvEmpleados.DataSource = listaFiltrada;
             gvEmpleados.DataBind();
 
+        }
+
+        protected void gvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvEmpleados.PageIndex = e.NewPageIndex;
+            gvEmpleados.DataBind();
         }
     }
 }

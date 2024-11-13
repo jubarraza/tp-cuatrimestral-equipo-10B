@@ -20,7 +20,7 @@ namespace Dominio
 
         public Prioridad Prioridad { get; set; } 
 
-        public int Tipo { get; set; } 
+        public TipoIncidencia Tipo { get; set; } 
 
         public DateTime FechaAlta { get; set; } 
 

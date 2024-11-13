@@ -16,7 +16,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "select INC.codigo, INC.Cliente, INC.cliente, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.Tipo, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
+                string consulta = "select INC.codigo, INC.Cliente, INC.cliente, INC.Descripcion,EST.Id AS IdEstado, EST.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = EST.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
                 if(id != "")
                     consulta = consulta + " where INC.codigo = " + id;
                 datos.setearConsulta(consulta);
@@ -24,6 +24,9 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Incidencia aux = new Incidencia();
+                    aux.Tipo = new TipoIncidencia();
+                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
+
                     aux.Id = (int)datos.Lector["codigo"];
                     aux.Cliente = (int)datos.Lector["Cliente"];
                     aux.Usuario = (int)datos.Lector["cliente"];
@@ -34,7 +37,8 @@ namespace Negocio
                     aux.Prioridad = new Prioridad();
                     aux.Prioridad.Id = (int)datos.Lector["IdPrioridad"];
                     aux.Prioridad.Nombre = (string)datos.Lector["Prioridad"];
-                    aux.Tipo = (int)datos.Lector["Tipo"];
+                    aux.Tipo.Id = (int)datos.Lector["IdTipoIncidencia"];
+                    aux.Tipo = tipoNegocio.Buscar(aux.Tipo.Id);
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
                     if (!(datos.Lector["FechaCierre"] is DBNull))
@@ -69,13 +73,13 @@ namespace Negocio
             
             try
             {
-                datos.setearConsulta("insert into INCIDENCIAS values (@Cliente, @cliente, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
-                datos.setearParametro("@cliente", nueva.Cliente);
-                datos.setearParametro("@cliente", nueva.Usuario);
+                datos.setearConsulta("insert into INCIDENCIAS (Cliente, Usuario, Descripcion, Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) values (@Cliente, @Usuario, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
+                datos.setearParametro("@Cliente", nueva.Cliente);
+                datos.setearParametro("@Usuario", nueva.Usuario);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.setearParametro("@Estado", nueva.Estado.Id);
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
-                datos.setearParametro("@Tipo", nueva.Tipo);
+                datos.setearParametro("@Tipo", nueva.Tipo.Id);
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
                 datos.ejecutarAccion();
             }
@@ -97,13 +101,13 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("update incidencias set cliente = @cliente, cliente = @cliente, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, Tipo = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion =  @Resolucion where codigo = @Id");
+                datos.setearConsulta("update incidencias set Cliente = @cliente, Usuario = @Usuario, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, IdTipoIncidencia = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion =  @Resolucion where codigo = @Id");
                 datos.setearParametro("@cliente", nueva.Cliente);
-                datos.setearParametro("@cliente", nueva.Usuario);
+                datos.setearParametro("@Usuario", nueva.Usuario);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.setearParametro("@Estado", nueva.Estado.Id);
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
-                datos.setearParametro("@Tipo", nueva.Tipo);
+                datos.setearParametro("@Tipo", nueva.Tipo.Id);
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
                 datos.setearParametro("@FechaCierre", nueva.FechaCierre);
                 datos.setearParametro("@Resolucion", nueva.Resolucion);

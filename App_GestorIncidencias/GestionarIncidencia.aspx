@@ -109,7 +109,7 @@
             <div class="row mt-5">
 
                 <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Modificar" ID="btnAceptar" CssClass="btn btn-success" runat="server" />
+                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
                     <a href="IncidenciaListar.aspx">Volver</a>
                 </div>
 

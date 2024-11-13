@@ -39,6 +39,36 @@ namespace Negocio
             }
         }
 
+        public List<TipoIncidencia> listar(bool visible)
+        {
+            List<TipoIncidencia> lista = new List<TipoIncidencia>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("select Id, Nombre, Visible, Activo from TIPO_INCIDENCIA WHERE Activo = 1 AND Visible = 1");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    TipoIncidencia aux = new TipoIncidencia();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Visible = (bool)datos.Lector["Visible"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public TipoIncidencia Buscar(int id)
         {
             TipoIncidenciaNegocio neg = new TipoIncidenciaNegocio();

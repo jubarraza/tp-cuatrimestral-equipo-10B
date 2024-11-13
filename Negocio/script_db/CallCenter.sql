@@ -7,24 +7,24 @@ go
 
 -- INCIDENCIAS
 create table INCIDENCIAS(
-codigo int identity(1000,1) not null,
+Codigo int identity(1000,1) not null primary key,
 Cliente int not null,
 Usuario int not null,
-Descripcion varchar(200) not null,
+Descripcion varchar(1000) not null,
 Estado int not null,
 Prioridad int not null,
-Tipo int not null,
+IdTipoIncidencia int not null,
 FechaAlta smalldatetime,
 FechaCierre smalldatetime,
 Resolucion Varchar(200)) 
 go
 set dateformat dmy
 go
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad,Tipo, FechaAlta, FechaCierre, Resolucion) 
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
 values (2,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad,Tipo, FechaAlta, FechaCierre, Resolucion) 
-values (3,2,'Solicito baja de servicio',4,3,1,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad,Tipo, FechaAlta, FechaCierre, Resolucion) 
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (3,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
 values (1,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
 go
 

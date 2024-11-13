@@ -20,15 +20,22 @@ namespace App_GestorIncidencias
                 string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
 
                 if (!IsPostBack)
-                {   
+                {
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
                     List<Prioridad> prioridades = prioridadNegocio.listar();
                     ddlPrioridad.DataSource = prioridades;
                     ddlPrioridad.DataValueField = "Id";
                     ddlPrioridad.DataTextField = "Nombre";
-                    ddlPrioridad.DataBind();                                                  
+                    ddlPrioridad.DataBind();
 
-                    
+                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
+                    List <TipoIncidencia> incidencias = tipoNegocio.listar(true);
+                    ddlTipoIncidencia.DataSource = incidencias;
+                    ddlTipoIncidencia.DataValueField = "Id";
+                    ddlTipoIncidencia.DataTextField = "Nombre";
+                    ddlTipoIncidencia.DataBind();
+
+
 
                     if (id != "")
                     {   
@@ -47,6 +54,8 @@ namespace App_GestorIncidencias
                         TxtDescripcion.Text = seleccion.Descripcion.ToString();
                         ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
                         ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
+                        ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
+                        txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
 
                         ComentarioNegocio Cnegocio = new ComentarioNegocio();
                         dgvComentarios.DataSource = Cnegocio.Listar(id);
@@ -89,7 +98,8 @@ namespace App_GestorIncidencias
                 incidencia.Estado.Id = 1;
                 incidencia.Prioridad = new Prioridad();
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
-                incidencia.Tipo = 2;
+                incidencia.Tipo = new TipoIncidencia();
+                incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
                 incidencia.FechaAlta = DateTime.Now;
                 negocio.AgregarIncidencia(incidencia);
                 Response.Redirect("IncidenciaListar.aspx", false);

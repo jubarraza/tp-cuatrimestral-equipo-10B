@@ -115,7 +115,7 @@ create table PERSONAS(
 Id bigint identity(1,1) not null primary key,
 Nombre varchar(50) not null,
 Apellido varchar(50) not null,
-Email varchar(80) not null unique)
+Email varchar(80) not null)
 go
 insert into PERSONAS
 values ('Bart','Simpson','bartsimpson@gmail.com');
@@ -371,9 +371,9 @@ as BEGIN
 
 	END TRY
 	BEGIN CATCH
-	IF @@TRANCOUNT > 0 
-		ROLLBACK TRANSACTION
-		throw;
+	IF @@TRANCOUNT > 0
+		ROLLBACK TRANSACTION;
+		THROW;
 	END CATCH
 END;
 GO

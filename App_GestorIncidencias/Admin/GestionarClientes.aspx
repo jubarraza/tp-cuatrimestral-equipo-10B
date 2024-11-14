@@ -59,10 +59,7 @@
             var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacionEdicion'));
             myModal.show();
         }
-
-
     </script>
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -95,12 +92,6 @@
                 <asp:TextBox runat="server" ID="txtIdPersona" CssClass="form-control" MaxLength="10" Enabled="false" />
             </div>
 
-            <div class="mb-3 col-lg-2 col-md-3 col-sm-6">
-                <label for="txtDni" class="form-label">Dni</label>
-                <asp:TextBox runat="server" ID="txtDni" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtDni_TextChanged" MaxLength="8" />
-                <asp:RequiredFieldValidator runat="server" ID="validatorDni" ControlToValidate="txtDni" ErrorMessage="⛔ El campo DNI es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" />
-            </div>
-
             <div class="mb-3 col-lg-5 col-md-3 col-sm-12">
                 <label for="txtFechaNac" class="form-label">Fecha Nacimiento</label>
                 <asp:TextBox runat="server" ID="txtFechaNac" TextMode="Date" CssClass="form-control" />
@@ -109,11 +100,39 @@
 
             <div class="mb-3 col-lg-5 col-md-6 col-sm-12">
                 <label for="txtEmail" class="form-label">Email</label>
-                <asp:TextBox runat="server" ID="txtEmail" AutoPostBack="true" OnTextChanged="txtEmail_TextChanged" CssClass="form-control" MaxLength="80" />
+                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" MaxLength="80" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail" ErrorMessage="⛔ El campo Email es requerido" CssClass="text-danger" Display="Dynamic" />
+                <asp:RegularExpressionValidator ControlToValidate="txtEmail" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ErrorMessage="⛔ Ingrese un formato de correo válido" CssClass="text-danger" Display="Dynamic" runat="server" />
             </div>
 
-            <asp:UpdatePanel runat="server">
+            <div class="mb-3 col-lg-2 col-md-3 col-sm-6">
+                <label for="txtDni" class="form-label">Dni</label>
+                <asp:TextBox runat="server" ID="txtDni" CssClass="form-control" MaxLength="8" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDni" ErrorMessage="⛔ El campo DNI es requerido" CssClass="text-danger" Display="Dynamic" />
+                <asp:RegularExpressionValidator ControlToValidate="txtDni" ValidationExpression="^\d+$" ErrorMessage="⛔ Solo se aceptan numeros" EnableClientScript="true" CssClass="text-danger" Display="Dynamic" runat="server" />
+
+            </div>
+
+            <div class="container p-3 col-4" runat="server">
+                <div class="row justify-content-center">
+                    <asp:Button Text="Validar DNI" CssClass="btn mt-4 card-img-top btn-success" runat="server" ID="btnValidarDni" OnClick="btnValidarDni_Click" />
+                </div>
+            </div>
+
+
+            <div class="container p-3 col-9" id="cont2" runat="server">
+                <div class="row justify-content-center alert alert-warning" runat="server" id="boxAlerta">
+                    <asp:Label Text="" runat="server" ID="lblValidacionDni" CssClass="form-label text-center p-1" />
+                    <asp:Button Text="Editar Cliente" runat="server" ID="btnEditarClienteValidado" OnClick="btnEditarClienteValidado_Click" CssClass="btn btn-warning col-auto me-auto ms-auto" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <%if (ocultarTelefonoYDireccion == false)
+                { %>
+            <asp:UpdatePanel runat="server" ID="updRepeater">
                 <ContentTemplate>
                     <div class="row mb-3 d-flex justify-content-center">
                         <asp:Repeater ID="repRepetidor" runat="server" OnItemDataBound="repRepetidor_ItemDataBound">
@@ -133,6 +152,7 @@
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
             <div class="row mb-3 d-flex">
                 <asp:Panel ID="pnlTelefonos" runat="server">
                     <asp:Table runat="server" ID="tblTelefonos" class="table">
@@ -143,66 +163,81 @@
                     </asp:Table>
                     <asp:Button ID="btnAgregarTelefono" runat="server" Text="Agregar Teléfono" OnClientClick="agregarTelefono(); return false;" CssClass="btn btn-primary mb-3" />
                 </asp:Panel>
+
+
             </div>
 
-            <div class="row mb-3">
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <label for="txtIdDireccion" class="form-label">Id Direccion</label>
-                    <asp:TextBox runat="server" ID="txtIdDireccion" CssClass="form-control" ReadOnly="true" Enabled="false" Placeholder="#" />
-                </div>
 
-                <div class="mb-3 col-lg-5 col-md-5 col-sm-12">
-                    <label for="txtCalle" class="form-label">Calle</label>
-                    <asp:TextBox runat="server" ID="txtCalle" CssClass="form-control" MaxLength="70" Placeholder="Avenida Tortugas" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCalle" ErrorMessage="⛔ El campo Calle es requerido" CssClass="text-danger" Display="Dynamic" />
-                </div>
+        <asp:UpdatePanel runat="server" ID="updDireccion">
+            <ContentTemplate>
 
-                <div class="mb-3 col-lg-5 col-md-4 col-sm-12">
-                    <label for="txtNumero" class="form-label">Numero</label>
-                    <asp:TextBox runat="server" ID="txtNumero" CssClass="form-control" MaxLength="13" Placeholder="123" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNumero" ErrorMessage="⛔ El campo Numero es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" />
-                </div>
-
-                <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
-                    <label for="txtLocalidad" class="form-label">Localidad</label>
-                    <asp:TextBox runat="server" ID="txtLocalidad" CssClass="form-control" MaxLength="70" Placeholder="San Martin" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtLocalidad" ErrorMessage="⛔ El campo Localidad es requerido" CssClass="text-danger" Display="Dynamic" />
-                </div>
-
-                <div class="mb-3 col-lg-2 col-md-6 col-sm-6">
-                    <label for="txtCP" class="form-label">Codigo Postal</label>
-                    <asp:TextBox runat="server" ID="txtCP" CssClass="form-control" MaxLength="20" Placeholder="B1644" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCP" ErrorMessage="⛔ El campo Codigo Postal es requerido" CssClass="text-danger" Display="Dynamic" />
-                </div>
-            </div>
-
-            <asp:UpdatePanel runat="server">
-                <ContentTemplate>
-                    <div class="row mb-3 d-flex align-items-center">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label for="ddlProvincias" class="form-label">Provincia</label>
-                            <asp:DropDownList runat="server" ID="ddlProvincias" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlProvincias_SelectedIndexChanged"></asp:DropDownList>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label for="txtPais" class="form-label">Pais</label>
-                            <asp:TextBox runat="server" ID="txtPais" CssClass="form-control" Enabled="false" />
-                        </div>
+                <div class="row mb-3">
+                    <div class="col-lg-2 col-md-3 col-sm-6">
+                        <label for="txtIdDireccion" class="form-label">Id Direccion</label>
+                        <asp:TextBox runat="server" ID="txtIdDireccion" CssClass="form-control" ReadOnly="true" Enabled="false" Placeholder="#" />
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
 
-        <!-- Botones centrados al final del formulario -->
+                    <div class="mb-3 col-lg-5 col-md-5 col-sm-12">
+                        <label for="txtCalle" class="form-label">Calle</label>
+                        <asp:TextBox runat="server" ID="txtCalle" CssClass="form-control" MaxLength="70" Placeholder="Avenida Tortugas" />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCalle" ErrorMessage="⛔ El campo Calle es requerido" CssClass="text-danger" Display="Dynamic" ID="validatorCalle" />
+                    </div>
 
-        <div class="row mt-4">
-            <div class="col text-center">
-                <asp:Button Text="Guardar" ID="btnAceptar" CssClass="btn btn-primary me-2" runat="server" OnClick="btnAceptar_Click" />
-                <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-success me-2" runat="server" OnClick="btnEditar_Click" />
-                <asp:Button Text="Cancelar" ID="btnCancelar" CssClass="btn btn-secondary" runat="server" OnClick="btnCancelar_Click" />
-            </div>
+                    <div class="mb-3 col-lg-5 col-md-4 col-sm-12">
+                        <label for="txtNumero" class="form-label">Numero</label>
+                        <asp:TextBox runat="server" ID="txtNumero" CssClass="form-control" MaxLength="13" Placeholder="123" />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNumero" ErrorMessage="⛔ El campo Numero es requerido. Solo acepta numeros." CssClass="text-danger" Display="Dynamic" ID="validatorNumero" />
+                        <asp:RegularExpressionValidator ControlToValidate="txtNumero" ValidationExpression="^\d+$" ErrorMessage="⛔ Ingrese solo numeros" CssClass="text-danger" Display="Dynamic" runat="server" />
+                    </div>
+
+                    <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
+                        <label for="txtLocalidad" class="form-label">Localidad</label>
+                        <asp:TextBox runat="server" ID="txtLocalidad" CssClass="form-control" MaxLength="70" Placeholder="San Martin" />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtLocalidad" ErrorMessage="⛔ El campo Localidad es requerido" CssClass="text-danger" Display="Dynamic" ID="validatorLocalidad" />
+                    </div>
+
+                    <div class="mb-3 col-lg-4 col-md-7 col-sm-6">
+                        <label for="txtCP" class="form-label">Codigo Postal</label>
+                        <asp:TextBox runat="server" ID="txtCP" CssClass="form-control" MaxLength="20" Placeholder="B1644" />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCP" ErrorMessage="⛔ El campo Codigo Postal es requerido" CssClass="text-danger" Display="Dynamic" ID="validatorCP" />
+                    </div>
+                </div>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+        <asp:UpdatePanel runat="server" ID="updProvincias">
+            <ContentTemplate>
+                <div class="row mb-3 d-flex align-items-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="ddlProvincias" class="form-label">Provincia</label>
+                        <asp:DropDownList runat="server" ID="ddlProvincias" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlProvincias_SelectedIndexChanged"></asp:DropDownList>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="txtPais" class="form-label">Pais</label>
+                        <asp:TextBox runat="server" ID="txtPais" CssClass="form-control" Enabled="false" />
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+
+    <!-- Botones centrados al final del formulario -->
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <asp:Button Text="Guardar" ID="btnAceptar" CssClass="btn btn-primary me-2" runat="server" OnClick="btnAceptar_Click" />
+            <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-success me-2" runat="server" OnClick="btnEditar_Click" />
+            <asp:Button Text="Cancelar" ID="btnCancelar" CssClass="btn btn-secondary" runat="server" OnClick="btnCancelar_Click" />
         </div>
     </div>
+
+
+
+    <% } %>
+    </div>
+
 
     <!-- Modal Eliminacion-->
     <div class="modal fade" id="ModalConfirmacion" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -245,6 +280,5 @@
             </div>
         </div>
     </div>
-
 
 </asp:Content>

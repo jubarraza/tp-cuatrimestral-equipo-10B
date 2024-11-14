@@ -8,15 +8,17 @@
     <div class="container mt-4">
     <h1>Menu de administración de Empleados</h1>
     <div class="mb-3 row">
-        <div class="col-md-4">
-            <asp:TextBox ID="txtBuscar" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" placeholder="Buscar 🔍" runat="server"></asp:TextBox>
+        <div class="col-md-4 d-flex">
+            <asp:TextBox ID="txtBuscar" CssClass="form-control me-md-2" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" placeholder="Buscar 🔍" runat="server"></asp:TextBox>
+            <asp:Button ID="btnLimpiar" CssClass="btn-close" OnClick="btnLimpiar_Click" runat="server" />
         </div>
-        <div class="col-md-8 gap-2 d-md-flex justify-content-md-end">
+        <div class="col-md-8 d-flex justify-content-md-end">
           <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-success" runat="server" />
         </div>   
     </div>
+
     <asp:UpdatePanel ID="UpDatePanel1" runat="server">
-<ContentTemplate>
+    <ContentTemplate>
     <div class="mb-3 row">
         <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" CssClass="table table-hover text-center" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged"
             OnPageIndexChanging="gvEmpleados_PageIndexChanging" AllowPaging="true" PageSize="6" AutoGenerateColumns="false" runat="server">

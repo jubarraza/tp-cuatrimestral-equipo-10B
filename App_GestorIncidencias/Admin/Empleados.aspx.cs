@@ -46,5 +46,10 @@ namespace App_GestorIncidencias.Admin
             gvEmpleados.PageIndex = e.NewPageIndex;
             gvEmpleados.DataBind();
         }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+        }
     }
 }

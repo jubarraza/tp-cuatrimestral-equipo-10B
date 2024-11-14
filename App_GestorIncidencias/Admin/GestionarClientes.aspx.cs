@@ -530,7 +530,7 @@ namespace App_GestorIncidencias.Admin
                 boxAlerta.Visible = true;
                 cont2.Visible = true;
                 lblValidacionDni.Visible = true;
-                lblValidacionDni.Text = "<p>El DNI ingresado ya se encuentra registrado como Cliente.<br/> Si se ha producido algun error al ingresar el DNI por favor ingreselo de nuevo y vuelva a presionar <strong>'Validar'</strong></p> <p><br/>Si el DNI ingresado es correcto, puede editar el cliente haciendo click en <strong>'Editar'</strong></p>";
+                lblValidacionDni.Text = "<p>El DNI ingresado ya se encuentra registrado como Cliente.<br/> Si se ha producido algun error al ingresar el DNI por favor ingreselo de nuevo y vuelva a presionar <strong>'Validar DNI'</strong></p> <p><br/>Si el DNI ingresado es correcto, puede editar el cliente haciendo click en <strong>'Editar Cliente'</strong></p>";
                 btnEditarClienteValidado.Visible = true;
                 ocultarTelefonoYDireccion = true;
             }

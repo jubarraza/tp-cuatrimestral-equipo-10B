@@ -26,6 +26,7 @@
                             <label for="lblEmail" class="form-label">Email:</label>
                             <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" MaxLength="80"/>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail" ErrorMessage="⛔ El campo Email es requerido" CssClass="text-danger" Display="Dynamic" />
+                            <asp:RegularExpressionValidator ControlToValidate="txtEmail" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ErrorMessage="⛔ Ingrese un formato de correo válido" CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label for="lblLegajo" class="form-label">Legajo:</label>

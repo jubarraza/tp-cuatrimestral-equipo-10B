@@ -395,5 +395,11 @@ namespace App_GestorIncidencias.Admin
             if(!Helper.validarSoloNumeros(txtDni.Text))
             ScriptManager.RegisterStartupScript(this, this.GetType(), "errorModal", "alert('Campo DNI debe ingresar solo numeros.');", true);
         }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            if(!Helper.validarEmail(txtEmail.Text))
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "errorModal", "alert('Debe ingresar un mail valido');", true);
+        }
     }
 }

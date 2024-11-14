@@ -109,7 +109,7 @@
 
             <div class="mb-3 col-lg-5 col-md-6 col-sm-12">
                 <label for="txtEmail" class="form-label">Email</label>
-                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" MaxLength="80" />
+                <asp:TextBox runat="server" ID="txtEmail" AutoPostBack="true" OnTextChanged="txtEmail_TextChanged" CssClass="form-control" MaxLength="80" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail" ErrorMessage="⛔ El campo Email es requerido" CssClass="text-danger" Display="Dynamic" />
             </div>
 

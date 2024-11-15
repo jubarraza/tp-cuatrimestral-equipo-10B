@@ -33,8 +33,7 @@ namespace App_GestorIncidencias.Admin
                 long ultimoLegajo = empleadoNegocio.ObtenerUltimoLegajo();
                 txtLegajo.Text = ultimoLegajo.ToString();
                 TipoUsuarioNegocio tipoNegocio = new TipoUsuarioNegocio();
-                List<TipoUsuario> lista = tipoNegocio.listar();
-                btnAceptar.Text = "Aceptar";
+                List<TipoUsuario> lista = tipoNegocio.listar();              
 
                 ddlTipoUsuario.DataSource = lista;
                 ddlTipoUsuario.DataValueField = "IdTipoUsuario";
@@ -45,6 +44,7 @@ namespace App_GestorIncidencias.Admin
             if (legajo != "" && !IsPostBack)
             {
                 btnAceptar.Text = "Guardar";
+                btnAceptar.CssClass = "btn btn-primary me-md-2";
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
                 Empleado seleccionado = negocio.listar(legajo)[0];
                 Session.Add("empleadoSeleccionado", seleccionado);
@@ -81,13 +81,15 @@ namespace App_GestorIncidencias.Admin
             nuevo.tipoUsuario.IdTipoUsuario = int.Parse(ddlTipoUsuario.SelectedValue);
             nuevo.FechaIngreso = DateTime.Parse(txtFechaIngreso.Text);
             nuevo.UserPassword = txtUserPassword.Text;
-            if (rbActivo.Checked)
+            if (rbActivo.Checked || rbInactivo.Checked)
             {
-                nuevo.Activo = true;
+                nuevo.Activo = rbActivo.Checked;
+                lblError.Visible = false;
             }
             else
             {
-                nuevo.Activo = false;
+                lblError.Visible = true;
+                return;
             }
 
             if (Request.QueryString["Legajo"] != null)

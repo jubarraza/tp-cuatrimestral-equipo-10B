@@ -33,7 +33,7 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Admin/GestionarEmpleado.aspx");
+            Response.Redirect("~/Admin/GestionarEmpleado.aspx", false);
         }
 
         protected void gvEmpleados_SelectedIndexChanged(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace App_GestorIncidencias.Admin
             try
             {
                 string legajoSeleccionado = gvEmpleados.SelectedDataKey.Value.ToString();
-                Response.Redirect("GestionarEmpleado.aspx?Legajo=" + legajoSeleccionado);
+                Response.Redirect("GestionarEmpleado.aspx?Legajo=" + legajoSeleccionado, false);
             }
             catch (Exception ex)
             {

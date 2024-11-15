@@ -109,15 +109,15 @@ namespace App_GestorIncidencias.Admin
                 else
                 {
                     negocio.Agregar(nuevo);
-                }           
+                }
+
+                Response.Redirect("~/Admin/Empleados.aspx", false);
             }
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
-
-            Response.Redirect("~/Admin/Empleados.aspx");
 
         }
 
@@ -133,15 +133,15 @@ namespace App_GestorIncidencias.Admin
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
                 long legajo = long.Parse(Request.QueryString["Legajo"]);
                 negocio.Eliminar(legajo);
+
+                Response.Redirect("~/Admin/Empleados.aspx", false);
+
             }
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
-
-            Response.Redirect("~/Admin/Empleados.aspx");
-
         }
 
         protected void rbActivo_CheckedChanged(object sender, EventArgs e)

@@ -88,8 +88,18 @@ namespace App_GestorIncidencias.Admin
 
                         CargarTelefonos();
 
+                        if (Request.QueryString["from"] == "incidencia")
+                        {
+                            btnEditar_Click(sender, e);
+                        }
 
                     }
+
+                    if (Request.QueryString["newDni"] != null)
+                    {
+                        txtDni.Text = Request.QueryString["newDni"].ToString();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -231,8 +241,8 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 validatorCalle.Enabled = true;
                 validatorNumero.Enabled = true;
                 validatorLocalidad.Enabled = true;
@@ -253,13 +263,27 @@ namespace App_GestorIncidencias.Admin
                     cliente = clienteNegocio.BuscarCliente(cliente.Dni);
                     GuardarTelefonos(cliente.persona.Id);
                 }
-                Response.Redirect("Clientes.aspx", false);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Session.Add("Error", ex.ToString());
-            //    Response.Redirect("../PageError.aspx", false);
-            //}
+
+                if (Request.QueryString["from"] == "incidencia")
+                {
+                    Response.Redirect("~/GestionarIncidencia.aspx?dni=" + cliente.Dni.ToString(), false);
+
+                    if(Request.QueryString["idIncidencia"] != null)
+                    {
+                        int idInc = int.Parse(Request.QueryString["idIncidencia"]);
+                        Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc + "dni=" + cliente.Dni.ToString(), false);
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Clientes.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
         }
 
         protected Cliente capturarDatosFormulario()
@@ -300,7 +324,15 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Clientes.aspx", false);
+            if (Request.QueryString["from"] == "incidencia")
+            {
+                Response.Redirect("~/GestionarIncidencia.aspx?dni=" + txtDni.Text, false);
+            }
+            else
+            {
+                Response.Redirect("Clientes.aspx", false);
+            }
+
         }
 
         protected void GuardarTelefonos(long idPersona)
@@ -466,7 +498,7 @@ namespace App_GestorIncidencias.Admin
                     {
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "errorModal", "alert('Solo se aceptan numeros.');", true);
                     }
-                    
+
                 }
                 else
                 {
@@ -544,7 +576,7 @@ namespace App_GestorIncidencias.Admin
                 validatorNumero.Enabled = false;
                 validatorLocalidad.Enabled = false;
                 validatorCP.Enabled = false;
-                boxAlerta.Visible = false; 
+                boxAlerta.Visible = false;
                 cont2.Visible = false;
             }
         }

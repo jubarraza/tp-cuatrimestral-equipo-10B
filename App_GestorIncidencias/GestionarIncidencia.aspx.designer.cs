@@ -51,6 +51,15 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtDniCliente;
 
         /// <summary>
+        /// Control validadorDni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator validadorDni;
+
+        /// <summary>
         /// Control lblValidacionNumero.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,24 @@ namespace App_GestorIncidencias
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblValidacionNumero;
+
+        /// <summary>
+        /// Control btnAgregarCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarCliente;
+
+        /// <summary>
+        /// Control btnCambiarCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCambiarCliente;
 
         /// <summary>
         /// Control txtCliente.
@@ -69,13 +96,13 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtCliente;
 
         /// <summary>
-        /// Control txtTelefono.
+        /// Control repRepetidor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
+        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
 
         /// <summary>
         /// Control txtEmail.
@@ -94,6 +121,15 @@ namespace App_GestorIncidencias
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
+
+        /// <summary>
+        /// Control btnEditarCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditarCliente;
 
         /// <summary>
         /// Control TxtDescripcion.
@@ -150,6 +186,33 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.Button btnAceptar;
 
         /// <summary>
+        /// Control btnEditar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditar;
+
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolver;
+
+        /// <summary>
+        /// Control contComentarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contComentarios;
+
+        /// <summary>
         /// Control dgvComentarios.
         /// </summary>
         /// <remarks>
@@ -166,5 +229,14 @@ namespace App_GestorIncidencias
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnComentar;
+
+        /// <summary>
+        /// Control btnNuevoCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNuevoCliente;
     }
 }

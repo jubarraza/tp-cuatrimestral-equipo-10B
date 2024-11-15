@@ -48,13 +48,13 @@
 
                 <div class="mb-3 col-sm-7 col-md-4 me-auto">
                     <label for="ddlEstado" class="form-label">Estado: </label>
-                    <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-select"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-control text-center alert alert-primary"></asp:DropDownList>
                 </div>
 
                 <div class="col-md-2 col-sm-6 mb-4">
-                    <div class="btn-group-lg card gap-3 mb-3">
-                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" />
-                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" />
+                    <div class="btn-group-lg card gap-3 mb-3" id="botonesCierre" runat="server">
+                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" />
+                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" />
                     </div>
                 </div>
             </div>
@@ -73,7 +73,6 @@
                                 </div>
 
                                 <div class="mb-3 me-auto col-4">
-                                    <asp:Button Text="Agregar" runat="server" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary boton form-control" />
                                     <asp:Button Text="Cambiar" runat="server" ID="btnCambiarCliente" OnClick="btnCambiarCliente_Click" CssClass="btn btn-warning boton form-control text-center" />
                                 </div>
                             </div>
@@ -109,10 +108,14 @@
                 </div>
 
                 <div class="container col-5 p-2">
-
+                    <%-- TODO: <div class="mb-3 me-auto ">
+                        <label for="txtDescripcion" class="form-label">Titulo: </label>
+                        <asp:TextBox runat="server" TextMode="MultiLine" ID="txtTitulo" CssClass="form-control" MaxLength="100" />
+                    </div>--%>
                     <div class="mb-3 me-auto ">
                         <label for="txtDescripcion" class="form-label">Descripción: </label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtDescripcion" CssClass="form-control alturaDesc" />
+                        <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtDescripcion" CssClass="form-control alturaDesc" MaxLength="1000" />
+                        <asp:Label Text="⛔ El campo Descripcion es requerido" runat="server" Visible="false" ID="lblValidacionDescripcion" CssClass="text-danger" />
                     </div>
 
                 </div>
@@ -122,6 +125,8 @@
                     <div class="mb-3 me-auto">
                         <label for="txtUsuario" class="form-label">Usuario: </label>
                         <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" />
+                        <asp:Label Text="⛔ El campo Usuario es requerido" runat="server" Visible="false" ID="lblValidacionUsuario" CssClass="text-danger" />
+
                     </div>
 
                     <div class="mb-3 me-auto">

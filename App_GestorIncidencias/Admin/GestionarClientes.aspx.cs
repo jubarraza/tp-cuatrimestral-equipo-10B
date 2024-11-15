@@ -257,7 +257,7 @@ namespace App_GestorIncidencias.Admin
                     cliente.direccion.Id = long.Parse(txtIdDireccion.Text);
                     clienteNegocio.modificarCliente(cliente);
                 }
-                else
+                else if(Request.QueryString["dni"] == null || Request.QueryString["newDni"] != null)
                 {
                     clienteNegocio.agregarCliente(cliente);
                     cliente = clienteNegocio.BuscarCliente(cliente.Dni);
@@ -266,12 +266,14 @@ namespace App_GestorIncidencias.Admin
 
                 if (Request.QueryString["from"] == "incidencia")
                 {
-                    Response.Redirect("~/GestionarIncidencia.aspx?dni=" + cliente.Dni.ToString(), false);
-
                     if(Request.QueryString["idIncidencia"] != null)
                     {
                         int idInc = int.Parse(Request.QueryString["idIncidencia"]);
-                        Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc + "dni=" + cliente.Dni.ToString(), false);
+                        Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc.ToString() + "&dni=" + cliente.Dni.ToString(), false);
+                    }
+                    else
+                    {
+                        Response.Redirect("~/GestionarIncidencia.aspx?dni=" + cliente.Dni.ToString(), false);
                     }
                 }
                 else

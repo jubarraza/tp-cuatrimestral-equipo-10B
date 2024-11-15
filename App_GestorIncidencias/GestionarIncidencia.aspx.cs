@@ -45,6 +45,8 @@ namespace App_GestorIncidencias
                     btnEditar.Visible = false;
                     btnEditarCliente.Visible = false;
                     contComentarios.Visible = false;
+
+                    botonesCierre.Visible = false;
                     
 
                     if (id != "")
@@ -81,6 +83,8 @@ namespace App_GestorIncidencias
 
                         contComentarios.Visible = true;
                         txtId.ReadOnly = true;
+
+                        botonesCierre.Visible = true;
                     }
                     else
                     {
@@ -112,7 +116,6 @@ namespace App_GestorIncidencias
         {
             btnEditar.Visible = true;
             btnAceptar.Visible = false;
-            btnAgregarCliente.Visible = false;
             btnCambiarCliente.Visible = false;
             btnEditarCliente.Visible = false;
             TxtDescripcion.ReadOnly = true;
@@ -127,7 +130,6 @@ namespace App_GestorIncidencias
         {
             btnEditar.Visible = false;
             btnAceptar.Visible = true;
-            btnAgregarCliente.Visible = false;
             btnCambiarCliente.Visible = true;
             btnEditarCliente.Visible = true;
             TxtDescripcion.ReadOnly = false;
@@ -149,8 +151,26 @@ namespace App_GestorIncidencias
             txtDireccion.Text = aux.direccion.ToString();
             CargarTelefonos();
             btnEditarCliente.Visible = true;
-            btnAgregarCliente.Visible = false;
             btnCambiarCliente.Visible = true;
+
+        }
+
+        protected bool validarCamposObligatorios()
+        {
+            bool bandera = true;
+
+            if (string.IsNullOrEmpty(TxtDescripcion.Text))
+            {
+                lblValidacionDescripcion.Visible = true;
+                bandera = false;
+            }
+            if (string.IsNullOrEmpty(txtUsuario.Text))
+            {
+                lblValidacionUsuario.Visible = true;
+                bandera = false;
+            }
+
+            return bandera;
 
         }
 
@@ -158,31 +178,39 @@ namespace App_GestorIncidencias
         {
             try
             {
-                Incidencia incidencia = new Incidencia();
-                IncidenciaNegocio negocio = new IncidenciaNegocio();
-                incidencia.cliente = new Cliente();
-                incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
-                incidencia.Usuario = int.Parse(txtUsuario.Text);
-                incidencia.Descripcion = TxtDescripcion.Text;
-                incidencia.Estado = new Estado();
-                incidencia.Estado.Id = 1;
-                incidencia.Prioridad = new Prioridad();
-                incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
-                incidencia.Tipo = new TipoIncidencia();
-                incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
-                incidencia.FechaAlta = DateTime.Now;
+                if (validarCamposObligatorios())
+                {
+                    Incidencia incidencia = new Incidencia();
+                    IncidenciaNegocio negocio = new IncidenciaNegocio();
+                    incidencia.cliente = new Cliente();
+                    incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
+                    incidencia.Usuario = int.Parse(txtUsuario.Text);
+                    incidencia.Descripcion = TxtDescripcion.Text;
+                    incidencia.Estado = new Estado();
+                    incidencia.Estado.Id = 1;
+                    incidencia.Prioridad = new Prioridad();
+                    incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
+                    incidencia.Tipo = new TipoIncidencia();
+                    incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
+                    incidencia.FechaAlta = DateTime.Now;
 
-                if(Request.QueryString["Id"] != null){
+                    if (Request.QueryString["Id"] != null)
+                    {
 
-                    incidencia.Id = int.Parse(Request.QueryString["Id"]);
-                    negocio.ModificarIncidencia(incidencia);
+                        incidencia.Id = int.Parse(Request.QueryString["Id"]);
+                        negocio.ModificarIncidencia(incidencia);
+                    }
+                    else
+                    {
+                        negocio.AgregarIncidencia(incidencia);
+                    }
+
+                    Response.Redirect("IncidenciaListar.aspx", false);
                 }
                 else
                 {
-                    negocio.AgregarIncidencia(incidencia);
+                    habilitarCamposIncidencia();
                 }
-
-                Response.Redirect("IncidenciaListar.aspx", false);
 
             }
             catch (Exception ex)
@@ -219,7 +247,6 @@ namespace App_GestorIncidencias
                     txtDireccion.Text = aux.direccion.ToString();
                     CargarTelefonos();
                     btnEditarCliente.Visible = true;
-                    btnAgregarCliente.Visible = false;
                     btnCambiarCliente.Visible = true;
 
                 }
@@ -231,6 +258,7 @@ namespace App_GestorIncidencias
             else
             {
                 lblValidacionNumero.Visible = true;
+                txtDniCliente.Enabled = true;
             }
         }
 
@@ -305,10 +333,8 @@ namespace App_GestorIncidencias
             lblValidacionNumero.Visible = false;
             btnEditarCliente.Visible = false;
             btnCambiarCliente.Visible = false;
-            txtDniCliente.Enabled = false;
             txtEmail.Enabled = false;
             txtDireccion.Enabled = false;
-            validadorDni.Enabled = false;
         }
 
         protected void habilitarCamposCliente()
@@ -338,10 +364,12 @@ namespace App_GestorIncidencias
 
         protected void btnNuevoCliente_Click(object sender, EventArgs e)
         {
+            
+
             if (Request.QueryString["id"] != null)
             {
                 int id = int.Parse(Request.QueryString["id"]);
-                Response.Redirect("~/Admin/GestionarClientes.aspx?from=incidencia&idIncidencia=" + id.ToString() + "newDni=" + txtDniCliente.Text, false);
+                Response.Redirect("~/Admin/GestionarClientes.aspx?from=incidencia&idIncidencia=" + id.ToString() + "&newDni=" + txtDniCliente.Text, false);
             }
             else
             {

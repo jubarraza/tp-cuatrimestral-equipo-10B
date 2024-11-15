@@ -15,6 +15,8 @@ namespace App_GestorIncidencias
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled = false;
+            txtCliente.Enabled = false;
+            lblValidacionNumero.Visible = false;
             try
             {
                 string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
@@ -49,7 +51,8 @@ namespace App_GestorIncidencias
 
                         Incidencia seleccion = (negocio.listar(id)[0]);
                         txtId.Text = id;
-                        txtCliente.Text = seleccion.Cliente.ToString();
+                        txtDniCliente.Text = seleccion.cliente.Dni.ToString();
+                        txtCliente.Text = seleccion.cliente.ToString();
                         txtUsuario.Text = seleccion.Usuario.ToString();
                         TxtDescripcion.Text = seleccion.Descripcion.ToString();
                         ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
@@ -91,7 +94,7 @@ namespace App_GestorIncidencias
             {
                 Incidencia incidencia = new Incidencia();
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
-                incidencia.Cliente = int.Parse(txtCliente.Text);
+                incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
                 incidencia.Usuario = int.Parse(txtUsuario.Text);
                 incidencia.Descripcion = TxtDescripcion.Text;
                 incidencia.Estado = new Estado();
@@ -122,6 +125,30 @@ namespace App_GestorIncidencias
         {
             string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
             Response.Redirect("GestionarComentario.aspx?cod=" + id);
+        }
+
+        protected void txtDniCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (Helper.validarSoloNumeros(txtDniCliente.Text))
+            {
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
+                
+                if (aux != null) 
+                {
+                    txtCliente.Text = aux.ToString();
+                    txtEmail.Text = aux.persona.Email;
+                    txtDireccion.Text = aux.direccion.ToString();
+                }
+                else
+                {
+                    //modal para ir a la creacion de cliente.
+                }
+            }
+            else
+            {
+                lblValidacionNumero.Visible = true;
+            }
         }
     }
 }

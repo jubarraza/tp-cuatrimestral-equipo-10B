@@ -5,52 +5,6 @@ go
 use CALLCENTER;
 go
 
--- INCIDENCIAS
-create table INCIDENCIAS(
-Codigo int identity(1000,1) not null primary key,
-Cliente int not null,
-Usuario int not null,
-Descripcion varchar(1000) not null,
-Estado int not null,
-Prioridad int not null,
-IdTipoIncidencia int not null,
-FechaAlta smalldatetime,
-FechaCierre smalldatetime,
-Resolucion Varchar(200)) 
-go
-set dateformat dmy
-go
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (2,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (3,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (1,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
-go
-
--- COMENTARIOS
-create table COMENTARIOS(
-id int not null identity(1,1),
-Cod_Incidencia int not null,
-Comentario varchar(200) not null,
-Fecha smalldatetime not null,
-IdUsuario int not null
-)
-go
-set dateformat dmy
-go
-insert into COMENTARIOS
-values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
-insert into Comentarios
-values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
-insert into Comentarios
-values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
-insert into Comentarios
-values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
-insert into Comentarios
-values (1002, 'Plan dentaaaaal', GETDATE(), 1)
-go
-
 -- TIPO INCIDENCIA
 CREATE TABLE TIPO_INCIDENCIA(
 Id int identity(1,1) not null primary key,
@@ -256,6 +210,53 @@ insert into TELEFONOS (IdPersona, NumeroTelefono) VALUES
 (4,10101010),
 (4,20202020),
 (5,30303030);
+go
+
+-- INCIDENCIAS
+create table INCIDENCIAS(
+Codigo int identity(1000,1) not null primary key,
+DniCliente bigint not null,
+Usuario int not null,
+Descripcion varchar(1000) not null,
+Estado int not null,
+Prioridad int not null,
+IdTipoIncidencia int not null,
+FechaAlta smalldatetime,
+FechaCierre smalldatetime,
+Resolucion Varchar(200)
+FOREIGN KEY (DniCliente) REFERENCES Clientes(Dni)) 
+go
+set dateformat dmy
+go
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (2,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (3,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
+insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (1,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
+go
+
+-- COMENTARIOS
+create table COMENTARIOS(
+id int not null identity(1,1),
+Cod_Incidencia int not null,
+Comentario varchar(200) not null,
+Fecha smalldatetime not null,
+IdUsuario int not null
+)
+go
+set dateformat dmy
+go
+insert into COMENTARIOS
+values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
+insert into Comentarios
+values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
+insert into Comentarios
+values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
+insert into Comentarios
+values (1002, 'Plan dentaaaaal', GETDATE(), 1)
 go
 
 --Store Procedure AgregarEmpleado

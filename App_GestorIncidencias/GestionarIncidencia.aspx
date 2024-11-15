@@ -11,10 +11,10 @@
             color: black;
         }
 
-        .gridSelector a:hover {
-            text-decoration: underline;
-            color: blue;
-        }
+            .gridSelector a:hover {
+                text-decoration: underline;
+                color: blue;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -49,26 +49,38 @@
                 </div>
             </div>
 
+
             <div class="row flex">
                 <div class="container col-3 border rounded p-2">
+                   <%-- <asp:UpdatePanel runat="server">
+                        <ContentTemplate>--%>
 
-                    <div class="mb-3 me-auto">
-                        <label for="txtCliente" class="form-label">Cliente: </label>
-                        <asp:TextBox runat="server" ID="txtCliente" CssClass="form-control" />
-                    </div>
-                    <div class="mb-3 me-auto">
-                        <label for="txtTelefono" class="form-label">Telefono: </label>
-                        <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" />
-                    </div>
-                    <div class="mb-3 me-auto">
-                        <label for="txtEmail" class="form-label">Email: </label>
-                        <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" />
-                    </div>
-                    <div class="mb-3 me-auto">
-                        <label for="txtDireccion" class="form-label">Direccion: </label>
-                        <asp:TextBox runat="server" ID="txtDireccion" TextMode="MultiLine" CssClass="form-control" />
-                    </div>
+                            <div class="mb-3 me-auto">
+                                <label for="txtDniCliente" class="form-label">Dni: </label>
+                                <asp:TextBox runat="server" ID="txtDniCliente" CssClass="form-control" OnTextChanged="txtDniCliente_TextChanged" AutoPostBack="true" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDniCliente" ErrorMessage="⛔ El campo DNI es requerido" CssClass="text-danger" Display="Dynamic" />
+                                <%--<asp:RegularExpressionValidator ControlToValidate="txtDni" ValidationExpression="^\d+$" ErrorMessage="⛔ Solo se aceptan numeros" EnableClientScript="true" CssClass="text-danger" Display="Dynamic" runat="server" />--%>
+                                <asp:Label Text="⛔ Solo se aceptan numeros" runat="server" Visible="false" ID="lblValidacionNumero" />
+                            </div>
+                            <div class="mb-3 me-auto">
+                                <label for="txtCliente" class="form-label">Cliente: </label>
+                                <asp:TextBox runat="server" ID="txtCliente" CssClass="form-control" />
+                            </div>
+                            <div class="mb-3 me-auto">
+                                <label for="txtTelefono" class="form-label">Telefono: </label>
+                                <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" />
+                            </div>
+                            <div class="mb-3 me-auto">
+                                <label for="txtEmail" class="form-label">Email: </label>
+                                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" />
+                            </div>
+                            <div class="mb-3 me-auto">
+                                <label for="txtDireccion" class="form-label">Direccion: </label>
+                                <asp:TextBox runat="server" ID="txtDireccion" TextMode="MultiLine" CssClass="form-control" />
+                            </div>
 
+                       <%-- </ContentTemplate>
+                    </asp:UpdatePanel>--%>
                 </div>
 
                 <div class="container col-5 p-2">
@@ -106,14 +118,14 @@
 
             </div>
 
-            <div class="row mt-5">
+        <div class="row mt-5">
 
-                <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
-                    <a href="IncidenciaListar.aspx">Volver</a>
-                </div>
-
+            <div class="mb-3 btn-group-lg btn">
+                <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
+                <a href="IncidenciaListar.aspx">Volver</a>
             </div>
+
+        </div>
 
 
         </div>

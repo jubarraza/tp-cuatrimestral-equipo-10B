@@ -187,6 +187,7 @@
     <Compile Include="Admin\TiposIncidencias.aspx.designer.cs">
       <DependentUpon>TiposIncidencias.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\User.cs" />
     <Compile Include="GestionarComentario.aspx.cs">
       <DependentUpon>GestionarComentario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

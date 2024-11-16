@@ -48,16 +48,17 @@
                             <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-md-6 mt-3">
-                            <div class="form-check form-check-inline">
+                            <div class="form-check form-check-inline me-md-2">
                                 <asp:RadioButton AutoPostBack="true" ID="rbActivo" Text=" Activo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
                                 <asp:RadioButton AutoPostBack="true" ID="rbInactivo" Text=" Inactivo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
-                                <asp:Label ID="lblError" Text="⛔ Debe seleccionar una opción" CssClass="text-danger me-md-2" Visible="false" runat="server"></asp:Label>
+                                <asp:Label ID="lblSeleccion" Text="👈 Debe seleccionar una opción" CssClass="text-danger me-md-2" Visible="false" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="col-12 mt-3">
                             <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" Text="Aceptar" CssClass="btn btn-success me-md-2" runat="server" />
-                            <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" CausesValidation="false" CssClass="btn btn-secondary me-md-2" runat="server" />
+                            <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" AutoPostBack="true" CausesValidation="false" CssClass="btn btn-secondary me-md-2" runat="server" />
                             <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger me-md-2" runat="server" />
+                            <asp:Label ID="lblEliminar" AutoPostBack="true" Text=" El empleado debe estar activo para su eliminacion." CssClass="text-secondary me-md-2" Visible="false" runat="server"></asp:Label>
                         </div>
                     </form>
                 </div>

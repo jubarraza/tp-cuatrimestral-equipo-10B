@@ -76,6 +76,8 @@ namespace App_GestorIncidencias.Admin
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = string.Empty;
+            gvEmpleados.DataSource = Session["ListaEmpleados"];
+            gvEmpleados.DataBind();
         }
     }
 }

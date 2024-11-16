@@ -20,7 +20,8 @@ namespace App_GestorIncidencias.Admin
             ddlTipoUsuario.Enabled = habilitar;
             txtFechaIngreso.Enabled = habilitar;
             txtUserPassword.Enabled = habilitar;
-            btnEliminar.Enabled = habilitar;            
+            if (Request.QueryString["Legajo"] != null)
+                btnEliminar.Enabled = habilitar;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,9 +29,10 @@ namespace App_GestorIncidencias.Admin
             try
             {         
                 txtLegajo.Enabled = false;
-            
+                
                 if (!IsPostBack)
-                {                
+                {
+                    btnEliminar.Enabled = false;
                     EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
                     long ultimoLegajo = empleadoNegocio.ObtenerUltimoLegajo();
                     txtLegajo.Text = ultimoLegajo.ToString();
@@ -45,7 +47,7 @@ namespace App_GestorIncidencias.Admin
                 string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
                 if (legajo != "" && !IsPostBack)
                 {
-                    btnAceptar.Text = "Guardar";
+                    btnAceptar.Text = "Guardar";                    
                     btnAceptar.CssClass = "btn btn-primary me-md-2";
                     EmpleadoNegocio negocio = new EmpleadoNegocio();
                     Empleado seleccionado = negocio.listar(legajo)[0];
@@ -65,6 +67,7 @@ namespace App_GestorIncidencias.Admin
                     else
                     {
                         rbInactivo.Checked = !activo;
+                        lblEliminar.Visible = !activo;
                     }
                     HabilitarCampos(activo);
                 }
@@ -93,11 +96,11 @@ namespace App_GestorIncidencias.Admin
                 if (rbActivo.Checked || rbInactivo.Checked)
                 {
                     nuevo.Activo = rbActivo.Checked;
-                    lblError.Visible = false;
+                    lblSeleccion.Visible = false;
                 }
                 else
                 {
-                    lblError.Visible = true;
+                    lblSeleccion.Visible = true;
                     return;
                 }
 
@@ -147,6 +150,8 @@ namespace App_GestorIncidencias.Admin
         protected void rbActivo_CheckedChanged(object sender, EventArgs e)
         {
             bool habilitar = rbActivo.Checked;
+            if (Request.QueryString["Legajo"] != null)
+                lblEliminar.Visible = !habilitar;
             HabilitarCampos(habilitar);       
         }
 

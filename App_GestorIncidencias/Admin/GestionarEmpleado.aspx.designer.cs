@@ -114,13 +114,13 @@ namespace App_GestorIncidencias.Admin
         protected global::System.Web.UI.WebControls.RadioButton rbInactivo;
 
         /// <summary>
-        /// Control lblError.
+        /// Control lblSeleccion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.WebControls.Label lblSeleccion;
 
         /// <summary>
         /// Control btnAceptar.
@@ -148,5 +148,14 @@ namespace App_GestorIncidencias.Admin
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEliminar;
+
+        /// <summary>
+        /// Control lblEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEliminar;
     }
 }

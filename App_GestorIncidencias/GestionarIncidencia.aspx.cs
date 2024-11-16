@@ -130,13 +130,21 @@ namespace App_GestorIncidencias
         {
             btnEditar.Visible = false;
             btnAceptar.Visible = true;
-            btnCambiarCliente.Visible = true;
-            btnEditarCliente.Visible = true;
             TxtDescripcion.ReadOnly = false;
             txtUsuario.ReadOnly = false;
             ddlTipoIncidencia.Enabled = true;
             ddlPrioridad.Enabled = true;
             txtFechaReclamo.ReadOnly = false;
+            if (string.IsNullOrEmpty(txtDniCliente.Text))
+            {
+                btnCambiarCliente.Visible = false;
+                btnEditarCliente.Visible = false;
+            }
+            else
+            {
+                btnCambiarCliente.Visible = true;
+                btnEditarCliente.Visible = true;
+            }
         }
 
         protected void cargarClienteEditado()
@@ -168,6 +176,14 @@ namespace App_GestorIncidencias
             {
                 lblValidacionUsuario.Visible = true;
                 bandera = false;
+            }
+            if (string.IsNullOrEmpty(txtDniCliente.Text))
+            {
+                lblValidacionDniRequerido.Visible = true;
+                btnCambiarCliente.Visible = false;
+                btnEditarCliente.Visible = false;
+                bandera = false;
+
             }
 
             return bandera;
@@ -210,6 +226,7 @@ namespace App_GestorIncidencias
                 else
                 {
                     habilitarCamposIncidencia();
+                    
                 }
 
             }
@@ -349,7 +366,6 @@ namespace App_GestorIncidencias
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
             habilitarCamposCliente();
-            validadorDni.Enabled = true;
         }
 
         protected void btnCambiarCliente_Click(object sender, EventArgs e)
@@ -359,7 +375,6 @@ namespace App_GestorIncidencias
             txtEmail.Text = string.Empty;
             txtDireccion.Text = string.Empty;
             habilitarCamposCliente();
-            validadorDni.Enabled = true;
         }
 
         protected void btnNuevoCliente_Click(object sender, EventArgs e)

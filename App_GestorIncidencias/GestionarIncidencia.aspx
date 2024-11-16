@@ -68,7 +68,7 @@
                                 <div class="mb-3 me-auto col-8">
                                     <label for="txtDniCliente" class="form-label">Dni Cliente: </label>
                                     <asp:TextBox runat="server" ID="txtDniCliente" CssClass="form-control" OnTextChanged="txtDniCliente_TextChanged" AutoPostBack="true" />
-                                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtDniCliente" ErrorMessage="⛔ El campo DNI es requerido" CssClass="text-danger" Display="Dynamic" ID="validadorDni" />
+                                    <asp:Label Text="⛔ El campo DNI es requerido" runat="server" Visible="false" ID="lblValidacionDniRequerido" CssClass="text-danger" />
                                     <asp:Label Text="⛔ Solo se aceptan numeros" runat="server" Visible="false" ID="lblValidacionNumero" CssClass="text-danger" />
                                 </div>
 

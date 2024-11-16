@@ -78,13 +78,13 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtDniCliente;
 
         /// <summary>
-        /// Control validadorDni.
+        /// Control lblValidacionDniRequerido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator validadorDni;
+        protected global::System.Web.UI.WebControls.Label lblValidacionDniRequerido;
 
         /// <summary>
         /// Control lblValidacionNumero.

@@ -72,7 +72,7 @@ namespace App_GestorIncidencias.Admin
             {
                 List<Cliente> listaClientes = (List<Cliente>)Session["listaClientes"];
 
-                List<Cliente> listaFiltrada = listaClientes.FindAll(x => x.persona.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+                List<Cliente> listaFiltrada = listaClientes.FindAll(x => x.persona.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()) || x.persona.Apellido.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
                 gvClientes.DataSource = listaFiltrada;
                 gvClientes.DataBind();
@@ -82,6 +82,13 @@ namespace App_GestorIncidencias.Admin
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
+        }
+
+        protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            gvClientes.DataSource = Session["listaClientes"];
+            gvClientes.DataBind();
         }
     }
 }

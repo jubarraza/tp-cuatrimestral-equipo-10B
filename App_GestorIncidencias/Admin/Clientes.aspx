@@ -7,6 +7,11 @@
         myModal.show();
     }
     </script>
+    <style>
+    .margen {
+        margin-top: 1.9rem !important;
+    }
+</style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -24,9 +29,11 @@
 
     <div class="row">
         <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
-            <asp:Label Text="Buscar" runat="server" CssClass="" />
-            <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true"/>
+            <asp:Label Text="Buscar" runat="server" CssClass="form-label" />
+            <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true" Placeholder="🔍"/>
         </div>
+        <asp:Button ID="btnLimpiarFiltro" CssClass="btn-close margen" OnClick="btnLimpiarFiltro_Click"  runat="server" />
+
         <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
             <asp:Button Text="Agregar" CssClass="btn btn-success" runat="server" ID="btnAgregar" OnClick="btnAgregar_Click"/>
         </div>

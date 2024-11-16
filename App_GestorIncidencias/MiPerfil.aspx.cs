@@ -40,6 +40,7 @@ namespace App_GestorIncidencias
                         imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
                     }
 
+                    deshabilitarCampos();
                 }
 
             }          
@@ -48,6 +49,42 @@ namespace App_GestorIncidencias
                 throw ex;
             }
           
+        }
+
+        protected void deshabilitarCampos()
+        {
+            txtUserPassword.Enabled = false;
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            inputImagen.Disabled = true;
+            btnEditar.Visible = true;
+            btnGuardar.Visible = false;
+        }
+
+        protected void habilitarCampos()
+        {
+            btnEditar.Visible = false;
+            btnGuardar.Visible = true;
+
+            txtUserPassword.Enabled = true;
+            txtNombre.Enabled = true;
+            txtApellido.Enabled = true;
+            inputImagen.Disabled = false;
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx", false);
+        }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            habilitarCampos();
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

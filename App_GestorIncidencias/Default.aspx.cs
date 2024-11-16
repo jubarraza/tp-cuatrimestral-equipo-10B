@@ -14,7 +14,12 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-      
+            if (Helper.SessionActiva(Session["usuario"]))
+            {
+                Empleado aux = (Empleado)Session["usuario"];
+                lblUsuarioLogueado.Text = "Usuario loguedo: <strong>" + aux.persona.ToString() + "</strong> - " + aux.persona.Email;
+            }
+
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -47,6 +52,25 @@ namespace App_GestorIncidencias
             {
                 acceso.cerrarConexion();
             }
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Session.Remove("usuario");
+                Response.Redirect("Default.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
+            }
+        }
+
+        protected void btnPerfil_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MiPerfil.aspx", false);
         }
     }
 }

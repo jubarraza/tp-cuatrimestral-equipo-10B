@@ -42,7 +42,7 @@
                         <label for="lblUserPassword" class="form-label">Contraseña:</label>
                         <asp:TextBox ID="txtUserPassword" CssClass="form-control" runat="server" MaxLength="20"></asp:TextBox>
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUserPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
+                        <%--<asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />--%>
                     </div>
                 </div>
 
@@ -79,9 +79,9 @@
         <!-- Botones centrados al final del formulario -->
         <div class="row mt-4">
             <div class="col text-center">
-                <asp:Button Text="Guardar" ID="btnGuardar" CssClass="btn btn-primary me-2" runat="server" />
-                <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-success me-2" runat="server" />
-                <asp:Button Text="Volver" ID="btnCancelar" CssClass="btn btn-secondary" runat="server" />
+                <asp:Button Text="Guardar" ID="btnGuardar" CssClass="btn btn-primary me-2" runat="server" OnClick="btnGuardar_Click" />
+                <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-success me-2" runat="server" OnClick="btnEditar_Click" />
+                <asp:Button Text="Volver" ID="btnCancelar" CssClass="btn btn-secondary" runat="server" OnClick="btnCancelar_Click" />
             </div>
         </div>
     </div>

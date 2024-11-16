@@ -11,6 +11,22 @@
 
             <div class="row justify-content-center">
 
+                <%if (Session["usuario"] != null)
+                    {%>
+                <div class="mb-3 col-3 col-sm-auto col-md-auto">
+                    <asp:Label Text="USUARIO" ID="lblUsuarioLogueado" runat="server" />
+                </div>
+
+                <div class="mb-3 btn-group">
+                    <asp:Button Text="Ir a mi Perfil" runat="server" ID="btnPerfil" OnClick="btnPerfil_Click" CssClass="btn btn-primary card-img me-1" />
+                    <asp:Button Text="Cerrar Sesion" runat="server" ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" CssClass="btn btn-danger card-img" />
+                </div>
+                <% }
+                    else
+                    { %>
+
+
+
                 <div class="mb-3 col-4 col-sm-auto col-md-auto">
                     <h2>Inicio de sesión</h2>
                 </div>
@@ -35,8 +51,7 @@
 
     </div>
 
-
-
+    <%}%>
 </asp:Content>
 
 

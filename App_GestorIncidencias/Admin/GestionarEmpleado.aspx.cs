@@ -133,12 +133,11 @@ namespace App_GestorIncidencias.Admin
         {
             try
             {
+                string legajo = Request.QueryString["Legajo"].ToString();
                 EmpleadoNegocio negocio = new EmpleadoNegocio();
-                long legajo = long.Parse(Request.QueryString["Legajo"]);
-                negocio.Eliminar(legajo);
-
-                Response.Redirect("~/Admin/Empleados.aspx", false);
-
+                Empleado seleccionado = negocio.listar(legajo)[0];
+                Session.Add("empleadoSeleccionado", seleccionado);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "showModal();", true);
             }
             catch (Exception ex)
             {
@@ -155,5 +154,21 @@ namespace App_GestorIncidencias.Admin
             HabilitarCampos(habilitar);       
         }
 
+        protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                long legajo = long.Parse(Request.QueryString["Legajo"]);
+                negocio.Eliminar(legajo);
+
+                Response.Redirect("~/Admin/Empleados.aspx", false);                
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
+        }
     }
 }

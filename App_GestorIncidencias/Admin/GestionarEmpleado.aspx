@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterAdmin.Master" AutoEventWireup="true" CodeBehind="GestionarEmpleado.aspx.cs" Inherits="App_GestorIncidencias.Admin.GestionarEmpleado" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function showModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacion'));
+            myModal.show();
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -58,11 +64,31 @@
                             <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" Text="Aceptar" CssClass="btn btn-success me-md-2" runat="server" />
                             <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" AutoPostBack="true" CausesValidation="false" CssClass="btn btn-secondary me-md-2" runat="server" />
                             <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger me-md-2" runat="server" />
-                            <asp:Label ID="lblEliminar" AutoPostBack="true" Text=" El empleado debe estar activo para su eliminacion." CssClass="text-secondary me-md-2" Visible="false" runat="server"></asp:Label>
+                            <asp:Label ID="lblEliminar" AutoPostBack="true" Text=" El empleado debe estar activo para su eliminación." CssClass="text-secondary me-md-2" Visible="false" runat="server"></asp:Label>
                         </div>
                     </form>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
+
+    <!-- Modal Eliminacion-->
+<div class="modal fade" id="ModalConfirmacion" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">⛔ Eliminar Empleado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h6>¿Confirma la eliminación del empleado?</h6>
+            </div>
+            <div class="modal-footer">
+                <asp:Button Text="Si ✔️" CssClass="btn btn-success" ID="btnEliminarConfirmado" OnClick="btnEliminarConfirmado_Click" runat="server" />
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No ❌</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
 </asp:Content>

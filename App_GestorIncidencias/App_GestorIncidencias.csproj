@@ -73,6 +73,7 @@
     <Content Include="Admin\GestionarPrioridades.aspx" />
     <Content Include="Admin\GestionarProvincias.aspx" />
     <Content Include="Admin\GestionarTipoIncidencia.aspx" />
+    <Content Include="Admin\MiPerfil.aspx" />
     <Content Include="Admin\Paises.aspx" />
     <Content Include="Admin\Prioridades.aspx" />
     <Content Include="Admin\Empleados.aspx" />
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="Admin\GestionarTipoIncidencia.aspx.designer.cs">
       <DependentUpon>GestionarTipoIncidencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Paises.aspx.cs">
       <DependentUpon>Paises.aspx</DependentUpon>

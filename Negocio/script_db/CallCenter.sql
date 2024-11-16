@@ -95,6 +95,7 @@ IdPersona bigint not null,
 UserPassword varchar(20) not null,
 TipoUsuario tinyint not null,
 FechaIngreso date not null check(FechaIngreso <= getdate()),
+ImagenPerfil varchar(100),
 Activo bit not null,
 foreign key (IdPersona) references PERSONAS(Id),
 foreign key (TipoUsuario) references TIPOS_USUARIOS(IdTipoUsuario)
@@ -228,12 +229,12 @@ FOREIGN KEY (DniCliente) REFERENCES Clientes(Dni))
 go
 set dateformat dmy
 go
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (2,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (3,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
-insert into INCIDENCIAS (Cliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (1,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
+insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (12345678,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
+insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (87654321,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
+insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (12312312,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
 go
 
 -- COMENTARIOS

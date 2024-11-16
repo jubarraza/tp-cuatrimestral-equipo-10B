@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
-namespace App_GestorIncidencias.Admin
+namespace App_GestorIncidencias
 {
     public partial class MiPerfil : System.Web.UI.Page
     {
@@ -30,6 +30,16 @@ namespace App_GestorIncidencias.Admin
                     txtTipoUsuario.Text = empleadoUser.tipoUsuario.Tipo.ToString();
                     txtFechaIngreso.Text = empleadoUser.FechaIngreso.ToString("yyyy-MM-dd"); 
                     txtUserPassword.Text = empleadoUser.UserPassword.ToString();
+
+                    if (!string.IsNullOrEmpty(empleadoUser.ImagenPerfil))
+                    {
+                        imgPerfil.ImageUrl = empleadoUser.ImagenPerfil;
+                    }
+                    else
+                    {
+                        imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
+                    }
+
                 }
 
             }          

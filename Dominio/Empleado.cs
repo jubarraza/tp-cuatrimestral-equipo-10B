@@ -14,6 +14,7 @@ namespace Dominio
         public TipoUsuario tipoUsuario { get; set; }
         public DateTime FechaIngreso { get; set; }
         public bool Activo { get; set; }
+        public string ImagenPerfil {  get; set; } 
 
     }
 }

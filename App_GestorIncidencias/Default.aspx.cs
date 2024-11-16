@@ -29,7 +29,7 @@ namespace App_GestorIncidencias
                 {
                     Empleado empleadouser = (empleadoNegocio.listar(leg)[0]);
                     Session.Add("usuario", empleadouser);
-                    //Response.Redirect("", false);
+                    Response.Redirect("/Admin/MiPerfil.aspx", false);
                 }
                 else
                 {

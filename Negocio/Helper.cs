@@ -48,5 +48,15 @@ namespace Negocio
 
             return nombre;
         }
+
+        public static bool SessionActiva(Object user)
+        {
+            Empleado empleadoUser = user != null ? (Empleado)user : null;
+            if (empleadoUser != null && empleadoUser.Legajo != 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

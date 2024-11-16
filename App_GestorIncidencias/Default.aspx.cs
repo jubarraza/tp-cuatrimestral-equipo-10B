@@ -14,7 +14,7 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Add("usuario", 1);
+      
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)

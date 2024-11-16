@@ -52,7 +52,7 @@ namespace Negocio
         public static bool SessionActiva(Object user)
         {
             Empleado empleadoUser = user != null ? (Empleado)user : null;
-            if (empleadoUser != null && empleadoUser.Legajo != 0)
+            if (empleadoUser != null)
             {
                 return true;
             }

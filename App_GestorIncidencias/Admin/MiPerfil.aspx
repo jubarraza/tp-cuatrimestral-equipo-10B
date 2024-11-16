@@ -30,8 +30,8 @@
                             <asp:TextBox ID="txtLegajo" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
                         </div>
                         <div class="col-md-6 mt-2">
-                            <label for="ddlTipo" class="form-label">Tipo de Perfil: </label>
-                            <asp:TextBox ID="TextTipoUsuario" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
+                            <label for="lblTipo" class="form-label">Tipo de Perfil: </label>
+                            <asp:TextBox ID="txtTipoUsuario" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="form-label">Fecha de Ingreso:</label>

@@ -24,6 +24,7 @@
                         <div class="mb-3 col-11 ms-3">
                             <label for="txtImagenPerfil" class="form-label">Cargar Imagen</label>
                             <input type="file" id="inputImagen" runat="server" class="form-control" />
+                            <asp:Label Text="⛔La imagen no debe superar los 15 MB" ID="lblErrorImagen" CssClass="text-danger" runat="server" />
                         </div>
 
                     </ContentTemplate>

@@ -33,6 +33,7 @@ namespace App_GestorIncidencias
                         txtTipoUsuario.Text = empleadoUser.tipoUsuario.Tipo.ToString();
                         txtFechaIngreso.Text = empleadoUser.FechaIngreso.ToString("yyyy-MM-dd");
                         txtUserPassword.Text = empleadoUser.UserPassword.ToString();
+                        lblErrorImagen.Visible = false;
 
 
                         if (!string.IsNullOrEmpty(empleadoUser.ImagenPerfil))
@@ -42,9 +43,10 @@ namespace App_GestorIncidencias
                         else
                         {
                             imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
-                        } 
+                        }
+
+                        deshabilitarCampos();
                     }
-                    deshabilitarCampos();
 
                 }
 
@@ -93,16 +95,32 @@ namespace App_GestorIncidencias
             {   
                 EmpleadoNegocio negocio = new EmpleadoNegocio();  
                 Empleado empleadoUser = (Empleado)Session["usuario"];
-                string ruta = Server.MapPath("./Images/Perfiles/");
-                inputImagen.PostedFile.SaveAs(ruta + "perfil-" + txtLegajo.Text + ".jpg");
-                empleadoUser.ImagenPerfil = "perfil-" + txtLegajo.Text + ".jpg";
+
+                //pregunto si cargaron una nueva imagen y si tiene el tamaño adecuado
+                if (inputImagen.PostedFile.FileName != "") 
+                {
+                    if (inputImagen.PostedFile.ContentLength < 15 * 1024 * 1024) // 15 MB
+                    {
+                        string ruta = Server.MapPath("./Images/Perfiles/");
+                        inputImagen.PostedFile.SaveAs(ruta + "perfil-" + txtLegajo.Text + ".jpg");
+                        empleadoUser.ImagenPerfil = "perfil-" + txtLegajo.Text + ".jpg";
+                    }
+                    else
+                    {
+                        lblErrorImagen.Visible = true;
+                        return;
+                    }
+                }
+
                 empleadoUser.UserPassword = txtUserPassword.Text;
                 empleadoUser.persona.Nombre = txtNombre.Text;
                 empleadoUser.persona.Apellido = txtApellido.Text;
                 negocio.Modificar(empleadoUser);
+
                 Image img = (Image)Master.FindControl("imgAvatar");
                 img.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
-                Response.Redirect("MiPerfil.aspx", false);
+
+                Response.Redirect("IncidenciaListar.aspx", false);
 
             }
             catch (Exception ex)

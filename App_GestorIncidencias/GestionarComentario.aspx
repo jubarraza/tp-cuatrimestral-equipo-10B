@@ -29,8 +29,8 @@
                     <asp:TextBox runat="server" ID="txtCodIncidencia" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
-                    <label for="txtUsuario" class="form-label">Usuario: </label>
-                    <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" />
+                    <label for="txtLegajoEmpleado" class="form-label">Empleado: </label>
+                    <asp:TextBox runat="server" ID="txtLegajoEmpleado" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
                     <label for="txtFecha" class="form-label">Fecha: </label>

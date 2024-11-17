@@ -20,8 +20,8 @@ namespace App_GestorIncidencias
                 lblUser.Text = aux.persona.ToString();
 
                 if (!string.IsNullOrEmpty(aux.ImagenPerfil))
-                {
-                    imgAvatar.ImageUrl = aux.ImagenPerfil;
+                {                  
+                    imgAvatar.ImageUrl = "~/Images/Perfiles/" + aux.ImagenPerfil;
                 }
                 else
                 {

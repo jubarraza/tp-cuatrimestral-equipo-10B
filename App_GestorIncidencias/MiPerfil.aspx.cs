@@ -32,9 +32,10 @@ namespace App_GestorIncidencias
                     txtFechaIngreso.Text = empleadoUser.FechaIngreso.ToString("yyyy-MM-dd"); 
                     txtUserPassword.Text = empleadoUser.UserPassword.ToString();
 
+
                     if (!string.IsNullOrEmpty(empleadoUser.ImagenPerfil))
                     {
-                        imgPerfil.ImageUrl = empleadoUser.ImagenPerfil;
+                        imgPerfil.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
                     }
                     else
                     {
@@ -96,6 +97,9 @@ namespace App_GestorIncidencias
                 empleadoUser.persona.Nombre = txtNombre.Text;
                 empleadoUser.persona.Apellido = "Prueba";
                 negocio.Modificar(empleadoUser);
+                Image img = (Image)Master.FindControl("imgAvatar");
+                img.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
+                Response.Redirect("MiPerfil.aspx", false);
 
             }
             catch (Exception ex)

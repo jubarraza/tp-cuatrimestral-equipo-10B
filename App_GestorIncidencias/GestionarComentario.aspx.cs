@@ -24,7 +24,7 @@ namespace App_GestorIncidencias
             txtCodIncidencia.Enabled = false;
             txtLegajoEmpleado.Enabled = false;
             txtFecha.Enabled = false;
-            TxtComenatario.Enabled = false;
+            TxtComentario.Enabled = false;
             band = true;
 
 
@@ -43,7 +43,7 @@ namespace App_GestorIncidencias
                         txtCodIncidencia.Text = comentario2.Cod_Incidencia.ToString();
                         txtLegajoEmpleado.Text = comentario2.Cod_Usuario.ToString();
                         txtFecha.Text = comentario2.Fecha.ToString();
-                        TxtComenatario.Text = comentario2.ComentarioGestion.ToString();
+                        TxtComentario.Text = comentario2.ComentarioGestion.ToString();
                     }
                     else
                     {
@@ -55,7 +55,7 @@ namespace App_GestorIncidencias
                             Empleado user = (Empleado)Session["usuario"];
                             txtLegajoEmpleado.Text = user.Legajo.ToString();
                             txtFecha.Text = DateTime.Now.ToString();
-                            TxtComenatario.Enabled = true;
+                            TxtComentario.Enabled = true;
                             btnEliminar.Visible = false;
                         }
                     }
@@ -100,7 +100,7 @@ namespace App_GestorIncidencias
                 if (id != "")
                 {
                     band = false;
-                    TxtComenatario.Enabled = true;
+                    TxtComentario.Enabled = true;
                 }
                 else
                 {
@@ -109,7 +109,7 @@ namespace App_GestorIncidencias
                         comentario.Cod_Incidencia = int.Parse(Cod);
                         comentario.Cod_Usuario = int.Parse(txtLegajoEmpleado.Text);
                         comentario.Fecha = DateTime.Parse(txtFecha.Text);
-                        comentario.ComentarioGestion = TxtComenatario.Text;
+                        comentario.ComentarioGestion = TxtComentario.Text;
                         negocio.Agregar(comentario);
                         Response.Redirect("GestionarIncidencia.aspx?Id=" + Cod);
                     }
@@ -139,7 +139,7 @@ namespace App_GestorIncidencias
                 comentario.Cod_Incidencia = int.Parse(txtCodIncidencia.Text);
                 comentario.Cod_Usuario = int.Parse(txtLegajoEmpleado.Text);
                 comentario.Fecha = DateTime.Parse(txtFecha.Text);
-                comentario.ComentarioGestion = TxtComenatario.Text;
+                comentario.ComentarioGestion = TxtComentario.Text;
                 negocio.Modificar(comentario);
                 Response.Redirect("GestionarIncidencia.aspx?Id=" + comentario.Cod_Incidencia);
             }

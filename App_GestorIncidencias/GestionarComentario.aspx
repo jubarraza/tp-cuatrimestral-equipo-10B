@@ -38,7 +38,7 @@
                 </div>
                 <div class="mb-3 me-auto">
                     <label for="txtComentario" class="form-label">Descripción: </label>
-                    <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtComenatario" CssClass="form-control" />
+                    <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtComentario" CssClass="form-control" />
                 </div>
 
                 <% if (band)

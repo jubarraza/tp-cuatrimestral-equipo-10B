@@ -34,6 +34,8 @@ namespace Negocio
                     aux.cliente = clienteNeg.BuscarCliente(aux.cliente.Dni);
                     aux.Empleado = new Empleado();
                     aux.Empleado.Legajo = (long)datos.Lector["LegajoEmpleado"];
+                    EmpleadoNegocio empleadoNeg = new EmpleadoNegocio();
+                    aux.Empleado = empleadoNeg.BuscarCliente(aux.Empleado.Legajo);
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Estado = new Estado();
                     aux.Estado.Id = (int)datos.Lector["IdEstado"];

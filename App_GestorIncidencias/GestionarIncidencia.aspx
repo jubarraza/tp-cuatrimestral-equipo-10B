@@ -121,10 +121,11 @@
                 </div>
 
                 <div class="container col-3 p-2 border rounded mb-3">
-
+                <asp:UpdatePanel runat="server">
+                <ContentTemplate>   
                     <div class="mb-3 me-auto">
                         <label for="txtLegajoEmpleado" class="form-label">Legajo: </label>
-                        <asp:TextBox runat="server" ID="txtLegajoEmpleado" CssClass="form-control" />
+                        <asp:TextBox runat="server" ID="txtLegajoEmpleado" AutoPostBack="true" CssClass="form-control" />
                         <asp:Label Text="⛔ El campo Legajo es requerido" runat="server" Visible="false" ID="lblValidacionUsuario" CssClass="text-danger" />
 
                     </div>
@@ -144,20 +145,24 @@
                         <asp:TextBox runat="server" ID="txtFechaReclamo" TextMode="Date" CssClass="form-control" />
                     </div>
 
+                    <div class="mb-3 me-auto">
+                       <asp:Button Text="Reasignar" ID="btnReasignar" CssClass="btn btn-primary" Visible="false" OnClick="btnReasignar_Click" runat="server" />
+                        <asp:Button Text="Guardar" ID="btnGuardar" CssClass="btn btn-success" Visible="false" OnClick="btnGuardar_Click" runat="server" />
+                        <asp:Button Text="Cancelar" ID="btnCancelar" CssClass="btn btn-secondary" Visible="false" OnClick="btnCancelar_Click" runat="server" />
+                    </div>
+                </ContentTemplate>
+                </asp:UpdatePanel>
                 </div>
 
             </div>
-
-            <div class="row mt-5">
-
+         
+             <div class="row mt-5">
                 <div class="mb-3 btn-group-lg btn">
                     <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
                     <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-warning" runat="server" OnClick="btnEditar_Click" />
                     <asp:Button Text="Volver" ID="btnVolver" CssClass="btn btn-secondary" runat="server" OnClick="btnVolver_Click" />
                 </div>
-
-            </div>
-
+             </div>
 
         </div>
 

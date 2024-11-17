@@ -17,6 +17,7 @@ namespace App_GestorIncidencias
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled = false;
+            txtLegajoEmpleado.Enabled = false;
             deshabilitarCamposCliente();
 
             try
@@ -38,6 +39,12 @@ namespace App_GestorIncidencias
                     ddlTipoIncidencia.DataValueField = "Id";
                     ddlTipoIncidencia.DataTextField = "Nombre";
                     ddlTipoIncidencia.DataBind();
+
+                    if (Helper.SessionActiva(Session["usuario"]))
+                    {
+                        Empleado aux = (Empleado)Session["usuario"];
+                        txtLegajoEmpleado.Text = aux.Legajo.ToString();
+                    }
 
                     txtFechaReclamo.Text = DateTime.Today.ToString("yyyy-MM-dd");
                     txtFechaReclamo.ReadOnly = true;

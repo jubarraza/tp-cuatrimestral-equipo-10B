@@ -23,26 +23,29 @@ namespace App_GestorIncidencias
                 }                   
                 else
                 {
-                    Empleado empleadoUser = (Empleado)Session["usuario"];
-                    txtNombre.Text = empleadoUser.persona.Nombre.ToString();
-                    txtApellido.Text = empleadoUser.persona.Apellido.ToString();
-                    txtEmail.Text = empleadoUser.persona.Email.ToString();
-                    txtLegajo.Text = empleadoUser.Legajo.ToString();
-                    txtTipoUsuario.Text = empleadoUser.tipoUsuario.Tipo.ToString();
-                    txtFechaIngreso.Text = empleadoUser.FechaIngreso.ToString("yyyy-MM-dd"); 
-                    txtUserPassword.Text = empleadoUser.UserPassword.ToString();
-
-
-                    if (!string.IsNullOrEmpty(empleadoUser.ImagenPerfil))
+                    if(!IsPostBack)
                     {
-                        imgPerfil.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
-                    }
-                    else
-                    {
-                        imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
-                    }
+                        Empleado empleadoUser = (Empleado)Session["usuario"];
+                        txtNombre.Text = empleadoUser.persona.Nombre.ToString();
+                        txtApellido.Text = empleadoUser.persona.Apellido.ToString();
+                        txtEmail.Text = empleadoUser.persona.Email.ToString();
+                        txtLegajo.Text = empleadoUser.Legajo.ToString();
+                        txtTipoUsuario.Text = empleadoUser.tipoUsuario.Tipo.ToString();
+                        txtFechaIngreso.Text = empleadoUser.FechaIngreso.ToString("yyyy-MM-dd");
+                        txtUserPassword.Text = empleadoUser.UserPassword.ToString();
 
+
+                        if (!string.IsNullOrEmpty(empleadoUser.ImagenPerfil))
+                        {
+                            imgPerfil.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
+                        }
+                        else
+                        {
+                            imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
+                        } 
+                    }
                     deshabilitarCampos();
+
                 }
 
             }          
@@ -95,7 +98,7 @@ namespace App_GestorIncidencias
                 empleadoUser.ImagenPerfil = "perfil-" + txtLegajo.Text + ".jpg";
                 empleadoUser.UserPassword = txtUserPassword.Text;
                 empleadoUser.persona.Nombre = txtNombre.Text;
-                empleadoUser.persona.Apellido = "Prueba";
+                empleadoUser.persona.Apellido = txtApellido.Text;
                 negocio.Modificar(empleadoUser);
                 Image img = (Image)Master.FindControl("imgAvatar");
                 img.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;

@@ -27,11 +27,13 @@
                             <label for="lblNombre:" class="form-label">Nombre/s:</label>
                             <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="⛔ El campo Nombre es requerido" CssClass="text-danger" Display="Dynamic" />
+                            <asp:RegularExpressionValidator ControlToValidate="txtNombre" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]{3,}$" ErrorMessage="⛔ El nombre debe tener al menos 3 letras y no contener números ni símbolos." CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-md-6">
                             <label for="lblApellido" class="form-label">Apellido/s:</label>
                             <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtApellido" ErrorMessage="⛔ El campo Apellido es requerido" CssClass="text-danger" Display="Dynamic" />
+                            <asp:RegularExpressionValidator ControlToValidate="txtApellido" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]{2,}$" ErrorMessage="⛔ El apellido debe tener al menos 2 letras y no contener números ni símbolos." CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-12 mt-2">
                             <label for="lblEmail" class="form-label">Email:</label>

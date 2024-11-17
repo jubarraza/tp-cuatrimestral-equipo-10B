@@ -84,7 +84,17 @@ namespace App_GestorIncidencias
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string ruta = Server.MapPath("./Images/Perfiles/");
+                inputImagen.PostedFile.SaveAs(ruta + "perfil-" + txtLegajo.Text + ".jpg");
+            }
+            catch (Exception ex)
+            {
 
+                Session.Add("error de guardado", ex.ToString());
+                Response.Redirect("PageError.aspx");
+            }
         }
     }
 }

@@ -120,7 +120,7 @@ namespace App_GestorIncidencias
                 Image img = (Image)Master.FindControl("imgAvatar");
                 img.ImageUrl = "~/Images/Perfiles/" + empleadoUser.ImagenPerfil;
 
-                Response.Redirect("IncidenciaListar.aspx", false);
+                Response.Redirect("MiPerfil.aspx", false);
 
             }
             catch (Exception ex)

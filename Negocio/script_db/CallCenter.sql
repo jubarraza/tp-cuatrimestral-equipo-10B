@@ -298,6 +298,7 @@ create procedure sp_ModificarEmpleado
 @UserPassword varchar(20),
 @TipoUsuario tinyint,
 @FechaIngreso date,
+@ImagenPerfil varchar(100),
 @Activo bit
 as
 begin
@@ -307,7 +308,7 @@ begin
         set Nombre = @Nombre, Apellido = @Apellido, Email = @Email
         where Id = (select IdPersona from dbo.EMPLEADOS where Legajo = @Legajo);
         update dbo.EMPLEADOS
-        set UserPassword = @UserPassword, TipoUsuario = @TipoUsuario, FechaIngreso = @FechaIngreso, 
+        set UserPassword = @UserPassword, TipoUsuario = @TipoUsuario, FechaIngreso = @FechaIngreso, ImagenPerfil=@ImagenPerfil,
             Activo = @Activo
         where Legajo = @Legajo;
         commit transaction;

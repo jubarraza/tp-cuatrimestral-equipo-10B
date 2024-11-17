@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using App_GestorIncidencias.Admin;
 using Dominio;
 using Negocio;
 
@@ -85,9 +86,17 @@ namespace App_GestorIncidencias
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
-            {
+            {   
+                EmpleadoNegocio negocio = new EmpleadoNegocio();  
+                Empleado empleadoUser = (Empleado)Session["usuario"];
                 string ruta = Server.MapPath("./Images/Perfiles/");
                 inputImagen.PostedFile.SaveAs(ruta + "perfil-" + txtLegajo.Text + ".jpg");
+                empleadoUser.ImagenPerfil = "perfil-" + txtLegajo.Text + ".jpg";
+                empleadoUser.UserPassword = txtUserPassword.Text;
+                empleadoUser.persona.Nombre = txtNombre.Text;
+                empleadoUser.persona.Apellido = "Prueba";
+                negocio.Modificar(empleadoUser);
+
             }
             catch (Exception ex)
             {

@@ -17,7 +17,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, T.Tipo, E.FechaIngreso, E.Activo, E.ImagenPerfil " +
+                string consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, T.IdTipoUsuario, T.Tipo, E.FechaIngreso, E.Activo, E.ImagenPerfil " +
                   "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id" +
                   " inner join TIPOS_USUARIOS as T on E.TipoUsuario = T.IdTipoUsuario ";
 
@@ -40,6 +40,7 @@ namespace Negocio
                     aux.Legajo = long.Parse(datos.Lector["Legajo"].ToString());
                     aux.UserPassword = (string)datos.Lector["UserPassword"];
                     aux.tipoUsuario = new TipoUsuario();
+                    aux.tipoUsuario.IdTipoUsuario = int.Parse(datos.Lector["IdTipoUsuario"].ToString());
                     aux.tipoUsuario.Tipo = (string)datos.Lector["Tipo"];
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
                     aux.ImagenPerfil = datos.Lector["ImagenPerfil"] is DBNull ? "" : (string)datos.Lector["ImagenPerfil"];
@@ -125,6 +126,7 @@ namespace Negocio
                 datos.setearParametro("@TipoUsuario", modificar.tipoUsuario.IdTipoUsuario);
                 datos.setearParametro("@FechaIngreso", modificar.FechaIngreso);
                 datos.setearParametro("@Activo", modificar.Activo);
+                datos.setearParametro("@ImagenPerfil",modificar.ImagenPerfil);
                 datos.ejecutarAccion();
 
             }

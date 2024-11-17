@@ -53,8 +53,8 @@
 
                 <div class="col-md-2 col-sm-6 mb-4">
                     <div class="btn-group-lg card gap-3 mb-3" id="botonesCierre" runat="server">
-                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" />
-                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" />
+                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" OnClick="btnResolverIncidencia_Click" />
+                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" OnClick="btnCerrarIncidencia_Click" />
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
 
             <div class="row mt-5">
                 <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
+                    <asp:Button Text="Guardar" ID="btnAceptar" CssClass="btn btn-success" runat="server" OnClick="btnAceptar_Click" />
                     <asp:Button Text="Editar" ID="btnEditar" CssClass="btn btn-warning" runat="server" OnClick="btnEditar_Click" />
                     <asp:Button Text="Volver" ID="btnVolver" CssClass="btn btn-secondary" runat="server" OnClick="btnVolver_Click" />
                 </div>

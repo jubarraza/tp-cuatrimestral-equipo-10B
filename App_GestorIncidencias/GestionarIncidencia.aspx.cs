@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -84,6 +85,7 @@ namespace App_GestorIncidencias
 
                             Incidencia seleccion = (negocio.listar(id)[0]);
                             txtId.Text = id;
+                            txtDniCliente.Enabled = false;
                             txtDniCliente.Text = seleccion.cliente.Dni.ToString();
                             txtCliente.Text = seleccion.cliente.ToString();
                             Session.Add("IdPersona", seleccion.cliente.persona.Id);
@@ -238,6 +240,9 @@ namespace App_GestorIncidencias
                     else
                     {
                         negocio.AgregarIncidencia(incidencia);
+                        incidencia.Id = negocio.ObtenerUltimoIdIncidencia();
+                        incidencia = negocio.buscarIncidencia(incidencia.Id);
+                        EnviarCorreoCreacion(incidencia);
                     }
 
                     Response.Redirect("IncidenciaListar.aspx", false);
@@ -289,6 +294,7 @@ namespace App_GestorIncidencias
                     txtEmail.Text = aux.persona.Email;
                     txtDireccion.Text = aux.direccion.ToString();
                     CargarTelefonos();
+                    txtDniCliente.Enabled = false;
                     btnEditarCliente.Visible = true;
                     btnCambiarCliente.Visible = true;
 
@@ -456,6 +462,84 @@ namespace App_GestorIncidencias
             btnReasignar.Enabled = true;
             btnGuardar.Visible = false;
             btnCancelar.Visible = false;
+
+        }
+
+        private void EnviarCorreoCreacion(Incidencia inc)
+        {
+            try
+            {
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("soporte10bstore@gmail.com");
+                correo.To.Add(inc.cliente.persona.Email);
+                correo.Subject = $@"Soporte 10bStore - Confirmación de creacion de Reclamo #{inc.Id.ToString()}";
+                correo.Body = $@"
+                                    <html>
+                                    <body>
+                                        <h2>¡Gracias por contactarte con el Soporte de 10bStore!</h2>
+                                        <p> Hola {inc.cliente.persona.Nombre} {inc.cliente.persona.Apellido},</p>
+                                        <p>Le confirmamos que su reclamo ha quedado registrado correctamente con el numero <strong>#{inc.Id.ToString()}</strong>.</p>
+                                        <p>Nuestro equipo se estará contactando con usted en cuanto tengamos novedades.</p>
+                                        <hr/>
+                                        <p><small>Este es un mensaje automático, por favor no responda a este correo.</small></p>
+                                    </body>
+                                    </html>";
+                correo.IsBodyHtml = true;
+
+                // Enviar el correo usando la configuración del web.config
+                SmtpClient smtp = new SmtpClient();
+                smtp.Send(correo);
+                Console.WriteLine("Correo enviado a " + inc.cliente.persona.Email);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al enviar el correo: " + ex.Message);
+            }
+        }
+
+        private void EnviarCorreoCierre(Incidencia inc)
+        {
+            try
+            {
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("soporte10bstore@gmail.com");
+                correo.To.Add(inc.cliente.persona.Email);
+                correo.Subject = $@"Soporte 10bStore - Confirmación de cierre de Reclamo #{inc.Id.ToString()}";
+                correo.Body = $@"
+                                    <html>
+                                    <body>
+                                        <h2>Confirmacion de cierre de Reclamo</h2>
+                                        <p> Hola {inc.cliente.persona.Nombre} {inc.cliente.persona.Apellido},</p>
+                                        <p>Le confirmamos que su reclamo se ha cerrado con el siguiente comentario:</p>
+                                        <p>{inc.Resolucion}</p>
+                                        <p>Si tiene algun inconveniente con la resolución por favor contactese nuevamente indicando el numero de Reclamo.</p>
+                                        <p>Quedamos a disposicion ante cualquier consulta adicional.</p>
+                                        <hr/>
+                                        <p><small>Este es un mensaje automático, por favor no responda a este correo.</small></p>
+                                    </body>
+                                    </html>";
+                correo.IsBodyHtml = true;
+
+                // Enviar el correo usando la configuración del web.config
+                SmtpClient smtp = new SmtpClient();
+                smtp.Send(correo);
+                Console.WriteLine("Correo enviado a " + inc.cliente.persona.Email);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al enviar el correo: " + ex.Message);
+            }
+        }
+
+        protected void btnResolverIncidencia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCerrarIncidencia_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -24,27 +24,34 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Incidencia aux = new Incidencia();
-                    aux.Tipo = new TipoIncidencia();
-                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
-
+                    
                     aux.Id = (int)datos.Lector["codigo"];
                     aux.cliente = new Cliente();
                     aux.cliente.Dni = (long)datos.Lector["DniCliente"];
                     ClienteNegocio clienteNeg = new ClienteNegocio();
                     aux.cliente = clienteNeg.BuscarCliente(aux.cliente.Dni);
+
                     aux.Empleado = new Empleado();
                     aux.Empleado.Legajo = (long)datos.Lector["LegajoEmpleado"];
                     EmpleadoNegocio empleadoNeg = new EmpleadoNegocio();
                     aux.Empleado = empleadoNeg.Buscar(aux.Empleado.Legajo);
+
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Estado = new Estado();
                     aux.Estado.Id = (int)datos.Lector["IdEstado"];
-                    aux.Estado.Nombre = (string)datos.Lector["Estado"];
+                    EstadoNegocio estadoNegocio = new EstadoNegocio();
+                    aux.Estado = estadoNegocio.BuscarEstado(aux.Estado.Id);
+
                     aux.Prioridad = new Prioridad();
                     aux.Prioridad.Id = (int)datos.Lector["IdPrioridad"];
-                    aux.Prioridad.Nombre = (string)datos.Lector["Prioridad"];
+                    PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
+                    aux.Prioridad = prioridadNegocio.Buscar(aux.Prioridad.Id);
+
+                    aux.Tipo = new TipoIncidencia();
+                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
                     aux.Tipo.Id = (int)datos.Lector["IdTipoIncidencia"];
                     aux.Tipo = tipoNegocio.Buscar(aux.Tipo.Id);
+
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
                     if (!(datos.Lector["FechaCierre"] is DBNull))
@@ -128,7 +135,100 @@ namespace Negocio
             }
         }
 
+        public int ObtenerUltimoIdIncidencia()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT IDENT_CURRENT('INCIDENCIAS')");
+                datos.ejecutarLectura();
 
+                int ultimoLegajo = 0;
+                if (datos.Lector.Read())
+                {
+                    ultimoLegajo = datos.Lector.IsDBNull(0) ? 0 : Convert.ToInt32(datos.Lector.GetDecimal(0));
+                }
+
+                return ultimoLegajo;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Incidencia buscarIncidencia(int id)
+        {
+            Incidencia aux = new Incidencia();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion, est.Id AS IdEstado, est.Nombre as Estado, PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id WHERE INC.codigo = " + id);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    
+
+                    aux.Id = (int)datos.Lector["codigo"];
+                    aux.cliente = new Cliente();
+                    aux.cliente.Dni = (long)datos.Lector["DniCliente"];
+                    ClienteNegocio clienteNeg = new ClienteNegocio();
+                    aux.cliente = clienteNeg.BuscarCliente(aux.cliente.Dni);
+
+                    aux.Empleado = new Empleado();
+                    aux.Empleado.Legajo = (long)datos.Lector["LegajoEmpleado"];
+                    EmpleadoNegocio empleadoNeg = new EmpleadoNegocio();
+                    aux.Empleado = empleadoNeg.Buscar(aux.Empleado.Legajo);
+
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Estado = new Estado();
+                    aux.Estado.Id = (int)datos.Lector["IdEstado"];
+                    EstadoNegocio estadoNegocio = new EstadoNegocio();
+                    aux.Estado = estadoNegocio.BuscarEstado(aux.Estado.Id);
+
+                    aux.Prioridad = new Prioridad();
+                    aux.Prioridad.Id = (int)datos.Lector["IdPrioridad"];
+                    PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
+                    aux.Prioridad = prioridadNegocio.Buscar(aux.Prioridad.Id);
+
+                    aux.Tipo = new TipoIncidencia();
+                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
+                    aux.Tipo.Id = (int)datos.Lector["IdTipoIncidencia"];
+                    aux.Tipo = tipoNegocio.Buscar(aux.Tipo.Id);
+
+                    aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
+
+                    if (!(datos.Lector["FechaCierre"] is DBNull))
+                    {
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
+                    }
+
+
+                    if (!(datos.Lector["Resolucion"] is DBNull))
+                        aux.Resolucion = (string)datos.Lector["Resolucion"];
+                    else
+                        aux.Resolucion = "Pendiente";
+
+                }
+
+                return aux;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

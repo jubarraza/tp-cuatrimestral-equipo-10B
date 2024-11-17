@@ -217,24 +217,26 @@ go
 create table INCIDENCIAS(
 Codigo int identity(1000,1) not null primary key,
 DniCliente bigint not null,
-Usuario int not null,
+LegajoEmpleado bigint not null,
 Descripcion varchar(1000) not null,
 Estado int not null,
 Prioridad int not null,
 IdTipoIncidencia int not null,
 FechaAlta smalldatetime,
 FechaCierre smalldatetime,
-Resolucion Varchar(200)
-FOREIGN KEY (DniCliente) REFERENCES Clientes(Dni)) 
+Resolucion Varchar(200),
+FOREIGN KEY (DniCliente) REFERENCES Clientes(Dni),
+foreign key (LegajoEmpleado) references EMPLEADOS(Legajo))
+
 go
 set dateformat dmy
 go
-insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (12345678,2,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
-insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (87654321,2,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
-insert into INCIDENCIAS (DniCliente, Usuario, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (12312312,1,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
+insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (12345678,100001,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
+insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (87654321,100002,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
+insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
+values (12312312,100003,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
 go
 
 -- COMENTARIOS

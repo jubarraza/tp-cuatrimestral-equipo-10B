@@ -123,9 +123,9 @@
                 <div class="container col-3 p-2 border rounded mb-3">
 
                     <div class="mb-3 me-auto">
-                        <label for="txtUsuario" class="form-label">Usuario: </label>
-                        <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" />
-                        <asp:Label Text="⛔ El campo Usuario es requerido" runat="server" Visible="false" ID="lblValidacionUsuario" CssClass="text-danger" />
+                        <label for="txtLegajoEmpleado" class="form-label">Legajo: </label>
+                        <asp:TextBox runat="server" ID="txtLegajoEmpleado" CssClass="form-control" />
+                        <asp:Label Text="⛔ El campo Legajo es requerido" runat="server" Visible="false" ID="lblValidacionUsuario" CssClass="text-danger" />
 
                     </div>
 

@@ -70,7 +70,7 @@ namespace App_GestorIncidencias
 
                         deshabilitarCamposIncidencia();
                         
-                        txtUsuario.Text = seleccion.Usuario.ToString();
+                        txtLegajoEmpleado.Text = seleccion.Empleado.Legajo.ToString();
                         TxtDescripcion.Text = seleccion.Descripcion.ToString();
                         ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
                         ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
@@ -119,7 +119,7 @@ namespace App_GestorIncidencias
             btnCambiarCliente.Visible = false;
             btnEditarCliente.Visible = false;
             TxtDescripcion.ReadOnly = true;
-            txtUsuario.ReadOnly = true;
+            txtLegajoEmpleado.ReadOnly = true;
             ddlTipoIncidencia.Enabled = false;
             ddlPrioridad.Enabled = false;
             txtFechaReclamo.ReadOnly = true;
@@ -131,7 +131,7 @@ namespace App_GestorIncidencias
             btnEditar.Visible = false;
             btnAceptar.Visible = true;
             TxtDescripcion.ReadOnly = false;
-            txtUsuario.ReadOnly = false;
+            txtLegajoEmpleado.ReadOnly = false;
             ddlTipoIncidencia.Enabled = true;
             ddlPrioridad.Enabled = true;
             txtFechaReclamo.ReadOnly = false;
@@ -172,7 +172,7 @@ namespace App_GestorIncidencias
                 lblValidacionDescripcion.Visible = true;
                 bandera = false;
             }
-            if (string.IsNullOrEmpty(txtUsuario.Text))
+            if (string.IsNullOrEmpty(txtLegajoEmpleado.Text))
             {
                 lblValidacionUsuario.Visible = true;
                 bandera = false;
@@ -200,7 +200,7 @@ namespace App_GestorIncidencias
                     IncidenciaNegocio negocio = new IncidenciaNegocio();
                     incidencia.cliente = new Cliente();
                     incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
-                    incidencia.Usuario = int.Parse(txtUsuario.Text);
+                    incidencia.Empleado.Legajo = long.Parse(txtLegajoEmpleado.Text);
                     incidencia.Descripcion = TxtDescripcion.Text;
                     incidencia.Estado = new Estado();
                     incidencia.Estado.Id = 1;

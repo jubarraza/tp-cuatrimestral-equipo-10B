@@ -12,7 +12,7 @@ namespace Dominio
 
         public Cliente cliente { get; set; } 
 
-        public int Usuario { get; set; } 
+        public Empleado Empleado { get; set; } 
 
         public string Descripcion { get; set; } 
 

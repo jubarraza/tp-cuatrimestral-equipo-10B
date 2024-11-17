@@ -273,8 +273,15 @@ namespace App_GestorIncidencias
             if (Helper.validarSoloNumeros(txtDniCliente.Text))
             {
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
-                Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
 
+                if (string.IsNullOrWhiteSpace(txtDniCliente.Text))
+                {
+                    lblValidacionDniRequerido.Visible = true;
+                    return;
+                }
+
+                Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
+                
                 if (aux.Dni != 0)
                 {
                     Session.Add("IdPersona", aux.persona.Id);

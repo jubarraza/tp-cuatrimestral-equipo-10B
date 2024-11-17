@@ -39,6 +39,7 @@
                 <div class="mb-3 me-auto">
                     <label for="txtComentario" class="form-label">Descripción: </label>
                     <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtComentario" CssClass="form-control" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtComentario" ErrorMessage="⛔ El campo Descripción es requerido" CssClass="text-danger" Display="Dynamic" />
                 </div>
 
                 <% if (band)
@@ -46,7 +47,7 @@
 
                 <div class="mb-3 btn-group-lg btn">
                     <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-success me-1" runat="server"/>
-                    <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click" CssClass="btn btn-secondary" runat="server" />
+                    <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click" CssClass="btn btn-secondary" CausesValidation="false" runat="server" />
                 </div>
 
                 <% }

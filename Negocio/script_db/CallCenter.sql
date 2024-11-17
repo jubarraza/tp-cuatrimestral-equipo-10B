@@ -103,9 +103,9 @@ foreign key (TipoUsuario) references TIPOS_USUARIOS(IdTipoUsuario)
 GO
 set dateformat dmy
 insert into EMPLEADOS(IdPersona,UserPassword,TipoUsuario,FechaIngreso,Activo)
-values(1,'Milhouse',3,'26-10-2024',1),
-(2,'Springfield',2,'26-10-2023',0),
-(3,'Nodirenada',1,'10-10-2020',1);
+values(1,'Milhouse1',3,'26-10-2024',1),
+(2,'Springfield1',2,'26-10-2023',0),
+(3,'Nodirenada1',1,'10-10-2020',1);
 
 -- PAIS
 CREATE TABLE PAISES(

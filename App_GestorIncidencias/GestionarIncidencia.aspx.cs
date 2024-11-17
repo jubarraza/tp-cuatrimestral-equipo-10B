@@ -16,101 +16,114 @@ namespace App_GestorIncidencias
         public int ContadorTelefonos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtId.Enabled = false;            
-            deshabilitarCamposCliente();
-
             try
             {
-                string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
-
-                if (!IsPostBack)
+                if (!Helper.SessionActiva(Session["usuario"]))
                 {
-                    txtLegajoEmpleado.Enabled = false;
-                    PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
-                    List<Prioridad> prioridades = prioridadNegocio.listar();
-                    ddlPrioridad.DataSource = prioridades;
-                    ddlPrioridad.DataValueField = "Id";
-                    ddlPrioridad.DataTextField = "Nombre";
-                    ddlPrioridad.DataBind();
+                    Session.Add("error", "Debe iniciar sesion para poder crear nuevas Incidencias.");
+                    Response.Redirect("PageError.aspx", false);
+                }
+                else
+                {
+                    txtId.Enabled = false;
+                    deshabilitarCamposCliente();
+                    string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
 
-                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
-                    List<TipoIncidencia> incidencias = tipoNegocio.listar(true);
-                    ddlTipoIncidencia.DataSource = incidencias;
-                    ddlTipoIncidencia.DataValueField = "Id";
-                    ddlTipoIncidencia.DataTextField = "Nombre";
-                    ddlTipoIncidencia.DataBind();
-
-                    if (Helper.SessionActiva(Session["usuario"]))
+                    if (!IsPostBack)
                     {
+                        PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
+                        List<Prioridad> prioridades = prioridadNegocio.listar();
+                        ddlPrioridad.DataSource = prioridades;
+                        ddlPrioridad.DataValueField = "Id";
+                        ddlPrioridad.DataTextField = "Nombre";
+                        ddlPrioridad.DataBind();
+
+                        TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
+                        List<TipoIncidencia> incidencias = tipoNegocio.listar(true);
+                        ddlTipoIncidencia.DataSource = incidencias;
+                        ddlTipoIncidencia.DataValueField = "Id";
+                        ddlTipoIncidencia.DataTextField = "Nombre";
+                        ddlTipoIncidencia.DataBind();
+
+                        EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+                        List<Empleado> empleados = empleadoNegocio.listar();
+                        ddlUsuario.DataSource = empleados;
+                        ddlUsuario.DataValueField = "Legajo";
+                        ddlUsuario.DataTextField = "NombreCompleto";
+                        ddlUsuario.DataBind();
+
                         Empleado user = (Empleado)Session["usuario"];
-                        txtLegajoEmpleado.Text = user.Legajo.ToString();
+                        ddlUsuario.SelectedValue = user.Legajo.ToString();
+                        ddlUsuario.Enabled = false;
+
                         int tipoUsuario = Helper.consultaTipoUsuario(user);
-                        if(tipoUsuario != 3)
+                        if (tipoUsuario != 3)
                         {
                             btnReasignar.Visible = true;
                         }
-                    }
 
-                    txtFechaReclamo.Text = DateTime.Today.ToString("yyyy-MM-dd");
-                    txtFechaReclamo.ReadOnly = true;
+                        txtFechaReclamo.Text = DateTime.Today.ToString("yyyy-MM-dd");
+                        txtFechaReclamo.ReadOnly = true;
 
-                    btnEditar.Visible = false;
-                    btnEditarCliente.Visible = false;
-                    contComentarios.Visible = false;
+                        btnEditar.Visible = false;
+                        btnEditarCliente.Visible = false;
+                        contComentarios.Visible = false;
 
-                    botonesCierre.Visible = false;
-                    
+                        botonesCierre.Visible = false;
 
-                    if (id != "")
-                    {
-                        IncidenciaNegocio negocio = new IncidenciaNegocio();
-                        EstadoNegocio estado = new EstadoNegocio();
-                        List<Estado> estados = estado.listar();
-                        ddlEstado.DataSource = estados;
-                        ddlEstado.DataValueField = "Id";
-                        ddlEstado.DataTextField = "Nombre";
-                        ddlEstado.DataBind();
 
-                        Incidencia seleccion = (negocio.listar(id)[0]);
-                        txtId.Text = id;
-                        txtDniCliente.Text = seleccion.cliente.Dni.ToString();
-                        txtCliente.Text = seleccion.cliente.ToString();
-                        Session.Add("IdPersona", seleccion.cliente.persona.Id);
-                        CargarTelefonos();
-                        txtEmail.Text = seleccion.cliente.persona.Email;
-                        txtDireccion.Text = seleccion.cliente.direccion.ToString();
-
-                        deshabilitarCamposIncidencia();
-                        
-                        txtLegajoEmpleado.Text = seleccion.Empleado.Legajo.ToString();
-                        TxtDescripcion.Text = seleccion.Descripcion.ToString();
-                        ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
-                        ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
-                        ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
-                        txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
-
-                        ComentarioNegocio Cnegocio = new ComentarioNegocio();
-                        dgvComentarios.DataSource = Cnegocio.Listar(id);
-                        dgvComentarios.DataBind();
-
-                        contComentarios.Visible = true;
-                        txtId.ReadOnly = true;
-
-                        botonesCierre.Visible = true;
-                    }
-                    else
-                    {
-                        EstadoNegocio estado = new EstadoNegocio();
-                        List<Estado> estados = estado.listar(1);
-                        ddlEstado.DataSource = estados;
-                        ddlEstado.DataValueField = "Id";
-                        ddlEstado.DataTextField = "Nombre";
-                        ddlEstado.DataBind();
-
-                        if(Request.QueryString["dni"] != null)
+                        if (id != "")
                         {
-                            cargarClienteEditado();
+                            IncidenciaNegocio negocio = new IncidenciaNegocio();
+                            EstadoNegocio estado = new EstadoNegocio();
+                            List<Estado> estados = estado.listar();
+                            ddlEstado.DataSource = estados;
+                            ddlEstado.DataValueField = "Id";
+                            ddlEstado.DataTextField = "Nombre";
+                            ddlEstado.DataBind();
+
+                            Incidencia seleccion = (negocio.listar(id)[0]);
+                            txtId.Text = id;
+                            txtDniCliente.Text = seleccion.cliente.Dni.ToString();
+                            txtCliente.Text = seleccion.cliente.ToString();
+                            Session.Add("IdPersona", seleccion.cliente.persona.Id);
+                            CargarTelefonos();
+                            txtEmail.Text = seleccion.cliente.persona.Email;
+                            txtDireccion.Text = seleccion.cliente.direccion.ToString();
+
+                            deshabilitarCamposIncidencia();
+
+                            ddlUsuario.SelectedValue = seleccion.Empleado.Legajo.ToString();
+                            TxtDescripcion.Text = seleccion.Descripcion.ToString();
+                            ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                            ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
+                            ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
+                            txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
+
+                            ComentarioNegocio Cnegocio = new ComentarioNegocio();
+                            dgvComentarios.DataSource = Cnegocio.Listar(id);
+                            dgvComentarios.DataBind();
+
+                            contComentarios.Visible = true;
+                            txtId.ReadOnly = true;
+
+                            botonesCierre.Visible = true;
                         }
+                        else
+                        {
+                            EstadoNegocio estado = new EstadoNegocio();
+                            List<Estado> estados = estado.listar(1);
+                            ddlEstado.DataSource = estados;
+                            ddlEstado.DataValueField = "Id";
+                            ddlEstado.DataTextField = "Nombre";
+                            ddlEstado.DataBind();
+
+                            if (Request.QueryString["dni"] != null)
+                            {
+                                cargarClienteEditado();
+                            }
+                        }
+
                     }
 
                 }
@@ -118,9 +131,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-
-                Session.Add("Error al cargar DropDownList", ex);
-                throw;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("PageError.aspx", false);
             }
         }
 
@@ -131,7 +143,7 @@ namespace App_GestorIncidencias
             btnCambiarCliente.Visible = false;
             btnEditarCliente.Visible = false;
             TxtDescripcion.ReadOnly = true;
-            txtLegajoEmpleado.ReadOnly = true;
+            ddlUsuario.Enabled = false;
             ddlTipoIncidencia.Enabled = false;
             ddlPrioridad.Enabled = false;
             txtFechaReclamo.ReadOnly = true;
@@ -183,11 +195,6 @@ namespace App_GestorIncidencias
                 lblValidacionDescripcion.Visible = true;
                 bandera = false;
             }
-            if (string.IsNullOrEmpty(txtLegajoEmpleado.Text))
-            {
-                lblValidacionUsuario.Visible = true;
-                bandera = false;
-            }
             if (string.IsNullOrEmpty(txtDniCliente.Text))
             {
                 lblValidacionDniRequerido.Visible = true;
@@ -211,7 +218,8 @@ namespace App_GestorIncidencias
                     IncidenciaNegocio negocio = new IncidenciaNegocio();
                     incidencia.cliente = new Cliente();
                     incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
-                    incidencia.Empleado.Legajo = long.Parse(txtLegajoEmpleado.Text);
+                    incidencia.Empleado = new Empleado();
+                    incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
                     incidencia.Descripcion = TxtDescripcion.Text;
                     incidencia.Estado = new Estado();
                     incidencia.Estado.Id = 1;
@@ -374,24 +382,18 @@ namespace App_GestorIncidencias
             txtDireccion.ReadOnly = true;
         }
 
-        protected void btnAgregarCliente_Click(object sender, EventArgs e)
-        {
-            habilitarCamposCliente();
-        }
-
         protected void btnCambiarCliente_Click(object sender, EventArgs e)
         {
             txtDniCliente.Text = string.Empty;
             txtCliente.Text = string.Empty;
             txtEmail.Text = string.Empty;
             txtDireccion.Text = string.Empty;
+            //btnCambiarCliente.Enabled = false;
             habilitarCamposCliente();
         }
 
         protected void btnNuevoCliente_Click(object sender, EventArgs e)
         {
-            
-
             if (Request.QueryString["id"] != null)
             {
                 int id = int.Parse(Request.QueryString["id"]);
@@ -417,7 +419,7 @@ namespace App_GestorIncidencias
 
         protected void btnReasignar_Click(object sender, EventArgs e)
         {
-            txtLegajoEmpleado.Enabled = true;
+            ddlUsuario.Enabled = true;
             btnReasignar.Enabled = false;
             btnGuardar.Visible = true;
             btnCancelar.Visible = true;
@@ -425,7 +427,7 @@ namespace App_GestorIncidencias
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            txtLegajoEmpleado.Enabled = false;
+            ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
             btnGuardar.Visible = false;
             btnCancelar.Visible = false;
@@ -439,11 +441,11 @@ namespace App_GestorIncidencias
             if (id != null)
             {
                 Incidencia seleccion = (negocio.listar(id)[0]);
-                seleccion.Empleado.Legajo = long.Parse(txtLegajoEmpleado.Text);
+                seleccion.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
                 negocio.ModificarIncidencia(seleccion);
             }
 
-            txtLegajoEmpleado.Enabled = false;
+            ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
             btnGuardar.Visible = false;
             btnCancelar.Visible = false;

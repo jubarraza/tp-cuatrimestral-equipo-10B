@@ -34,11 +34,11 @@ namespace App_GestorIncidencias
                 {
                     Empleado empleadouser = (empleadoNegocio.listar(leg)[0]);
                     Session.Add("usuario", empleadouser);
-                    Response.Redirect("~/MiPerfil.aspx", false);
+                    Response.Redirect("~/IncidenciaListar.aspx", false);
                 }
                 else
                 {
-                    Session.Add("error", "user o pass incorrectos");
+                    Session.Add("error", "Usuario o contraseña incorrectos");
                     Response.Redirect("PageError.aspx", false);
                 }
 

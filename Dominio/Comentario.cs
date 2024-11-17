@@ -17,7 +17,7 @@ namespace Dominio
 
         public DateTime Fecha { get; set; }
 
-        public int Cod_Usuario {  get; set; }
+        public Empleado Usuario {  get; set; }
 
     }
 }

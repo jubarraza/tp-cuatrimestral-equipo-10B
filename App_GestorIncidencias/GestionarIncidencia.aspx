@@ -182,7 +182,7 @@
                             <asp:BoundField HeaderText="Ticket" DataField="Cod_Incidencia" />
                             <asp:BoundField HeaderText="Comentario" DataField="ComentarioGestion" />
                             <asp:BoundField HeaderText="Fecha de Alta" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
-                            <asp:BoundField HeaderText="Usuario" DataField="Cod_Usuario" />
+                            <asp:BoundField HeaderText="Usuario" DataField="Usuario" />
                             <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText="Ver🔍" />
                         </Columns>
                     </asp:GridView>

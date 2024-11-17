@@ -155,7 +155,7 @@ namespace Negocio
             }
         }
 
-        public Empleado BuscarCliente(long legajo)
+        public Empleado Buscar(long legajo)
         {
             Empleado aux = new Empleado();
             AccesoDatos datos = new AccesoDatos();

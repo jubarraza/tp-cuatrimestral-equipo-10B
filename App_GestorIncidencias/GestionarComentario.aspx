@@ -29,7 +29,7 @@
                     <asp:TextBox runat="server" ID="txtCodIncidencia" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
-                    <label for="txtLegajoEmpleado" class="form-label">Empleado: </label>
+                    <label for="txtLegajoEmpleado" class="form-label">Usuario: </label>
                     <asp:TextBox runat="server" ID="txtLegajoEmpleado" CssClass="form-control" />
                 </div>
                 <div class="mb-3 me-auto">
@@ -45,9 +45,8 @@
                     { %>
 
                 <div class="mb-3 btn-group-lg btn">
-                    <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server"/>
-                    <asp:Button Text="Eliminar" ID="btnEliminar" CssClass="btn btn-primary" OnClick="btnEliminar_Click" runat="server" OnClientClick="return confirm('¿Confirma la eliminación?')" />
-                    <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click"  runat="server" />
+                    <asp:Button Text="Modificar" ID="btnModificar" OnClick="btnModificar_Click" CssClass="btn btn-success me-1" runat="server"/>
+                    <asp:Button Text="Cancelar" ID="Cancelar" OnClick="Cancelar_Click" CssClass="btn btn-secondary" runat="server" />
                 </div>
 
                 <% }
@@ -56,8 +55,8 @@
 
 
                 <div class="mb-3 btn-group-lg btn">
-                <asp:Button Text="Aceptar" ID="BtnAceptar"  CssClass="btn btn-primary" OnClick="BtnAceptar_Click" runat="server" />
-                <asp:Button Text="Volver" ID="BtnCancelar" OnClick="BtnCancelar_Click" runat="server" />
+                <asp:Button Text="Aceptar" ID="BtnAceptar"  CssClass="btn btn-success me-1" OnClick="BtnAceptar_Click" runat="server" />
+                <asp:Button Text="Volver" ID="BtnCancelar" CssClass="btn btn-secondary" OnClick="BtnCancelar_Click" runat="server" />
                 </div>
 
                 <% } %>

@@ -245,21 +245,21 @@ id int not null identity(1,1),
 Cod_Incidencia int not null,
 Comentario varchar(200) not null,
 Fecha smalldatetime not null,
-IdUsuario int not null
+LegajoUsuario bigint not null
 )
 go
 set dateformat dmy
 go
 insert into COMENTARIOS
-values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 2)
+values (1001, 'Se verifica que no tiene deuda y se procede la baja', '13/12/2023', 100001)
 insert into Comentarios
-values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 2)
+values (1000, 'Se solicta comprobante de pago correspondiente', '23/03/2023', 100001)
 insert into Comentarios
-values (1002, 'Plan dentaaaaal', '22/06/2024', 1)
+values (1002, 'Plan dentaaaaal', '22/06/2024', 100002)
 insert into Comentarios
-values (1002, 'Lisa necesita frenos', '23/06/2024', 1)
+values (1002, 'Lisa necesita frenos', '23/06/2024', 100003)
 insert into Comentarios
-values (1002, 'Plan dentaaaaal', GETDATE(), 1)
+values (1002, 'Plan dentaaaaal', GETDATE(), 100002)
 go
 
 --Store Procedure AgregarEmpleado

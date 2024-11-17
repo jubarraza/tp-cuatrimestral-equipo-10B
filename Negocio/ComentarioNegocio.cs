@@ -18,7 +18,7 @@ namespace Negocio
 
             try
             {
-              string consulta = "select com.id, com.Cod_Incidencia, com.Comentario, com.Fecha, com.IdUsuario from COMENTARIOS as com";
+              string consulta = "select com.id, com.Cod_Incidencia, com.Comentario, com.Fecha, com.LegajoUsuario from COMENTARIOS as com";
               if (valor != "")
                 {
                     if(Todos)
@@ -40,7 +40,10 @@ namespace Negocio
                     Aux.Cod_Incidencia = (int)datos.Lector["Cod_Incidencia"];
                     Aux.ComentarioGestion = (string)datos.Lector["Comentario"];
                     Aux.Fecha = DateTime.Parse(datos.Lector["Fecha"].ToString());
-                    Aux.Cod_Usuario = (int)datos.Lector["IdUsuario"];
+                    Aux.Usuario = new Empleado();
+                    Aux.Usuario.Legajo = (long)datos.Lector["LegajoUsuario"];
+                    EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+                    Aux.Usuario = empleadoNegocio.Buscar(Aux.Usuario.Legajo);
                     comentarios.Add(Aux);
                 }
 
@@ -62,11 +65,11 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("insert into COMENTARIOS values (@Cod_incidencia, @comentario, @Fecha, @idUsuario)");
+                datos.setearConsulta("insert into COMENTARIOS values (@Cod_incidencia, @comentario, @Fecha, @LegajoUsuario)");
                 datos.setearParametro("@Cod_incidencia", comentario.Cod_Incidencia);
                 datos.setearParametro("@Comentario", comentario.ComentarioGestion);
                 datos.setearParametro("@Fecha", comentario.Fecha);
-                datos.setearParametro("@idUsuario", comentario.Cod_Usuario);
+                datos.setearParametro("@LegajoUsuario", comentario.Usuario.Legajo);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

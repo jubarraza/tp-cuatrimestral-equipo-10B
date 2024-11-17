@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using App_GestorIncidencias.Admin;
+using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             if (!IsPostBack)
             {
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
@@ -27,7 +28,7 @@ namespace App_GestorIncidencias
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
         {
             string Id = dgvIncidencias.SelectedDataKey.Value.ToString();
-            Response.Redirect("GestionarIncidencia.aspx?Id=" + Id);  
+            Response.Redirect("GestionarIncidencia.aspx?Id=" + Id);
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -39,11 +40,10 @@ namespace App_GestorIncidencias
         {
             List<Incidencia> incidencias = (List<Incidencia>)Session["listaIncidencias"];
             List<Incidencia> ListaFiltrada;
-            int ID; 
 
             try
             {
-                if(txtBuscar.Text != "")
+                if (txtBuscar.Text != "")
                 {
                     ListaFiltrada = incidencias.FindAll(x => x.Id.ToString().Contains(txtBuscar.Text));
                     dgvIncidencias.DataSource = ListaFiltrada;
@@ -62,5 +62,60 @@ namespace App_GestorIncidencias
             }
 
         }
+
+        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        protected void ddlFiltrapor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlCategoria.Enabled = true;
+            try
+            {
+                if (ddlFiltrapor.SelectedValue.ToString() == "Estado")
+                {
+                    EstadoNegocio estadodNegocio = new EstadoNegocio();
+                    List<Estado> estados = estadodNegocio.listar();
+                    ddlCategoria.DataSource = estados;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Nombre";
+                    ddlCategoria.DataBind();
+
+                }
+                else if (ddlFiltrapor.SelectedValue.ToString() == "Prioridad")
+                {
+                    PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
+                    List<Prioridad> prioridades = prioridadNegocio.listar();
+                    ddlCategoria.DataSource = prioridades;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Nombre";
+                    ddlCategoria.DataBind();
+                }
+                else if (ddlFiltrapor.SelectedValue.ToString() == "Tipo")
+                {
+                    TipoIncidenciaNegocio tipoNegocio = new TipoIncidenciaNegocio();
+                    List<TipoIncidencia> incidencias = tipoNegocio.listar(true);
+                    ddlCategoria.DataSource = incidencias;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Nombre";
+                    ddlCategoria.DataBind();
+
+                }
+                else
+                {
+                    ddlCategoria.Items.Clear();
+                    ddlCategoria.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+ 
     }
 }

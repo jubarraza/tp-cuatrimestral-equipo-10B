@@ -1,14 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="IncidenciaListar.aspx.cs" Inherits="App_GestorIncidencias.IncidenciaListar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style1 {
-            width: 4096px;
-            height: 4096px;
-            margin-top: 636px;
-        }
-    </style>
-</asp:Content>
+
+
+    </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container-fluid mt-5 border rounded pt-3">
@@ -79,13 +74,13 @@
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Fecha Desde:" ID="lblDesde" runat="server" />
-                    <asp:TextBox runat="server" ID="TextBox1" CssClass="form-control" />
+                     <asp:TextBox runat="server" ID="txtFechaDesde" CssClass="form-control"  /> 
                 </div>
             </div>
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Fecha Hasta:" ID="lblHasta" runat="server" />
-                    <asp:TextBox runat="server" ID="TextBox2" CssClass="form-control" />
+                    <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control"  />
                 </div>
             </div>
         </div>

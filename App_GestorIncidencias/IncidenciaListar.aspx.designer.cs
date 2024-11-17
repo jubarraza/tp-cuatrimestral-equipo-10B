@@ -105,13 +105,13 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.Label lblDesde;
 
         /// <summary>
-        /// TextBox1 control.
+        /// txtFechaDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDesde;
 
         /// <summary>
         /// lblHasta control.
@@ -123,13 +123,13 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.Label lblHasta;
 
         /// <summary>
-        /// TextBox2 control.
+        /// txtFechaHasta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaHasta;
 
         /// <summary>
         /// btnBuscar control.

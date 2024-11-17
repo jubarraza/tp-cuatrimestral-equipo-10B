@@ -65,13 +65,13 @@ namespace App_GestorIncidencias
 
         protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
         {
-
+            txtBuscar.Enabled = false;
 
         }
 
         protected void ddlFiltrapor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlCategoria.Enabled = true;
+     
             try
             {
                 if (ddlFiltrapor.SelectedValue.ToString() == "Estado")

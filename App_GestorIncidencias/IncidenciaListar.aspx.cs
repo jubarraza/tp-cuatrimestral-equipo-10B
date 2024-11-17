@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,32 @@ namespace App_GestorIncidencias
             Response.Redirect("GestionarIncidencia.aspx", false);
         }
 
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<Incidencia> incidencias = (List<Incidencia>)Session["listaIncidencias"];
+            List<Incidencia> ListaFiltrada;
+            int ID; 
+
+            try
+            {
+                if(txtBuscar.Text != "")
+                {
+                    ListaFiltrada = incidencias.FindAll(x => x.Id.ToString().Contains(txtBuscar.Text));
+                    dgvIncidencias.DataSource = ListaFiltrada;
+                    dgvIncidencias.DataBind();
+                }
+                else
+                {
+                    dgvIncidencias.DataSource = incidencias;
+                    dgvIncidencias.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }

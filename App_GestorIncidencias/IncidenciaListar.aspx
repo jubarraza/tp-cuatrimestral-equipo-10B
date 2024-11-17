@@ -24,10 +24,10 @@
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
                 <asp:Label Text="Buscar" runat="server" CssClass="" />
-                <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" />
+                <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" />
             </div>
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
-                <asp:Button Text="Agregar" ID="Button2" OnClick="btnAgregar_Click" CssClass="btn btn-primary" runat="server" />
+                <asp:Button Text="Agregar" ID="Button2" OnClick="btnAgregar_Click" CssClass="btn btn-primary" runat="server"/>
             </div>
 
         </div>

@@ -16,8 +16,7 @@ namespace App_GestorIncidencias
         public int ContadorTelefonos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtId.Enabled = false;
-            txtLegajoEmpleado.Enabled = false;
+            txtId.Enabled = false;            
             deshabilitarCamposCliente();
 
             try
@@ -26,6 +25,7 @@ namespace App_GestorIncidencias
 
                 if (!IsPostBack)
                 {
+                    txtLegajoEmpleado.Enabled = false;
                     PrioridadNegocio prioridadNegocio = new PrioridadNegocio();
                     List<Prioridad> prioridades = prioridadNegocio.listar();
                     ddlPrioridad.DataSource = prioridades;
@@ -42,8 +42,13 @@ namespace App_GestorIncidencias
 
                     if (Helper.SessionActiva(Session["usuario"]))
                     {
-                        Empleado aux = (Empleado)Session["usuario"];
-                        txtLegajoEmpleado.Text = aux.Legajo.ToString();
+                        Empleado user = (Empleado)Session["usuario"];
+                        txtLegajoEmpleado.Text = user.Legajo.ToString();
+                        int tipoUsuario = Helper.consultaTipoUsuario(user);
+                        if(tipoUsuario != 3)
+                        {
+                            btnReasignar.Visible = true;
+                        }
                     }
 
                     txtFechaReclamo.Text = DateTime.Today.ToString("yyyy-MM-dd");
@@ -138,7 +143,6 @@ namespace App_GestorIncidencias
             btnEditar.Visible = false;
             btnAceptar.Visible = true;
             TxtDescripcion.ReadOnly = false;
-            txtLegajoEmpleado.ReadOnly = false;
             ddlTipoIncidencia.Enabled = true;
             ddlPrioridad.Enabled = true;
             txtFechaReclamo.ReadOnly = false;
@@ -409,6 +413,41 @@ namespace App_GestorIncidencias
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("IncidenciaListar.aspx", false);
+        }
+
+        protected void btnReasignar_Click(object sender, EventArgs e)
+        {
+            txtLegajoEmpleado.Enabled = true;
+            btnReasignar.Enabled = false;
+            btnGuardar.Visible = true;
+            btnCancelar.Visible = true;
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            txtLegajoEmpleado.Enabled = false;
+            btnReasignar.Enabled = true;
+            btnGuardar.Visible = false;
+            btnCancelar.Visible = false;
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {            
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
+
+            string id = Request.QueryString["Id"];
+            if (id != null)
+            {
+                Incidencia seleccion = (negocio.listar(id)[0]);
+                seleccion.Empleado.Legajo = long.Parse(txtLegajoEmpleado.Text);
+                negocio.ModificarIncidencia(seleccion);
+            }
+
+            txtLegajoEmpleado.Enabled = false;
+            btnReasignar.Enabled = true;
+            btnGuardar.Visible = false;
+            btnCancelar.Visible = false;
+
         }
     }
 }

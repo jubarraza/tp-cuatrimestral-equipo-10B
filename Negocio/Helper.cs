@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -57,6 +58,12 @@ namespace Negocio
                 return true;
             }
             return false;
+        }
+
+        public static int consultaTipoUsuario(Object user)
+        {
+            Empleado empleadoUser = user != null ? (Empleado)user : null;
+            return empleadoUser.tipoUsuario.IdTipoUsuario;
         }
     }
 }

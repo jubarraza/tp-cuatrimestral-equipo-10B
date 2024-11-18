@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
-                <asp:Label Text="Buscar" runat="server" CssClass="" />
+                <asp:Label Text="Buscar Ticket" runat="server" CssClass="" />
                 <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" />
             </div>
             <div class="col-6" style="display: flex; flex-direction: column; justify-content: flex-end;">
@@ -38,8 +38,8 @@
                     <asp:Label Text="Busqueda por:" ID="lblBusquedapor" runat="server" />
                     <asp:DropDownList runat="server" CssClass="form-control" ID="ddlBusquedapor" AutoPostBack="true" OnSelectedIndexChanged="ddlBusquedapor_SelectedIndexChanged">
                         <asp:ListItem Text="Todos" />
-                        <asp:ListItem Text="Cliente" />
-                        <asp:ListItem Text="Usuario" />
+                        <asp:ListItem Text="DNI Cliente" />
+                        <asp:ListItem Text="Legajo Usuario" />
                     </asp:DropDownList>
                 </div>
             </div>
@@ -85,7 +85,10 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
+                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />                  
+                </div>
+                <div class="mb-3">
+                     <asp:Button Text="Limpiar" runat="server" CssClass="btn btn-primary" ID="BtnLimpiar" OnClick="BtnLimpiar_Click" />
                 </div>
             </div>
         </div>

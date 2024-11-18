@@ -168,11 +168,41 @@ namespace App_GestorIncidencias
         protected void ddlBusquedapor_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlBusquedapor.SelectedItem.ToString() == "Todos")
+            {
                 txtBusquedapor.Enabled = false;
+                txtBusquedapor.Text = "";
+            }               
             else
+            {
                 txtBusquedapor.Enabled = true;
+            }
+                
+        }
+
+        protected void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            ResetearFiltro();
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
+            Session.Add("listaIncidencias", negocio.listar());
+            dgvIncidencias.DataSource = Session["listaIncidencias"];
+            dgvIncidencias.DataBind();
         }
 
 
+        private void ResetearFiltro()
+        {
+            txtBuscar.Enabled = true;
+            txtBusquedapor.Text = "";
+            ddlBusquedapor.SelectedIndex = 0;
+            txtBusquedapor.Enabled = false;
+            ddlFiltrapor.SelectedIndex = 0;
+            ddlCategoria.Items.Clear();
+            ddlCategoria.Enabled = false;
+            txtBuscar.Enabled = false;
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
+            fecha = fecha.AddMonths(1).AddDays(-1);
+            txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
+        }
     }
 }

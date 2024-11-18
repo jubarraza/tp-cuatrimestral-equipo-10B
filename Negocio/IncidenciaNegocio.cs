@@ -18,7 +18,7 @@ namespace Negocio
             try
             {
                 string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
-                if(id != "")
+                if (id != "")
                     consulta = consulta + " where INC.codigo = " + id;
                 lista = Devolverlista(consulta);
                 return lista;
@@ -30,10 +30,10 @@ namespace Negocio
         }
 
         public void AgregarIncidencia(Incidencia nueva)
-        {   
+        {
 
-            AccesoDatos datos   = new AccesoDatos();
-            
+            AccesoDatos datos = new AccesoDatos();
+
             try
             {
                 datos.setearConsulta("insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion, Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) values (@Cliente, @LegajoEmpleado, @Descripcion , @Estado, @Prioridad, @Tipo, @FechaAlta, null, null);");
@@ -126,7 +126,7 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    
+
 
                     aux.Id = (int)datos.Lector["codigo"];
                     aux.cliente = new Cliente();
@@ -185,20 +185,46 @@ namespace Negocio
         public List<Incidencia> filtrar(string Busquedapor, string buscara, string filtrara, string filtro, string Fechadesde, string FechaHasta)
         {
             List<Incidencia> listar = new List<Incidencia>();
-            string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
+            string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre \r\nas Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion, tip.Nombre as Tipoincidencia from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id left join TIPO_INCIDENCIA as tip on INC.IdTipoIncidencia = tip.Id";
             try
             {
-                if (Busquedapor == "Cliente")
-                    consulta += " where Cliente like '%" + buscara + "%' and ";
-                else if (Busquedapor == "Usuario")
-                    consulta += " where Usuario like '%" + buscara + "%' and ";
+                if (Busquedapor == "DNI Cliente")
+                    consulta += " where DNICliente like '%" + buscara + "%' and ";
+                else if (Busquedapor == "Legajo Usuario")
+                    consulta += " where LegajoEmpleado like '%" + buscara + "%' and ";
 
                 if (filtrara != "Todos" && Busquedapor != "Todos")
-                    consulta += filtrara + " like '" + filtro + "' and ";
+                {
+                    switch (filtro)
+                    {
+                        case "Estado":
+                            consulta += " est.Nombre like '" + filtro + "' and ";
+                            break;
+                        case "Prioridad":
+                            consulta += " PRIO.Nombre like '" + filtro + "' and ";
+                            break;
+                        case "Tipo":
+                            consulta += " tip.Nombre like '" + filtro + "' and ";
+                            break;
+                    }
+                }
                 else if (filtrara != "Todos")
-                    consulta += " where " + filtrara + " like '" + filtro + "' and ";
+                    {
+                    switch (filtrara)
+                    {
+                        case "Estado":
+                            consulta += " where est.Nombre like '" + filtro + "' and ";
+                            break;
+                        case "Prioridad":
+                            consulta += " where PRIO.Nombre like '" + filtro + "' and ";
+                            break;
+                        case "Tipo":
+                            consulta += " where tip.Nombre like '" + filtro + "' and ";
+                            break;
+                    }
+                }
 
-                if (Busquedapor == "Todos" && filtrara == "todos")
+                if (Busquedapor == "Todos" && filtrara == "Todos")
                 {
                     consulta += " where FechaAlta between '" + Fechadesde + "' and '" + FechaHasta + "'";
                 }

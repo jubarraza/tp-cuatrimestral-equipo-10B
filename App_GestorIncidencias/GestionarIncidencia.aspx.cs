@@ -563,7 +563,8 @@ namespace App_GestorIncidencias
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
                 incidencia.Tipo = new TipoIncidencia();
                 incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
-                incidencia.FechaAlta = DateTime.Now;
+                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text); 
+                incidencia.FechaCierre = DateTime.Now;
                 incidencia.Resolucion = txtComentarioResolucion.Text;
 
                 negocio.ModificarIncidencia(incidencia);

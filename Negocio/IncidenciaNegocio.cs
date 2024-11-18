@@ -55,16 +55,17 @@ namespace Negocio
 
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
-                    if (!(datos.Lector["FechaCierre"] is DBNull))
-                    {
-                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
-                    }
-          
 
                     if (!(datos.Lector["Resolucion"] is DBNull))
+                    {
                         aux.Resolucion = (string)datos.Lector["Resolucion"];
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+                    }
                     else
+                    {
+                        aux.FechaCierre = null;
                         aux.Resolucion = "Pendiente";
+                    }
 
                     lista.Add(aux);
                 }
@@ -115,7 +116,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("update incidencias set DniCliente = @DniCliente, LegajoEmpleado = @LegajoEmpleado, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, IdTipoIncidencia = @Tipo, FechaAlta = @FechaAlta where codigo = @Id");
+                datos.setearConsulta("update incidencias set DniCliente = @DniCliente, LegajoEmpleado = @LegajoEmpleado, Descripcion = @Descripcion, Estado = @Estado, Prioridad = @Prioridad, IdTipoIncidencia = @Tipo, FechaAlta = @FechaAlta, FechaCierre = @FechaCierre, Resolucion = @Resolucion where codigo = @Id");
                 datos.setearParametro("@DniCliente", nueva.cliente.Dni);
                 datos.setearParametro("@LegajoEmpleado", nueva.Empleado.Legajo);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
@@ -123,6 +124,8 @@ namespace Negocio
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
                 datos.setearParametro("@Tipo", nueva.Tipo.Id);
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
+                datos.setearParametro("@FechaCierre", nueva.FechaCierre);
+                datos.setearParametro("@Resolucion", nueva.Resolucion);
                 datos.setearParametro("@Id", nueva.Id);
                 datos.ejecutarAccion();
             }

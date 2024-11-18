@@ -25,7 +25,7 @@ namespace Dominio
         public DateTime FechaAlta { get; set; } 
 
 
-        public DateTime  FechaCierre { get; set; } 
+        public DateTime? FechaCierre { get; set; } 
 
         public string Resolucion { get; set; } 
 

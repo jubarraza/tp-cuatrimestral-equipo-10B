@@ -131,7 +131,7 @@
                             </div>
                             <div class="mb-3 me-auto">
                                 <asp:Button Text="Reasignar" ID="btnReasignar" CssClass="btn btn-warning" Visible="false" OnClick="btnReasignar_Click" runat="server" />
-                                <asp:Button Text="Guardar" ID="btnGuardar" CssClass="btn btn-success" Visible="false" OnClick="btnGuardar_Click" runat="server" />
+                                <asp:Button Text="Guardar" ID="btnGuardarIncidencia" CssClass="btn btn-success" Visible="false" OnClick="btnGuardarIncidencia_Click" runat="server" />
                                 <asp:Button Text="Cancelar" ID="btnCancelar" CssClass="btn btn-secondary" Visible="false" OnClick="btnCancelar_Click" runat="server" />
                             </div>
 

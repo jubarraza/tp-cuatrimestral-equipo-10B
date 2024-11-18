@@ -235,6 +235,7 @@ namespace App_GestorIncidencias
                     {
 
                         incidencia.Id = int.Parse(Request.QueryString["Id"]);
+                        incidencia.Estado.Id = 3;
                         negocio.ModificarIncidencia(incidencia);
                     }
                     else
@@ -434,7 +435,7 @@ namespace App_GestorIncidencias
         {
             ddlUsuario.Enabled = true;
             btnReasignar.Enabled = false;
-            btnGuardar.Visible = true;
+            btnGuardarIncidencia.Visible = true;
             btnCancelar.Visible = true;
         }
 
@@ -442,11 +443,11 @@ namespace App_GestorIncidencias
         {
             ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
-            btnGuardar.Visible = false;
+            btnGuardarIncidencia.Visible = false;
             btnCancelar.Visible = false;
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnGuardarIncidencia_Click(object sender, EventArgs e)
         {            
             IncidenciaNegocio negocio = new IncidenciaNegocio();
 
@@ -462,7 +463,7 @@ namespace App_GestorIncidencias
             
             ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
-            btnGuardar.Visible = false;
+            btnGuardarIncidencia.Visible = false;
             btnCancelar.Visible = false;
 
         }

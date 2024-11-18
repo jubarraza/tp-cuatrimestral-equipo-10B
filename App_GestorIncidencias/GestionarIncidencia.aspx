@@ -25,8 +25,14 @@
             var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacion'));
             myModal.show();
         }
-        function showModal() {
+        function showModalResolucion() {
             var myModal = new bootstrap.Modal(document.getElementById('ModalResolucion'), {
+                keyboard: false
+            });
+            myModal.show();
+        }
+        function showModalCierre() {
+            var myModal = new bootstrap.Modal(document.getElementById('ModalCierre'), {
                 keyboard: false
             });
             myModal.show();
@@ -60,9 +66,8 @@
 
                 <div class="col-md-2 col-sm-6 mb-4">
                     <div class="btn-group-lg card gap-3 mb-3" id="botonesCierre" runat="server">
-                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" OnClientClick="showModal(); return false;" />
-                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" OnClick="btnCerrarIncidencia_Click" />
-
+                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" OnClientClick="showModalResolucion(); return false;" />
+                        <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" OnClientClick="showModalCierre(); return false;" />
                     </div>
                 </div>
             </div>
@@ -207,23 +212,46 @@
     </div>
 
  <!-- Modal Resolucion -->
-<div class="modal fade" id="ModalResolucion" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalResolucion" data-bs-backdrop="static" tabindex="-1" aria-labelledby="ModalLabelResolucion" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="lblModalResolucionLabel">Resolución! 👏</h1>
+        <h1 class="modal-title fs-5" id="lblModalResolucion">Resolución! 👏</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Comentario:</label>
             <asp:TextBox ID="txtComentarioResolucion" TextMode="MultiLine" CssClass="form-control" MaxLength="100" runat="server" />
-            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtComentarioResolucion" ErrorMessage="⛔ El campo Resolucion es requerido" CssClass="text-danger" Display="Dynamic" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtComentarioResolucion" ErrorMessage="⛔ El campo Resolucion es requerido" CssClass="text-danger" ValidationGroup="ResolucionValidation" Display="Dynamic" />
           </div>
       </div>
       <div class="modal-footer">
         <asp:Button ID="btnGuardarResolucion" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarResolucion_Click" runat="server" />
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal Cierre -->
+<div class="modal fade" id="ModalCierre" data-bs-backdrop="static" tabindex="-1" aria-labelledby="ModalLabelCierre" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="lblModalCierre">Cierre! 🔒</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Comentario:</label>
+            <asp:TextBox ID="txtComentarioCierre" TextMode="MultiLine" CssClass="form-control" MaxLength="100" runat="server" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtComentarioCierre" ErrorMessage="⛔ El campo Detalle es requerido" CssClass="text-danger" ValidationGroup="CierreValidation" Display="Dynamic" />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <asp:Button ID="btnGuardarCierre" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarCierre_Click" runat="server" />
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>          
       </div>
     </div>
   </div>

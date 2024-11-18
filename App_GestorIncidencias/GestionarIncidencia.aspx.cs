@@ -568,9 +568,35 @@ namespace App_GestorIncidencias
             Response.Redirect("IncidenciaListar.aspx", false);
         }
 
-        protected void btnCerrarIncidencia_Click(object sender, EventArgs e)
+        protected void btnGuardarCierre_Click(object sender, EventArgs e)
         {
+            Incidencia incidencia = new Incidencia();
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
 
+            if (Request.QueryString["Id"] != null)
+            {
+                string Id = Request.QueryString["Id"];
+                incidencia.Id = int.Parse(Id);
+
+                incidencia.cliente = new Cliente();
+                incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
+                incidencia.Empleado = new Empleado();
+                incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
+                incidencia.Descripcion = TxtDescripcion.Text;
+                incidencia.Estado = new Estado();
+                incidencia.Estado.Id = 5;
+                incidencia.Prioridad = new Prioridad();
+                incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
+                incidencia.Tipo = new TipoIncidencia();
+                incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
+                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
+                incidencia.FechaCierre = DateTime.Now;
+                incidencia.Resolucion = txtComentarioCierre.Text;
+
+                negocio.ModificarIncidencia(incidencia);
+            }
+
+            Response.Redirect("IncidenciaListar.aspx", false);
         }
     }
 }

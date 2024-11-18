@@ -537,11 +537,6 @@ namespace App_GestorIncidencias
         }
 
 
-        protected void btnCerrarIncidencia_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnGuardarResolucion_Click(object sender, EventArgs e)
         {
             Incidencia incidencia = new Incidencia();
@@ -571,6 +566,11 @@ namespace App_GestorIncidencias
             }
 
             Response.Redirect("IncidenciaListar.aspx", false);
+        }
+
+        protected void btnCerrarIncidencia_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -26,7 +26,7 @@
             myModal.show();
         }
         function showModal() {
-            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            var myModal = new bootstrap.Modal(document.getElementById('ModalResolucion'), {
                 keyboard: false
             });
             myModal.show();
@@ -206,18 +206,19 @@
 
     </div>
 
-    <!-- Modal Resolucion -->
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <!-- Modal Resolucion -->
+<div class="modal fade" id="ModalResolucion" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Resolución! 👏</h1>
+        <h1 class="modal-title fs-5" id="lblModalResolucionLabel">Resolución! 👏</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Comentario:</label>
-            <asp:TextBox ID="txtComentarioResolucion" TextMode="MultiLine" CssClass="form-control alturaDesc" MaxLength="100" runat="server" />
+            <asp:TextBox ID="txtComentarioResolucion" TextMode="MultiLine" CssClass="form-control" MaxLength="100" runat="server" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtComentarioResolucion" ErrorMessage="⛔ El campo Resolucion es requerido" CssClass="text-danger" Display="Dynamic" />
           </div>
       </div>
       <div class="modal-footer">

@@ -25,6 +25,12 @@
             var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacion'));
             myModal.show();
         }
+        function showModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                keyboard: false
+            });
+            myModal.show();
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -54,8 +60,9 @@
 
                 <div class="col-md-2 col-sm-6 mb-4">
                     <div class="btn-group-lg card gap-3 mb-3" id="botonesCierre" runat="server">
-                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" OnClick="btnResolverIncidencia_Click" />
+                        <asp:Button Text="Resolver" CssClass="btn btn-success" runat="server" ID="btnResolverIncidencia" OnClientClick="showModal(); return false;" />
                         <asp:Button Text="Cerrar" CssClass="btn btn-secondary" runat="server" ID="btnCerrarIncidencia" OnClick="btnCerrarIncidencia_Click" />
+
                     </div>
                 </div>
             </div>
@@ -199,6 +206,27 @@
 
     </div>
 
+    <!-- Modal Resolucion -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Resolución! 👏</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Comentario:</label>
+            <asp:TextBox ID="txtComentarioResolucion" TextMode="MultiLine" CssClass="form-control alturaDesc" MaxLength="100" runat="server" />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <asp:Button ID="btnGuardarResolucion" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarResolucion_Click" runat="server" />
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>        
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Modal-->
     <div class="modal fade" id="ModalConfirmacion" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">

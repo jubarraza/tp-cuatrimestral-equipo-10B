@@ -285,6 +285,24 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.Button BtnComentar;
 
         /// <summary>
+        /// Control txtComentarioResolucion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtComentarioResolucion;
+
+        /// <summary>
+        /// Control btnGuardarResolucion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarResolucion;
+
+        /// <summary>
         /// Control btnNuevoCliente.
         /// </summary>
         /// <remarks>

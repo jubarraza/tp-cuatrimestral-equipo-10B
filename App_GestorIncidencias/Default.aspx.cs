@@ -29,7 +29,7 @@ namespace App_GestorIncidencias
             try
             {
                 GestionUser gestionUser = new GestionUser();
-                string leg = gestionUser.loguear(txtEmail.Text, txtPass.Text);
+                string leg = gestionUser.loguear(txtEmail.Text, txtPassword.Text);
                 if (leg != "")
                 {
                     Empleado empleadouser = (empleadoNegocio.listar(leg)[0]);

@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -229,6 +230,45 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+        public List<int> filtrar(string Busquedapor, string buscara, string filtrara, string filtro)
+        {
+            List<int> listar = new List<int>();
+            AccesoDatos datos = new AccesoDatos();
+            string consulta = "select INC.id from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id";
+            try
+            {
+                if (Busquedapor == "Cliente")
+                    consulta += " where Cliente like '%" + buscara + "%' and";
+                else if (Busquedapor == "Usuario")
+                    consulta += " where Usuario like '%" + buscara + "%' and ";
+
+                if (filtrara != "Todos" && Busquedapor != "Todos")
+                    consulta += filtrara + " like '" + filtro + "' and ";
+                else if (filtrara != "Todos")
+                    consulta += " where " + filtrara + " like '" + filtro + "' and ";
+
+                //if(Busquedapor == "Todos" && filtrara == "todos")
+                   
+
+
+                return listar;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            
+        }
+
+
+
 
     }
 }

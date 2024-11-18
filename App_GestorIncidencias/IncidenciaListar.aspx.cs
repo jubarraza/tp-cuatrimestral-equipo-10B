@@ -14,9 +14,21 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+               
             if (!IsPostBack)
             {
+                if (chkAvanzado.Checked)
+                {
+                    txtBuscar.Enabled = false;
+                    ddlCategoria.Items.Clear();
+                    ddlCategoria.Enabled = false;
+                    ddlCategoria.Items.Add("");
+                }
+                else
+                {
+                    txtBuscar.Enabled = true;
+                }
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
                 Session.Add("listaIncidencias", negocio.listar());
                 dgvIncidencias.DataSource = Session["listaIncidencias"];
@@ -63,17 +75,13 @@ namespace App_GestorIncidencias
 
         }
 
-        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
-        {
-            txtBuscar.Enabled = false;
-
-        }
 
         protected void ddlFiltrapor_SelectedIndexChanged(object sender, EventArgs e)
         {
      
             try
             {
+                ddlCategoria.Enabled = true;
                 if (ddlFiltrapor.SelectedValue.ToString() == "Estado")
                 {
                     EstadoNegocio estadodNegocio = new EstadoNegocio();
@@ -107,6 +115,7 @@ namespace App_GestorIncidencias
                 {
                     ddlCategoria.Items.Clear();
                     ddlCategoria.Enabled = false;
+                    ddlCategoria.Items.Add("");
                 }
             }
             catch (Exception ex)
@@ -116,6 +125,23 @@ namespace App_GestorIncidencias
             }
         }
 
- 
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {   
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
+            List<int> ListaId = new List<int>();
+
+            ListaId = negocio.filtrar(ddlBusquedapor.SelectedItem.ToString(),
+                txtBusquedapor.Text, ddlFiltrapor.SelectedItem.ToString(),
+                ddlCategoria.SelectedItem.ToString()
+                ); 
+        }
+
+        protected void ddlBusquedapor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBusquedapor.SelectedItem.ToString() == "Todos")
+                txtBusquedapor.Enabled = false;
+            else
+                txtBusquedapor.Enabled = true;
+        }
     }
 }

@@ -24,7 +24,7 @@
             <div class="col-6" style="display: flex; flex-direction: column; justify-content: flex-end;">
                 <div class="mb-3">
                     <asp:CheckBox Text="Filtro Avanzado"
-                        CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
+                        CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" />
                 </div>
             </div>
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
@@ -37,8 +37,8 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Label Text="Busqueda por:" ID="lblBusquedapor" runat="server" />
-                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCampo">
+                    <asp:Label Text="Busqueda por:" ID="lblBusquedapor" runat="server"/>
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlBusquedapor" AutoPostBack="true" OnSelectedIndexChanged="ddlBusquedapor_SelectedIndexChanged">
                         <asp:ListItem Text="Todos" />
                         <asp:ListItem Text="Cliente" />
                         <asp:ListItem Text="Usuario" />
@@ -48,7 +48,7 @@
             <div class="col-3">
                 <div class="mb-3">
                     <br />
-                    <asp:TextBox runat="server" ID="txtBusquedapor" CssClass="form-control" />
+                    <asp:TextBox runat="server" ID="txtBusquedapor" CssClass="form-control" Enabled="false"/>
                 </div>
             </div>
             <div class="col-3">
@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" />
+                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click"/>
                 </div>
             </div>
         </div>

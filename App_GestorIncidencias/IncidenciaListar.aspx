@@ -1,17 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="IncidenciaListar.aspx.cs" Inherits="App_GestorIncidencias.IncidenciaListar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script>
-        function showModal() {
-            var myModal = new bootstrap.Modal(document.getElementById('ModalCalendar'), {
-                keyboard: false
-            });
-            myModal.show();
-        }
-    </script>
-
-
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -83,29 +72,13 @@
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Fecha desde:" ID="lblDesde" runat="server" />
-
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <asp:TextBox runat="server" ID="txtFechaDesde" CssClass="form-control" />
-                        </div>
-                        <div class="col-sm-1">
-                            <asp:ImageButton ImageUrl="~/Recursos/Calendar.png" ID="Calendariodesde" runat="server" Width="40px" />
-                        </div>
-                    </div>
+                    <asp:TextBox runat="server" ID="txtFechaDesde" CssClass="form-control" TextMode="Date" />
                 </div>
             </div>
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Fecha Hasta:" ID="lblHasta" runat="server" />
-
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control" />
-                        </div>
-                        <div class="col-sm-1">
-                            <asp:ImageButton ImageUrl="~/Recursos/Calendar.png" ID="CalendarioHasta" runat="server" Width="40px" OnClientClick="showModal(); return false;" />
-                        </div>
-                    </div>
+                    <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control" TextMode="Date"/>
                 </div>
             </div>
         </div>
@@ -144,27 +117,4 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-   
-
-
-   <!-- Modal Fecha -->
-    <div class="modal fade" id="ModalCalendar" data-bs-backdrop="static"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Elija Fecha</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-                </div>
-                <div class="modal-footer">
-                    <asp:Button ID="btnAceptarFecha" Text="Aceptar" CssClass="btn btn-primary" runat="server" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-  
-
 </asp:Content>

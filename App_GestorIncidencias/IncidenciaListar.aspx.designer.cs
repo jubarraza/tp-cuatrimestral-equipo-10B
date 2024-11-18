@@ -114,15 +114,6 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtFechaDesde;
 
         /// <summary>
-        /// Calendariodesde control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Calendariodesde;
-
-        /// <summary>
         /// lblHasta control.
         /// </summary>
         /// <remarks>
@@ -141,15 +132,6 @@ namespace App_GestorIncidencias
         protected global::System.Web.UI.WebControls.TextBox txtFechaHasta;
 
         /// <summary>
-        /// CalendarioHasta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton CalendarioHasta;
-
-        /// <summary>
         /// btnBuscar control.
         /// </summary>
         /// <remarks>
@@ -166,23 +148,5 @@ namespace App_GestorIncidencias
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dgvIncidencias;
-
-        /// <summary>
-        /// Calendar1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
-
-        /// <summary>
-        /// btnAceptarFecha control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptarFecha;
     }
 }

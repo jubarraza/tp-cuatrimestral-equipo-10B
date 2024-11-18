@@ -14,21 +14,41 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-               
-            if (!IsPostBack)
+
+            if (chkAvanzado.Checked)
             {
-                if (chkAvanzado.Checked)
+                txtBuscar.Enabled = false;
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                if (txtFechaDesde.Text == "")
                 {
-                    txtBuscar.Enabled = false;
+                    txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
+                }
+                if (txtFechaHasta.Text == "")
+                {
+                    fecha = fecha.AddMonths(1).AddDays(-1);
+                    txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
+                }
+                if (ddlFiltrapor.SelectedValue.ToString() == "Todos")
+                {
                     ddlCategoria.Items.Clear();
                     ddlCategoria.Enabled = false;
                     ddlCategoria.Items.Add("");
                 }
-                else
-                {
-                    txtBuscar.Enabled = true;
-                }
+            }
+            else
+            {
+                txtBuscar.Enabled = true;
+                ddlBusquedapor.SelectedIndex = 0;
+                txtBusquedapor.Enabled = false;
+                ddlFiltrapor.SelectedIndex = 0;
+                ddlCategoria.Items.Clear();
+                ddlCategoria.Enabled = false;
+                txtFechaDesde.Text = "";
+                txtFechaHasta.Text = "";
+            }
+
+            if (!IsPostBack)
+            {
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
                 Session.Add("listaIncidencias", negocio.listar());
                 dgvIncidencias.DataSource = Session["listaIncidencias"];
@@ -78,7 +98,7 @@ namespace App_GestorIncidencias
 
         protected void ddlFiltrapor_SelectedIndexChanged(object sender, EventArgs e)
         {
-     
+
             try
             {
                 ddlCategoria.Enabled = true;
@@ -126,14 +146,23 @@ namespace App_GestorIncidencias
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {   
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-            List<int> ListaId = new List<int>();
+        {
+            try
+            {
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+                
 
-            ListaId = negocio.filtrar(ddlBusquedapor.SelectedItem.ToString(),
-                txtBusquedapor.Text, ddlFiltrapor.SelectedItem.ToString(),
-                ddlCategoria.SelectedItem.ToString()
-                ); 
+                dgvIncidencias.DataSource = negocio.filtrar(ddlBusquedapor.SelectedItem.ToString(),
+                    txtBusquedapor.Text, ddlFiltrapor.SelectedItem.ToString(),
+                    ddlCategoria.SelectedItem.ToString(), txtFechaDesde.Text,
+                    txtFechaHasta.Text
+                    );
+                dgvIncidencias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected void ddlBusquedapor_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,6 +173,6 @@ namespace App_GestorIncidencias
                 txtBusquedapor.Enabled = true;
         }
 
-      
+
     }
 }

@@ -143,5 +143,7 @@ namespace App_GestorIncidencias
             else
                 txtBusquedapor.Enabled = true;
         }
+
+      
     }
 }

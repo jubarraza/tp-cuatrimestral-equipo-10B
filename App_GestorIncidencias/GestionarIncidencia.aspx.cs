@@ -455,9 +455,11 @@ namespace App_GestorIncidencias
             {
                 Incidencia seleccion = (negocio.listar(id)[0]);
                 seleccion.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
+                seleccion.Estado.Id = 2; 
                 negocio.ModificarIncidencia(seleccion);
+                ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
             }
-
+            
             ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
             btnGuardar.Visible = false;

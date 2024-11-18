@@ -39,7 +39,8 @@
                     <h2>Incidencia</h2>
                 </div>
             </div>
-
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
             <div class="row flex-fill">
                 <div class="col-md-2 mb-3 me-auto ms-0 col-sm-5">
                     <label for="txtId" class="form-label">Ticket</label>
@@ -58,7 +59,8 @@
                     </div>
                 </div>
             </div>
-
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
             <div class="row flex">
                 <div class="container col-3 border rounded p-2">

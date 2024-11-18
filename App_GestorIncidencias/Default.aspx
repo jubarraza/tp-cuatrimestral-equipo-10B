@@ -46,7 +46,7 @@
                                  <div class="modal-body">
                                   <div class="input-group mb-3">
                                     <asp:TextBox cssclass="form-control" type="password" ID="txtPassword" placeholder="******" runat="server" MaxLength="50"></asp:TextBox>                   
-                                    <button id="btnMostrarPassword" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                    <button id="btnMostrarPassword" class="btn btn-success" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                                   </div>
                                  </div>
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />

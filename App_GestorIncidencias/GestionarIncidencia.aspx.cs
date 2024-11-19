@@ -387,11 +387,11 @@ namespace App_GestorIncidencias
             if (Request.QueryString["id"] != null)
             {
                 int id = int.Parse(Request.QueryString["id"]);
-                Response.Redirect("~/Admin/GestionarClientes.aspx?dni=" + txtDniCliente.Text + "&from=incidencia&idIncidencia=" + id.ToString(), false);
+                Response.Redirect("~/GestionarClientes.aspx?dni=" + txtDniCliente.Text + "&from=incidencia&idIncidencia=" + id.ToString(), false);
             }
             else
             {
-                Response.Redirect("~/Admin/GestionarClientes.aspx?dni=" + txtDniCliente.Text + "&from=incidencia", false);
+                Response.Redirect("~/GestionarClientes.aspx?dni=" + txtDniCliente.Text + "&from=incidencia", false);
             }
 
         }
@@ -430,11 +430,11 @@ namespace App_GestorIncidencias
             if (Request.QueryString["id"] != null)
             {
                 int id = int.Parse(Request.QueryString["id"]);
-                Response.Redirect("~/Admin/GestionarClientes.aspx?from=incidencia&idIncidencia=" + id.ToString() + "&newDni=" + txtDniCliente.Text, false);
+                Response.Redirect("~/GestionarClientes.aspx?from=incidencia&idIncidencia=" + id.ToString() + "&newDni=" + txtDniCliente.Text, false);
             }
             else
             {
-                Response.Redirect("~/Admin/GestionarClientes.aspx?from=incidencia&newDni=" + txtDniCliente.Text, false);
+                Response.Redirect("~/GestionarClientes.aspx?from=incidencia&newDni=" + txtDniCliente.Text, false);
             }
 
         }

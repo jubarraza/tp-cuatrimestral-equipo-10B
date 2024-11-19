@@ -68,7 +68,7 @@
     <Content Include="Admin\Clientes.aspx" />
     <Content Include="Admin\Direcciones.aspx" />
     <Content Include="Admin\Estados.aspx" />
-    <Content Include="Admin\GestionarClientes.aspx" />
+    <Content Include="Admin\GestionarClientesAdmin.aspx" />
     <Content Include="Admin\GestionarPaises.aspx" />
     <Content Include="Admin\GestionarPrioridades.aspx" />
     <Content Include="Admin\GestionarProvincias.aspx" />
@@ -78,6 +78,7 @@
     <Content Include="Admin\Empleados.aspx" />
     <Content Include="Admin\Provincias.aspx" />
     <Content Include="Admin\TiposIncidencias.aspx" />
+    <Content Include="GestionarClientes.aspx" />
     <Content Include="GestionarComentario.aspx" />
     <Content Include="GestionarIncidencia.aspx" />
     <Content Include="Default.aspx" />
@@ -120,12 +121,12 @@
     <Compile Include="Admin\Estados.aspx.designer.cs">
       <DependentUpon>Estados.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\GestionarClientes.aspx.cs">
-      <DependentUpon>GestionarClientes.aspx</DependentUpon>
+    <Compile Include="Admin\GestionarClientesAdmin.aspx.cs">
+      <DependentUpon>GestionarClientesAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\GestionarClientes.aspx.designer.cs">
-      <DependentUpon>GestionarClientes.aspx</DependentUpon>
+    <Compile Include="Admin\GestionarClientesAdmin.aspx.designer.cs">
+      <DependentUpon>GestionarClientesAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\GestionarPaises.aspx.cs">
       <DependentUpon>GestionarPaises.aspx</DependentUpon>
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="Admin\TiposIncidencias.aspx.designer.cs">
       <DependentUpon>TiposIncidencias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionarClientes.aspx.cs">
+      <DependentUpon>GestionarClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionarClientes.aspx.designer.cs">
+      <DependentUpon>GestionarClientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionarComentario.aspx.cs">
       <DependentUpon>GestionarComentario.aspx</DependentUpon>

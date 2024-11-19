@@ -27,7 +27,7 @@ namespace App_GestorIncidencias.Admin
         protected void gvClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             string dni = gvClientes.SelectedDataKey.Value.ToString();
-            Response.Redirect("GestionarClientes.aspx?dni=" + dni);
+            Response.Redirect("~/Admin/GestionarClientesAdmin.aspx?dni=" + dni);
         }
 
         protected void gvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -41,7 +41,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -57,13 +57,13 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GestionarClientes.aspx", false);
+            Response.Redirect("~/Admin/GestionarClientesAdmin.aspx", false);
         }
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -80,7 +80,7 @@ namespace App_GestorIncidencias.Admin
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 

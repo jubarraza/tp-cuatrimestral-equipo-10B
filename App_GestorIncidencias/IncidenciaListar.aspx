@@ -16,13 +16,12 @@
 
         <div class="row">
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-start">
-                <asp:Label Text="Buscar Ticket" runat="server" CssClass="" />
+                <asp:Label Text="Buscar #Ticket" runat="server" CssClass="" />
                 <asp:TextBox TextMode="Search" ID="txtBuscar" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscar_TextChanged" />
             </div>
             <div class="col-6" style="display: flex; flex-direction: column; justify-content: flex-end;">
                 <div class="mb-3">
-                    <asp:CheckBox Text="Filtro Avanzado"
-                        CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" />
+                    <asp:CheckBox Text="Filtro Avanzado" CssClass="form-check-input" ID="chkAvanzado" runat="server" AutoPostBack="true" />
                 </div>
             </div>
             <div class="mb-3 col-4 col-sm-auto col-md-auto justify-content-end ms-auto mt-4">
@@ -39,7 +38,7 @@
                     <asp:DropDownList runat="server" CssClass="form-control" ID="ddlBusquedapor" AutoPostBack="true" OnSelectedIndexChanged="ddlBusquedapor_SelectedIndexChanged">
                         <asp:ListItem Text="Todos" />
                         <asp:ListItem Text="DNI Cliente" />
-                        <asp:ListItem Text="Legajo Usuario" />
+                        <asp:ListItem Text="Legajo Usuario Asignado" />
                     </asp:DropDownList>
                 </div>
             </div>
@@ -60,10 +59,11 @@
                     </asp:DropDownList>
                 </div>
             </div>
+
             <div class="col-3">
                 <div class="mb-3">
                     <br />
-                    <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-control" Enabled="false">
+                    <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-control ms-1" Enabled="false">
                     </asp:DropDownList>
                 </div>
             </div>
@@ -71,23 +71,21 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Label Text="Fecha desde:" ID="lblDesde" runat="server" />
+                    <asp:Label Text="Fecha de Alta desde:" ID="lblDesde" runat="server" />
                     <asp:TextBox runat="server" ID="txtFechaDesde" CssClass="form-control" TextMode="Date" />
                 </div>
             </div>
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Label Text="Fecha Hasta:" ID="lblHasta" runat="server" />
+                    <asp:Label Text="Fecha de Alta hasta:" ID="lblHasta" runat="server" />
                     <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control" TextMode="Date" />
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-3 btn-group">
                 <div class="mb-3">
                     <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
-                </div>
-                <div class="mb-3">
                     <asp:Button Text="Limpiar" runat="server" CssClass="btn btn-primary" ID="BtnLimpiar" OnClick="BtnLimpiar_Click" />
                 </div>
             </div>
@@ -125,7 +123,7 @@
                         <asp:CommandField HeaderText="Ver" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
                     </Columns>
                 </asp:GridView>
-
+                <asp:Label Text="No hay resultados que coincidan con la busqueda" ID="lblSinResultados" Visible="false" CssClass="alert alert-warning" runat="server" />
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

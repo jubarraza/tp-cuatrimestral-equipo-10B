@@ -54,6 +54,8 @@ namespace App_GestorIncidencias
                 dgvIncidencias.DataSource = Session["listaIncidencias"];
                 dgvIncidencias.DataBind();
 
+
+
             }
         }
 
@@ -95,10 +97,8 @@ namespace App_GestorIncidencias
 
         }
 
-
         protected void ddlFiltrapor_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             try
             {
                 ddlCategoria.Enabled = true;
@@ -150,14 +150,21 @@ namespace App_GestorIncidencias
             try
             {
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
-                
 
-                dgvIncidencias.DataSource = negocio.filtrar(ddlBusquedapor.SelectedItem.ToString(),
+                List<Incidencia> listaFiltrada = negocio.filtrar(ddlBusquedapor.SelectedItem.ToString(),
                     txtBusquedapor.Text, ddlFiltrapor.SelectedItem.ToString(),
                     ddlCategoria.SelectedItem.ToString(), txtFechaDesde.Text,
                     txtFechaHasta.Text
                     );
+
+                dgvIncidencias.DataSource = listaFiltrada;
                 dgvIncidencias.DataBind();
+
+                if (listaFiltrada.Count == 0)
+                {
+                      lblSinResultados.Visible = true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -171,17 +178,18 @@ namespace App_GestorIncidencias
             {
                 txtBusquedapor.Enabled = false;
                 txtBusquedapor.Text = "";
-            }               
+            }
             else
             {
                 txtBusquedapor.Enabled = true;
             }
-                
+
         }
 
         protected void BtnLimpiar_Click(object sender, EventArgs e)
         {
             ResetearFiltro();
+            lblSinResultados.Visible = false;
             IncidenciaNegocio negocio = new IncidenciaNegocio();
             Session.Add("listaIncidencias", negocio.listar());
             dgvIncidencias.DataSource = Session["listaIncidencias"];

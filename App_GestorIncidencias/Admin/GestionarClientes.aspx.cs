@@ -269,11 +269,11 @@ namespace App_GestorIncidencias.Admin
                     if(Request.QueryString["idIncidencia"] != null)
                     {
                         int idInc = int.Parse(Request.QueryString["idIncidencia"]);
-                        Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc.ToString() + "&dni=" + cliente.Dni.ToString(), false);
+                        Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc.ToString() + "&dni=" + cliente.Dni.ToString() + "&edited=1", false);
                     }
                     else
                     {
-                        Response.Redirect("~/GestionarIncidencia.aspx?dni=" + cliente.Dni.ToString(), false);
+                        Response.Redirect("~/GestionarIncidencia.aspx?dni=" + cliente.Dni.ToString() + "&edited=1", false);
                     }
                 }
                 else
@@ -328,7 +328,11 @@ namespace App_GestorIncidencias.Admin
         {
             if (Request.QueryString["from"] == "incidencia")
             {
-                Response.Redirect("~/GestionarIncidencia.aspx?dni=" + txtDni.Text, false);
+                if (Request.QueryString["idIncidencia"] != null)
+                {
+                    int idInc = int.Parse(Request.QueryString["idIncidencia"]);
+                    Response.Redirect("~/GestionarIncidencia.aspx?&id=" + idInc.ToString() + "&dni=" + txtDni.Text + "&edited=0", false);
+                }
             }
             else
             {

@@ -72,8 +72,22 @@ namespace Negocio
                 datos.setearParametro("@Prioridad", nueva.Prioridad.Id);
                 datos.setearParametro("@Tipo", nueva.Tipo.Id);
                 datos.setearParametro("@FechaAlta", nueva.FechaAlta);
-                datos.setearParametro("@FechaCierre", nueva.FechaCierre);
-                datos.setearParametro("@Resolucion", nueva.Resolucion);
+                if(nueva.FechaCierre != null)
+                {
+                    datos.setearParametro("@FechaCierre", nueva.FechaCierre);
+                }
+                else
+                {
+                    datos.setearParametro("@FechaCierre", DBNull.Value);
+                }
+                if(nueva.Resolucion != null)
+                {
+                    datos.setearParametro("@Resolucion", nueva.Resolucion);
+                }
+                else
+                {
+                    datos.setearParametro("@Resolucion", DBNull.Value);
+                }
                 datos.setearParametro("@Id", nueva.Id);
                 datos.ejecutarAccion();
             }
@@ -157,16 +171,24 @@ namespace Negocio
 
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
-                    if (!(datos.Lector["FechaCierre"] is DBNull))
+                    if (datos.Lector["Resolucion"] is DBNull)
                     {
-                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
+
+                        aux.Resolucion = null;
+                    }
+                    else
+                    {
+                        aux.Resolucion = (string)datos.Lector["Resolucion"];
                     }
 
-
-                    if (!(datos.Lector["Resolucion"] is DBNull))
-                        aux.Resolucion = (string)datos.Lector["Resolucion"];
+                    if (datos.Lector["FechaCierre"] is DBNull)
+                    {
+                        aux.FechaCierre = null;
+                    }
                     else
-                        aux.Resolucion = "Pendiente";
+                    {
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+                    }
 
                 }
 
@@ -284,16 +306,23 @@ namespace Negocio
 
                     aux.FechaAlta = DateTime.Parse(datos.Lector["FechaAlta"].ToString());
 
-
-                    if (!(datos.Lector["Resolucion"] is DBNull))
+                    if(datos.Lector["Resolucion"] is DBNull)
                     {
-                        aux.Resolucion = (string)datos.Lector["Resolucion"];
-                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
+
+                        aux.Resolucion = null;
                     }
                     else
                     {
+                        aux.Resolucion = (string)datos.Lector["Resolucion"];
+                    }
+
+                    if(datos.Lector["FechaCierre"] is DBNull)
+                    {
                         aux.FechaCierre = null;
-                        aux.Resolucion = "Pendiente";
+                    }
+                    else
+                    {
+                        aux.FechaCierre = DateTime.Parse(datos.Lector["FechaCierre"].ToString());
                     }
 
                     lista.Add(aux);

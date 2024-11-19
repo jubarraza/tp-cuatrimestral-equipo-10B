@@ -16,9 +16,7 @@ namespace App_GestorIncidencias
         private string Cod;
         public bool band;
         protected void Page_Load(object sender, EventArgs e)
-        {   
-            
-
+        {
             id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
             Cod = Request.QueryString["Cod"] != null ? Request.QueryString["Cod"].ToString() : "";
             txtCodIncidencia.Enabled = false;
@@ -27,15 +25,12 @@ namespace App_GestorIncidencias
             TxtComentario.Enabled = false;
             band = true;
 
-
             if (!IsPostBack)
             {
-
                 try
                 {
-
                     if (id != "")
-                    {   
+                    {
 
                         btnModificar.Text = "Modificar";
                         ComentarioNegocio negocio2 = new ComentarioNegocio();
@@ -44,19 +39,29 @@ namespace App_GestorIncidencias
                         txtLegajoEmpleado.Text = comentario2.Usuario.ToString();
                         txtFecha.Text = comentario2.Fecha.ToString();
                         TxtComentario.Text = comentario2.ComentarioGestion.ToString();
+
+                        IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                        Incidencia incidencia = incidenciaNegocio.buscarIncidencia(comentario2.Cod_Incidencia);
+                        if (incidencia.Estado.Id == 4 || incidencia.Estado.Id == 5)
+                        {
+                            btnModificar.Visible = false;
+                        }
+
+                    }
+                    else if (Cod != "")
+                    {
+
+                        btnModificar.Text = "Agregar Comentario";
+                        ComentarioNegocio negocio2 = new ComentarioNegocio();
+                        txtCodIncidencia.Text = Cod;
+                        Empleado user = (Empleado)Session["usuario"];
+                        txtLegajoEmpleado.Text = user.ToString();
+                        txtFecha.Text = DateTime.Now.ToString();
+                        TxtComentario.Enabled = true;
                     }
                     else
                     {
-                        if (Cod != "")
-                        {                     
-                            btnModificar.Text = "Agregar Comentario";
-                            ComentarioNegocio negocio2 = new ComentarioNegocio();
-                            txtCodIncidencia.Text = Cod;
-                            Empleado user = (Empleado)Session["usuario"];
-                            txtLegajoEmpleado.Text = user.ToString();
-                            txtFecha.Text = DateTime.Now.ToString();
-                            TxtComentario.Enabled = true;
-                        }
+                        Response.Redirect("IncidenciaListar.aspx", false);
                     }
 
                 }
@@ -66,9 +71,6 @@ namespace App_GestorIncidencias
                     throw ex;
                 }
             }
-          
-
-
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
@@ -92,7 +94,7 @@ namespace App_GestorIncidencias
                         comentario.Fecha = DateTime.Parse(txtFecha.Text);
                         comentario.ComentarioGestion = TxtComentario.Text;
                         negocio.Agregar(comentario);
-                        Response.Redirect("GestionarIncidencia.aspx?Id=" + Cod);
+                        Response.Redirect("GestionarIncidencia.aspx?Id=" + Cod + "&edited=1", false);
                     }
                 }
 
@@ -129,7 +131,7 @@ namespace App_GestorIncidencias
 
                 throw;
             }
-          
+
         }
 
         protected void BtnCancelar_Click(object sender, EventArgs e)

@@ -101,6 +101,7 @@ namespace App_GestorIncidencias
                             ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
                             ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
                             txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
+                            txtFechaReclamo.Enabled = false;
 
                             ComentarioNegocio Cnegocio = new ComentarioNegocio();
                             dgvComentarios.DataSource = Cnegocio.Listar(id);
@@ -109,7 +110,24 @@ namespace App_GestorIncidencias
                             contComentarios.Visible = true;
                             txtId.ReadOnly = true;
 
-                            botonesCierre.Visible = true;
+                            if (seleccion.Estado.Id == 4 || seleccion.Estado.Id == 5)
+                            {
+                                botonesCierre.Visible = false;
+                                btnEditar.Visible = false;
+                                BtnComentar.Visible = false;
+                                btnReasignar.Visible = false;
+                            }
+                            else
+                            {
+                                botonesCierre.Visible = true;
+                            }
+
+                            if (Request.QueryString["edited"] == 1.ToString())
+                            {
+                                seleccion.Estado.Id = 3;
+                                ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                                negocio.ModificarIncidencia(seleccion);
+                            }
                         }
                         else
                         {
@@ -123,6 +141,7 @@ namespace App_GestorIncidencias
                             if (Request.QueryString["dni"] != null)
                             {
                                 cargarClienteEditado();
+
                             }
                         }
 
@@ -149,7 +168,7 @@ namespace App_GestorIncidencias
             ddlTipoIncidencia.Enabled = false;
             ddlPrioridad.Enabled = false;
             txtFechaReclamo.ReadOnly = true;
-            
+
         }
 
         protected void habilitarCamposIncidencia()
@@ -224,7 +243,6 @@ namespace App_GestorIncidencias
                     incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
                     incidencia.Descripcion = TxtDescripcion.Text;
                     incidencia.Estado = new Estado();
-                    incidencia.Estado.Id = 1;
                     incidencia.Prioridad = new Prioridad();
                     incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
                     incidencia.Tipo = new TipoIncidencia();
@@ -240,6 +258,7 @@ namespace App_GestorIncidencias
                     }
                     else
                     {
+                        incidencia.Estado.Id = 1;
                         negocio.AgregarIncidencia(incidencia);
                         incidencia.Id = negocio.ObtenerUltimoIdIncidencia();
                         incidencia = negocio.buscarIncidencia(incidencia.Id);
@@ -251,7 +270,7 @@ namespace App_GestorIncidencias
                 else
                 {
                     habilitarCamposIncidencia();
-                    
+
                 }
 
             }
@@ -287,7 +306,7 @@ namespace App_GestorIncidencias
                 }
 
                 Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
-                
+
                 if (aux.Dni != 0)
                 {
                     Session.Add("IdPersona", aux.persona.Id);
@@ -374,7 +393,7 @@ namespace App_GestorIncidencias
             {
                 Response.Redirect("~/Admin/GestionarClientes.aspx?dni=" + txtDniCliente.Text + "&from=incidencia", false);
             }
-            
+
         }
 
         protected void deshabilitarCamposCliente()
@@ -417,7 +436,7 @@ namespace App_GestorIncidencias
             {
                 Response.Redirect("~/Admin/GestionarClientes.aspx?from=incidencia&newDni=" + txtDniCliente.Text, false);
             }
-            
+
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
@@ -448,7 +467,7 @@ namespace App_GestorIncidencias
         }
 
         protected void btnGuardarIncidencia_Click(object sender, EventArgs e)
-        {            
+        {
             IncidenciaNegocio negocio = new IncidenciaNegocio();
 
             string id = Request.QueryString["Id"];
@@ -456,11 +475,11 @@ namespace App_GestorIncidencias
             {
                 Incidencia seleccion = (negocio.listar(id)[0]);
                 seleccion.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
-                seleccion.Estado.Id = 2; 
+                seleccion.Estado.Id = 2;
                 negocio.ModificarIncidencia(seleccion);
                 ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
             }
-            
+
             ddlUsuario.Enabled = false;
             btnReasignar.Enabled = true;
             btnGuardarIncidencia.Visible = false;
@@ -541,7 +560,7 @@ namespace App_GestorIncidencias
         {
             Incidencia incidencia = new Incidencia();
             IncidenciaNegocio negocio = new IncidenciaNegocio();
-            
+
             if (Request.QueryString["Id"] != null)
             {
                 string Id = Request.QueryString["Id"];
@@ -558,14 +577,17 @@ namespace App_GestorIncidencias
                 incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
                 incidencia.Tipo = new TipoIncidencia();
                 incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
-                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text); 
+                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
                 incidencia.FechaCierre = DateTime.Now;
                 incidencia.Resolucion = txtComentarioResolucion.Text;
 
                 negocio.ModificarIncidencia(incidencia);
             }
-
-            Response.Redirect("IncidenciaListar.aspx", false);
+            ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
+            botonesCierre.Visible = false;
+            btnEditar.Visible = false;
+            BtnComentar.Visible = false;
+            btnReasignar.Visible = false;
         }
 
         protected void btnGuardarCierre_Click(object sender, EventArgs e)
@@ -595,8 +617,11 @@ namespace App_GestorIncidencias
 
                 negocio.ModificarIncidencia(incidencia);
             }
-
-            Response.Redirect("IncidenciaListar.aspx", false);
+            ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
+            botonesCierre.Visible = false;
+            btnEditar.Visible = false;
+            BtnComentar.Visible = false;
+            btnReasignar.Visible = false;
         }
     }
 }

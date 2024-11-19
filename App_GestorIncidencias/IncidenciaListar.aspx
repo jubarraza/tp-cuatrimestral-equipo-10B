@@ -78,17 +78,17 @@
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Fecha Hasta:" ID="lblHasta" runat="server" />
-                    <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control" TextMode="Date"/>
+                    <asp:TextBox runat="server" ID="txtFechaHasta" CssClass="form-control" TextMode="Date" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-3">
                 <div class="mb-3">
-                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />                  
+                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
                 </div>
                 <div class="mb-3">
-                     <asp:Button Text="Limpiar" runat="server" CssClass="btn btn-primary" ID="BtnLimpiar" OnClick="BtnLimpiar_Click" />
+                    <asp:Button Text="Limpiar" runat="server" CssClass="btn btn-primary" ID="BtnLimpiar" OnClick="BtnLimpiar_Click" />
                 </div>
             </div>
         </div>
@@ -106,13 +106,22 @@
                         <asp:BoundField HeaderText="Ticket" DataField="Id" />
                         <asp:BoundField HeaderText="Cliente" DataField="Cliente" />
                         <asp:BoundField HeaderText="Usuario asignado" DataField="Empleado" />
-                        <%--<asp:BoundField HeaderText="Descripción" DataField="Descripcion" />--%>
                         <asp:BoundField HeaderText="Estado" DataField="Estado" />
                         <asp:BoundField HeaderText="Prioridad" DataField="Prioridad" />
                         <asp:BoundField HeaderText="Tipo" DataField="Tipo.Nombre" />
                         <asp:BoundField HeaderText="Fecha de Alta" DataField="FechaAlta" DataFormatString="{0:dd/MM/yyyy}" />
-                        <asp:BoundField HeaderText="Fecha de Cierre" DataField="FechaCierre" DataFormatString="{0:dd/MM/yyyy}" />
-                        <asp:BoundField HeaderText="Resolución" DataField="Resolucion" />
+                        <asp:TemplateField HeaderText="Fecha de Cierre">
+                            <ItemTemplate>
+                                <%# Eval("FechaCierre") == null ? "" : String.Format("{0:dd/MM/yyyy}", Eval("FechaCierre")) %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Resolución">
+                            <ItemTemplate>
+                                <%# Eval("Resolucion") == null ? "" : Eval("Resolucion") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:CommandField HeaderText="Ver" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
                     </Columns>
                 </asp:GridView>

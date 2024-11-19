@@ -122,10 +122,6 @@
                 </div>
 
                 <div class="container col-5 p-2">
-                    <%-- TODO: <div class="mb-3 me-auto ">
-                        <label for="txtDescripcion" class="form-label">Titulo: </label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" ID="txtTitulo" CssClass="form-control" MaxLength="100" />
-                    </div>--%>
                     <div class="mb-3 me-auto ">
                         <label for="txtDescripcion" class="form-label">Descripción: </label>
                         <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtDescripcion" CssClass="form-control alturaDesc" MaxLength="1000" />

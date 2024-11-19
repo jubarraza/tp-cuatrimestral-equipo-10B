@@ -534,9 +534,10 @@ namespace App_GestorIncidencias
                                         <h2>Confirmacion de cierre de Reclamo</h2>
                                         <p> Hola {inc.cliente.persona.Nombre} {inc.cliente.persona.Apellido},</p>
                                         <p>Le confirmamos que su reclamo se ha cerrado con el siguiente comentario:</p>
-                                        <p>{inc.Resolucion}</p>
+                                        <p><strong><em>{inc.Resolucion}</em></strong></p>
                                         <p>Si tiene algun inconveniente con la resolución por favor contactese nuevamente indicando el numero de Reclamo.</p>
                                         <p>Quedamos a disposicion ante cualquier consulta adicional.</p>
+                                        <h4>Equipo de Soporte 10bStore</h4>
                                         <hr/>
                                         <p><small>Este es un mensaje automático, por favor no responda a este correo.</small></p>
                                     </body>
@@ -582,12 +583,15 @@ namespace App_GestorIncidencias
                 incidencia.Resolucion = txtComentarioResolucion.Text;
 
                 negocio.ModificarIncidencia(incidencia);
+                incidencia = negocio.buscarIncidencia(incidencia.Id);
             }
             ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
             botonesCierre.Visible = false;
             btnEditar.Visible = false;
             BtnComentar.Visible = false;
             btnReasignar.Visible = false;
+
+            EnviarCorreoCierre(incidencia);
         }
 
         protected void btnGuardarCierre_Click(object sender, EventArgs e)
@@ -616,12 +620,14 @@ namespace App_GestorIncidencias
                 incidencia.Resolucion = txtComentarioCierre.Text;
 
                 negocio.ModificarIncidencia(incidencia);
+                incidencia = negocio.buscarIncidencia(incidencia.Id);
             }
             ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
             botonesCierre.Visible = false;
             btnEditar.Visible = false;
             BtnComentar.Visible = false;
             btnReasignar.Visible = false;
+            EnviarCorreoCierre(incidencia);
         }
     }
 }

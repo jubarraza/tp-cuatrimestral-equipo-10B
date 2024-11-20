@@ -24,6 +24,19 @@
                     <img src="../Recursos/CallC.png" alt="CC" width="40" height="40" class="d-inline-block align-text-top">
                     <asp:Label Text="Gestion de Reclamos" runat="server" CssClass="align-middle p-1" />
                 </a>
+                <div class="d-flex pt-2 pb-2">
+                    <% if (Negocio.Helper.SessionActiva(Session["usuario"]))
+                        { %>
+                    <div class="nav-item dropdown">
+                        <asp:Label ID="lblUser" Text="UsuarioLogueado" CssClass="dropdown-toggle me-4 mt-2 nav-link text-light" runat="server" data-bs-toggle="dropdown" aria-expanded="false" />
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="MiPerfil.aspx">Mi Perfil</a></li>
+                        </ul>
+                    </div>
+                    <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" CssClass="me-3" />
+                    <asp:Button Text="Cerrar Sesion" ID="btnCerrarSesion" CssClass="btn btn-danger me-3" runat="server" OnClick="btnCerrarSesion_Click" />
+                    <%} %>
+                </div>
 
                 <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 

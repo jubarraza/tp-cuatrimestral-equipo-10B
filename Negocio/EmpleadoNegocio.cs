@@ -60,6 +60,58 @@ namespace Negocio
             }
         }
 
+        public List<Empleado> listar(bool soloActivos)
+        {
+            List<Empleado> lista = new List<Empleado>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "";
+
+                if (soloActivos)
+                {
+                    consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, T.IdTipoUsuario, T.Tipo, E.FechaIngreso, E.Activo, E.ImagenPerfil " +
+                      "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id inner join TIPOS_USUARIOS as T on E.TipoUsuario = T.IdTipoUsuario WHERE E.Activo = 1";
+                }
+                else
+                {
+                    consulta = "select P.Id, P.Nombre, P.Apellido, P.Email, E.Legajo, E.UserPassword, T.IdTipoUsuario, T.Tipo, E.FechaIngreso, E.Activo, E.ImagenPerfil " +
+                      "from PERSONAS as P inner join EMPLEADOS as E on E.IdPersona = P.Id inner join TIPOS_USUARIOS as T on E.TipoUsuario = T.IdTipoUsuario WHERE E.Activo = 0";
+                }
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Empleado aux = new Empleado();
+                    aux.persona = new Persona();
+                    aux.persona.Id = long.Parse(datos.Lector["Id"].ToString());
+                    aux.persona.Nombre = (string)datos.Lector["Nombre"];
+                    aux.persona.Apellido = (string)datos.Lector["Apellido"];
+                    aux.persona.Email = (string)datos.Lector["Email"];
+                    aux.Legajo = long.Parse(datos.Lector["Legajo"].ToString());
+                    aux.UserPassword = (string)datos.Lector["UserPassword"];
+                    aux.tipoUsuario = new TipoUsuario();
+                    aux.tipoUsuario.IdTipoUsuario = int.Parse(datos.Lector["IdTipoUsuario"].ToString());
+                    aux.tipoUsuario.Tipo = (string)datos.Lector["Tipo"];
+                    aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
+                    aux.ImagenPerfil = datos.Lector["ImagenPerfil"] is DBNull ? "" : (string)datos.Lector["ImagenPerfil"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public long ObtenerUltimoLegajo()
         {
             AccesoDatos datos = new AccesoDatos();

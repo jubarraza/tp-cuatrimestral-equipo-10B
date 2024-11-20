@@ -13,12 +13,18 @@
             justify-content:flex-end;
         }
     </style>
-
+    <script>
+        function showModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('ModalConfirmacion'));
+            myModal.show();
+        }
+    </script>
 </asp:Content>
 
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager runat="server" />
 
     <div class="container mt-5 border rounded pt-3 col-lg-5 col-xxl-3 col-sm-auto">
 
@@ -59,7 +65,6 @@
                     </div>
                 </div>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
-                <asp:RegularExpressionValidator ControlToValidate="txtPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
             </div>
 
             <div class="mb-3">
@@ -73,6 +78,25 @@
     </div>
 
     <%}%>
+
+            <!-- Modal -->
+<div class="modal fade" id="ModalConfirmacion" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">⛔ Error de Inicio de Sesión</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>La contraseña o el usuario ingresado no coinciden con ningun usuario activo.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <script type="text/javascript">
 

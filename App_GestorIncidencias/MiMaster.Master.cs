@@ -14,18 +14,42 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Helper.SessionActiva(Session["usuario"]))
+            if (!(Page is Default || Page is RecuperoPassword || Page is PageError))
             {
-                Empleado aux = (Empleado)Session["usuario"];
-                lblUser.Text = aux.persona.ToString();
+                if (Helper.SessionActiva(Session["usuario"]))
+                {
+                    Empleado aux = (Empleado)Session["usuario"];
+                    lblUser.Text = aux.persona.ToString();
 
-                if (!string.IsNullOrEmpty(aux.ImagenPerfil))
-                {                  
-                    imgAvatar.ImageUrl = "~/Images/Perfiles/" + aux.ImagenPerfil;
+                    if (!string.IsNullOrEmpty(aux.ImagenPerfil))
+                    {
+                        imgAvatar.ImageUrl = "~/Images/Perfiles/" + aux.ImagenPerfil;
+                    }
+                    else
+                    {
+                        imgAvatar.ImageUrl = "https://simg.nicepng.com/png/small/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png";
+                    }
                 }
                 else
                 {
-                    imgAvatar.ImageUrl = "https://simg.nicepng.com/png/small/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png";
+                    Response.Redirect("~/Default.aspx", false);
+                }
+            }
+            else
+            {
+                if (Helper.SessionActiva(Session["usuario"]))
+                {
+                    Empleado aux = (Empleado)Session["usuario"];
+                    lblUser.Text = aux.persona.ToString();
+
+                    if (!string.IsNullOrEmpty(aux.ImagenPerfil))
+                    {
+                        imgAvatar.ImageUrl = "~/Images/Perfiles/" + aux.ImagenPerfil;
+                    }
+                    else
+                    {
+                        imgAvatar.ImageUrl = "https://simg.nicepng.com/png/small/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png";
+                    }
                 }
             }
         }
@@ -40,7 +64,7 @@ namespace App_GestorIncidencias
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
     }

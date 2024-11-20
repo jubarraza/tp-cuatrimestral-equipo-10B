@@ -16,7 +16,7 @@ namespace Negocio
             string legajo = "";
             try
             {
-                datos.setearConsulta("select Legajo from EMPLEADOS as Emp left join PERSONAS as Per on Emp.IdPersona = Per.Id where Per.Email like @User and Emp.UserPassword like @Password");
+                datos.setearConsulta("select Legajo from EMPLEADOS as Emp left join PERSONAS as Per on Emp.IdPersona = Per.Id WHERE Per.Email = @User AND Emp.UserPassword = @Password AND Emp.Activo = 1");
                 datos.setearParametro("@User", email);
                 datos.setearParametro("@Password", Password);
 

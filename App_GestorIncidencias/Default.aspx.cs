@@ -24,7 +24,6 @@ namespace App_GestorIncidencias
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            AccesoDatos acceso = new AccesoDatos();
             EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             try
             {
@@ -34,13 +33,11 @@ namespace App_GestorIncidencias
                 {
                     Empleado empleadoUser = (empleadoNegocio.listar(leg)[0]);
                     Session.Add("usuario", empleadoUser);
-                    Session.Add("TipoUsuario", empleadoUser);
                     Response.Redirect("~/Default.aspx", false);
                 }
                 else
                 {
-                    Session.Add("error", "Usuario o contraseña incorrectos");
-                    Response.Redirect("PageError.aspx", false);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScript", "var modal = new bootstrap.Modal(document.getElementById('ModalConfirmacion')); modal.show();", true);
                 }
 
             }
@@ -48,10 +45,6 @@ namespace App_GestorIncidencias
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("PageError.aspx");
-            }
-            finally
-            {
-                acceso.cerrarConexion();
             }
         }
 

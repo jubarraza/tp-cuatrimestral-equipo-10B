@@ -21,8 +21,7 @@ namespace App_GestorIncidencias
             {
                 if (!Helper.SessionActiva(Session["usuario"]))
                 {
-                    Session.Add("error", "Debe iniciar sesion para poder crear nuevas Incidencias.");
-                    Response.Redirect("PageError.aspx", false);
+                    Response.Redirect("~/Default.aspx", false);
                 }
                 else
                 {
@@ -47,7 +46,7 @@ namespace App_GestorIncidencias
                         ddlTipoIncidencia.DataBind();
 
                         EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
-                        List<Empleado> empleados = empleadoNegocio.listar();
+                        List<Empleado> empleados = empleadoNegocio.listar(true);
                         ddlUsuario.DataSource = empleados;
                         ddlUsuario.DataValueField = "Legajo";
                         ddlUsuario.DataTextField = "NombreCompleto";

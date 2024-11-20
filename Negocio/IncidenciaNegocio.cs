@@ -29,6 +29,22 @@ namespace Negocio
             }
         }
 
+        public List<Incidencia> listarIncidenciasDeOperador(long legajoEmpleado)
+        {
+            List<Incidencia> lista = new List<Incidencia>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id where INC.LegajoEmpleado = " + legajoEmpleado;
+                lista = Devolverlista(consulta);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void AgregarIncidencia(Incidencia nueva)
         {
 
@@ -207,12 +223,12 @@ namespace Negocio
         public List<Incidencia> filtrar(string Busquedapor, string buscara, string filtrara, string filtro, string Fechadesde, string FechaHasta)
         {
             List<Incidencia> listar = new List<Incidencia>();
-            string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre \r\nas Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion, tip.Nombre as Tipoincidencia from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id left join TIPO_INCIDENCIA as tip on INC.IdTipoIncidencia = tip.Id";
+            string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion, tip.Nombre as Tipoincidencia from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id left join TIPO_INCIDENCIA as tip on INC.IdTipoIncidencia = tip.Id";
             try
             {
                 if (Busquedapor == "DNI Cliente")
                     consulta += " where DNICliente like '%" + buscara + "%' and ";
-                else if (Busquedapor == "Legajo Usuario")
+                else if (Busquedapor == "Legajo Usuario Asignado")
                     consulta += " where LegajoEmpleado like '%" + buscara + "%' and ";
 
                 if (filtrara != "Todos" && Busquedapor != "Todos")

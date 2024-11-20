@@ -102,7 +102,7 @@
 
                     <Columns>
                         <asp:BoundField HeaderText="Ticket" DataField="Id" />
-                        <asp:BoundField HeaderText="Cliente" DataField="Cliente" />
+                        <asp:BoundField HeaderText="Cliente" DataField="Cliente.NombreCompleto" />
                         <asp:BoundField HeaderText="Usuario asignado" DataField="Empleado" />
                         <asp:BoundField HeaderText="Estado" DataField="Estado" />
                         <asp:BoundField HeaderText="Prioridad" DataField="Prioridad" />

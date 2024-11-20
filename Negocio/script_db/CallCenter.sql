@@ -232,11 +232,11 @@ go
 set dateformat dmy
 go
 insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (12345678,100001,'No se acredito el pago',1,3,1,'17-03-2023',null,null);
+values (12345678,100001,'No se acredito el pago',1,3,1,'17-03-2024',null,null);
 insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (87654321,100002,'Solicito baja de servicio',4,3,2,'17-03-2023','23-09-2024','Se ha realizado la baja correspondiente');
+values (87654321,100001,'Solicito baja de servicio',4,3,2,'17-04-2024','23-09-2024','Se ha realizado la baja correspondiente');
 insert into INCIDENCIAS (DniCliente, LegajoEmpleado, Descripcion , Estado, Prioridad, IdTipoIncidencia, FechaAlta, FechaCierre, Resolucion) 
-values (12312312,100003,'Lisa necesita frenos',3,2,1,'22-03-2023',null,null);
+values (12312312,100003,'Lisa necesita frenos',3,2,1,'22-10-2024',null,null);
 go
 
 -- COMENTARIOS

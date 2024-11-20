@@ -15,6 +15,11 @@ namespace Dominio
         public Direccion direccion { get; set; } ///ClaseDireccion
         public bool Activo { get; set; }
 
+        public string NombreCompleto
+        {
+            get { return Dni + " - " + persona.Nombre + " " + persona.Apellido; }
+        }
+
         public override string ToString()
         {
             return persona.Nombre + " " + persona.Apellido;

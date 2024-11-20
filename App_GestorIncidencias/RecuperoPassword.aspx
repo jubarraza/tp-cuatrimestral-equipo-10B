@@ -63,7 +63,7 @@
                 <use href="#exclamation-triangle-fill" />
             </svg>
             <div>
-                Mail incorrecto!!!
+                Mail incorrecto o usuario inactivo.
             </div>
         </div>
 

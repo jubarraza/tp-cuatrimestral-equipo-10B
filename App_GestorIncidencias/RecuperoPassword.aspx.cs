@@ -50,7 +50,7 @@ namespace App_GestorIncidencias
                             <body>
                                 <h2>Ha solicitado la recuperacion de su contraseña</h2>
                                 <p> Se ha recibido una solicitud de recuperacion de contraseña para el usuario {mailDestinatario}</p>
-                                <p>La contraseña registrada es: <strong>#{password}</strong>.</p>
+                                <p>La contraseña registrada es: <strong>{password}</strong>.</p>
                                 <hr/>
                                 <p><small>Este es un mensaje automático, por favor no responda a este correo.</small></p>
                             </body>

@@ -3,6 +3,7 @@ using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,31 +15,11 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Legajo"] == null || ((Dominio.Empleado)Session["TipoUsuario"]).tipoUsuario.IdTipoUsuario == 3)
-            {
-                Session.Add("error", "Error en el permiso del usuario");
-                Response.Redirect("PageError.aspx", false);
-            }
 
             if (chkAvanzado.Checked)
             {
-                txtBuscar.Enabled = false;
-                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                if (txtFechaDesde.Text == "")
-                {
-                    txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
-                }
-                if (txtFechaHasta.Text == "")
-                {
-                    fecha = fecha.AddMonths(1).AddDays(-1);
-                    txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
-                }
-                if (ddlFiltrapor.SelectedValue.ToString() == "Todos")
-                {
-                    ddlCategoria.Items.Clear();
-                    ddlCategoria.Enabled = false;
-                    ddlCategoria.Items.Add("");
-                }
+                cargaFiltroAvanzado();
+                
             }
             else
             {
@@ -54,13 +35,51 @@ namespace App_GestorIncidencias
 
             if (!IsPostBack)
             {
-                IncidenciaNegocio negocio = new IncidenciaNegocio();
-                Session.Add("listaIncidencias", negocio.listar());
-                dgvIncidencias.DataSource = Session["listaIncidencias"];
-                dgvIncidencias.DataBind();
+                if (Helper.SessionActiva(Session["usuario"]))
+                {
+                    Empleado user = (Empleado)Session["usuario"];
+                    if (Helper.consultaTipoUsuario(user) == 3)
+                    {
+                        IncidenciaNegocio negocio = new IncidenciaNegocio();
+                        Session.Add("listaIncidencias", negocio.listarIncidenciasDeOperador(user.Legajo));
+                        dgvIncidencias.DataSource = Session["listaIncidencias"];
+                        dgvIncidencias.DataBind();
+                    }
+                    else
+                    {
+                        IncidenciaNegocio negocio = new IncidenciaNegocio();
+                        Session.Add("listaIncidencias", negocio.listar());
+                        dgvIncidencias.DataSource = Session["listaIncidencias"];
+                        dgvIncidencias.DataBind();
+                    }
 
+                }
+                else
+                {
+                    Response.Redirect("~/Default.aspx", false);
+                }
 
+            }
+        }
 
+        protected void cargaFiltroAvanzado()
+        {
+            txtBuscar.Enabled = false;
+            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            if (txtFechaDesde.Text == "")
+            {
+                txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
+            }
+            if (txtFechaHasta.Text == "")
+            {
+                fecha = fecha.AddMonths(1).AddDays(-1);
+                txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
+            }
+            if (ddlFiltrapor.SelectedValue.ToString() == "Todos")
+            {
+                ddlCategoria.Items.Clear();
+                ddlCategoria.Enabled = false;
+                ddlCategoria.Items.Add("");
             }
         }
 
@@ -169,6 +188,10 @@ namespace App_GestorIncidencias
                 {
                       lblSinResultados.Visible = true;
                 }
+                else
+                {
+                    lblSinResultados.Visible = false;
+                }
 
             }
             catch (Exception ex)
@@ -184,6 +207,18 @@ namespace App_GestorIncidencias
                 txtBusquedapor.Enabled = false;
                 txtBusquedapor.Text = "";
             }
+            else if(ddlBusquedapor.SelectedItem.ToString() == "Legajo Usuario Asignado")
+            {
+                if (Helper.consultaTipoUsuario(Session["usuario"]) == 3)
+                {
+                    txtBusquedapor.Text = ((Empleado)Session["usuario"]).Legajo.ToString();
+                    txtBusquedapor.Enabled = false;
+                }
+                else
+                {
+                    txtBusquedapor.Enabled = true;
+                }
+            }
             else
             {
                 txtBusquedapor.Enabled = true;
@@ -195,10 +230,21 @@ namespace App_GestorIncidencias
         {
             ResetearFiltro();
             lblSinResultados.Visible = false;
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-            Session.Add("listaIncidencias", negocio.listar());
-            dgvIncidencias.DataSource = Session["listaIncidencias"];
-            dgvIncidencias.DataBind();
+            Empleado user = (Empleado)Session["usuario"];
+            if (Helper.consultaTipoUsuario(user) == 3)
+            {
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+                Session.Add("listaIncidencias", negocio.listarIncidenciasDeOperador(user.Legajo));
+                dgvIncidencias.DataSource = Session["listaIncidencias"];
+                dgvIncidencias.DataBind();
+            }
+            else
+            {
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+                Session.Add("listaIncidencias", negocio.listar());
+                dgvIncidencias.DataSource = Session["listaIncidencias"];
+                dgvIncidencias.DataBind();
+            }
         }
 
 

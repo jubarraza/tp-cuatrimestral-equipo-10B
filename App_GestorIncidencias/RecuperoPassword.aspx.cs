@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,7 +11,9 @@ using Negocio;
 namespace App_GestorIncidencias
 {
     public partial class RecuperoPassword : System.Web.UI.Page
-    {
+    {   
+       public bool band1 = false;
+       public bool band2 = false;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -18,10 +21,19 @@ namespace App_GestorIncidencias
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-             EmpleadoNegocio negocio = new EmpleadoNegocio(); 
+            band1 = true; 
+            EmpleadoNegocio negocio = new EmpleadoNegocio(); 
              string Pass = negocio.DevolverPassword(txtEmail.Text);
             if(Pass != "")
+            {
                 EnviarCorreoRecuperacion(txtEmail.Text, Pass);
+                band2 = false;
+            }     
+            else
+            {
+                band2 = true;
+            }
+                
 
         }
 

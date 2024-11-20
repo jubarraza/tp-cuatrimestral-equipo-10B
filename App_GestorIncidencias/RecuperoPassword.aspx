@@ -11,6 +11,14 @@
   </symbol>
 </svg>
 
+    <style>
+        #ContenedorAlert
+        {
+            height:30px;
+
+        }
+
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -34,7 +42,7 @@
 
 
             <div class="mb-3">
-                <asp:Button Text="Enviar" runat="server" ID="btnIngresar" CssClass="btn btn-success card-img" />
+                <asp:Button Text="Enviar" runat="server" ID="btnIngresar" OnClick="btnIngresar_Click" CssClass="btn btn-success card-img" />
             </div>
         </div>
 
@@ -44,8 +52,8 @@
 
   <div class="container col-xxl-3">
 
-    <div class="alert alert-danger d-flex align-items-center" role="alert">
-  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:" width="30px"><use href="#exclamation-triangle-fill"/></svg>
+    <div class="alert alert-danger d-flex align-items-center" role="alert" id="ContenedorAlert">
+  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:" width="25px"><use href="#exclamation-triangle-fill"/></svg>
   <div>
     Mail incorrecto!!!
   </div>

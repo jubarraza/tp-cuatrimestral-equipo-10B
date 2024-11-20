@@ -196,5 +196,30 @@ namespace Negocio
 
         }
 
+        public string DevolverPassword(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string Pass = "";                
+                datos.setearConsulta("select emp.UserPassword from EMPLEADOS as emp left join PERSONAS as per on emp.IdPersona = per.Id where per.Email like @email and emp.Activo = 1");
+                datos.setearParametro("@email", email);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    Pass = (string)datos.Lector["UserPassword"];
+                }
+                return Pass;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

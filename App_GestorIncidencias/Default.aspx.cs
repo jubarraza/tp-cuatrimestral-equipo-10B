@@ -32,9 +32,10 @@ namespace App_GestorIncidencias
                 string leg = gestionUser.loguear(txtEmail.Text, txtPassword.Text);
                 if (leg != "")
                 {
-                    Empleado empleadouser = (empleadoNegocio.listar(leg)[0]);
-                    Session.Add("usuario", empleadouser);
-                    Response.Redirect("~/IncidenciaListar.aspx", false);
+                    Empleado empleadoUser = (empleadoNegocio.listar(leg)[0]);
+                    Session.Add("usuario", empleadoUser);
+                    Session.Add("TipoUsuario", empleadoUser);
+                    Response.Redirect("~/Default.aspx", false);
                 }
                 else
                 {

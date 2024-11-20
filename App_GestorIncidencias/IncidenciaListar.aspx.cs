@@ -14,6 +14,11 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Legajo"] == null || ((Dominio.Empleado)Session["TipoUsuario"]).tipoUsuario.IdTipoUsuario == 3)
+            {
+                Session.Add("error", "Error en el permiso del usuario");
+                Response.Redirect("PageError.aspx", false);
+            }
 
             if (chkAvanzado.Checked)
             {

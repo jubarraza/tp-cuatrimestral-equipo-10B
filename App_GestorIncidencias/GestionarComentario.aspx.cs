@@ -54,7 +54,8 @@ namespace App_GestorIncidencias
                         }
                         else
                         {
-                            Response.Redirect("~/Default.aspx", false);
+                            Session.Add("error", "No posee permisos para poder visualizar el comentario.");
+                            Response.Redirect("~/PageError.aspx", false);
                         }
 
                     }

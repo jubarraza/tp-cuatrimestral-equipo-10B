@@ -83,49 +83,58 @@ namespace App_GestorIncidencias
                             ddlEstado.DataBind();
 
                             Incidencia seleccion = (negocio.listar(id)[0]);
-                            txtId.Text = id;
-                            txtDniCliente.Enabled = false;
-                            txtDniCliente.Text = seleccion.cliente.Dni.ToString();
-                            txtCliente.Text = seleccion.cliente.ToString();
-                            Session.Add("IdPersona", seleccion.cliente.persona.Id);
-                            CargarTelefonos();
-                            txtEmail.Text = seleccion.cliente.persona.Email;
-                            txtDireccion.Text = seleccion.cliente.direccion.ToString();
 
-                            deshabilitarCamposIncidencia();
-
-                            ddlUsuario.SelectedValue = seleccion.Empleado.Legajo.ToString();
-                            TxtDescripcion.Text = seleccion.Descripcion.ToString();
-                            ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
-                            ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
-                            ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
-                            txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
-                            txtFechaReclamo.Enabled = false;
-
-                            ComentarioNegocio Cnegocio = new ComentarioNegocio();
-                            dgvComentarios.DataSource = Cnegocio.Listar(id);
-                            dgvComentarios.DataBind();
-
-                            contComentarios.Visible = true;
-                            txtId.ReadOnly = true;
-
-                            if (seleccion.Estado.Id == 4 || seleccion.Estado.Id == 5)
+                            if (seleccion.Empleado.Legajo.ToString() == user.Legajo.ToString() || user.tipoUsuario.IdTipoUsuario != 3)
                             {
-                                botonesCierre.Visible = false;
-                                btnEditar.Visible = false;
-                                BtnComentar.Visible = false;
-                                btnReasignar.Visible = false;
+                                txtId.Text = id;
+                                txtDniCliente.Enabled = false;
+                                txtDniCliente.Text = seleccion.cliente.Dni.ToString();
+                                txtCliente.Text = seleccion.cliente.ToString();
+                                Session.Add("IdPersona", seleccion.cliente.persona.Id);
+                                CargarTelefonos();
+                                txtEmail.Text = seleccion.cliente.persona.Email;
+                                txtDireccion.Text = seleccion.cliente.direccion.ToString();
+
+                                deshabilitarCamposIncidencia();
+
+                                ddlUsuario.SelectedValue = seleccion.Empleado.Legajo.ToString();
+                                TxtDescripcion.Text = seleccion.Descripcion.ToString();
+                                ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                                ddlPrioridad.SelectedValue = seleccion.Prioridad.Id.ToString();
+                                ddlTipoIncidencia.SelectedValue = seleccion.Tipo.Id.ToString();
+                                txtFechaReclamo.Text = seleccion.FechaAlta.ToString("yyyy-MM-dd");
+                                txtFechaReclamo.Enabled = false;
+
+                                ComentarioNegocio Cnegocio = new ComentarioNegocio();
+                                dgvComentarios.DataSource = Cnegocio.Listar(id);
+                                dgvComentarios.DataBind();
+
+                                contComentarios.Visible = true;
+                                txtId.ReadOnly = true;
+
+                                if (seleccion.Estado.Id == 4 || seleccion.Estado.Id == 5)
+                                {
+                                    botonesCierre.Visible = false;
+                                    btnEditar.Visible = false;
+                                    BtnComentar.Visible = false;
+                                    btnReasignar.Visible = false;
+                                }
+                                else
+                                {
+                                    botonesCierre.Visible = true;
+                                }
+
+                                if (Request.QueryString["edited"] == 1.ToString())
+                                {
+                                    seleccion.Estado.Id = 3;
+                                    ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                                    negocio.ModificarIncidencia(seleccion);
+                                }
                             }
                             else
                             {
-                                botonesCierre.Visible = true;
-                            }
-
-                            if (Request.QueryString["edited"] == 1.ToString())
-                            {
-                                seleccion.Estado.Id = 3;
-                                ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
-                                negocio.ModificarIncidencia(seleccion);
+                                Session.Add("error", "No posee permisos para poder visualizar la incidencia.");
+                                Response.Redirect("~/PageError.aspx", false);
                             }
                         }
                         else
@@ -140,19 +149,15 @@ namespace App_GestorIncidencias
                             if (Request.QueryString["dni"] != null)
                             {
                                 cargarClienteEditado();
-
                             }
                         }
-
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -264,7 +269,7 @@ namespace App_GestorIncidencias
                         EnviarCorreoCreacion(incidencia);
                     }
 
-                    Response.Redirect("IncidenciaListar.aspx", false);
+                    Response.Redirect("~/IncidenciaListar.aspx", false);
                 }
                 else
                 {
@@ -275,7 +280,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-                Session.Add("PageError.aspx", ex);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
 
             }
         }
@@ -283,13 +289,13 @@ namespace App_GestorIncidencias
         protected void dgvComentarios_SelectedIndexChanged(object sender, EventArgs e)
         {
             string Id = dgvComentarios.SelectedDataKey.Value.ToString();
-            Response.Redirect("GestionarComentario.aspx?Id=" + Id);
+            Response.Redirect("~/GestionarComentario.aspx?Id=" + Id);
         }
 
         protected void BtnComentar_Click(object sender, EventArgs e)
         {
             string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
-            Response.Redirect("GestionarComentario.aspx?cod=" + id);
+            Response.Redirect("~/GestionarComentario.aspx?cod=" + id);
         }
 
         protected void txtDniCliente_TextChanged(object sender, EventArgs e)
@@ -351,8 +357,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -375,8 +381,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
 
         }
@@ -420,7 +426,6 @@ namespace App_GestorIncidencias
             txtCliente.Text = string.Empty;
             txtEmail.Text = string.Empty;
             txtDireccion.Text = string.Empty;
-            //btnCambiarCliente.Enabled = false;
             habilitarCamposCliente();
         }
 
@@ -446,7 +451,7 @@ namespace App_GestorIncidencias
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("IncidenciaListar.aspx", false);
+            Response.Redirect("~/IncidenciaListar.aspx", false);
         }
 
         protected void btnReasignar_Click(object sender, EventArgs e)

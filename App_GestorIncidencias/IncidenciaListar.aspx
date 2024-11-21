@@ -131,7 +131,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:CommandField HeaderText="Ver" ShowSelectButton="true" SelectText="Ver🔍" />
+                        <asp:CommandField HeaderText="Ver" ShowSelectButton="true" SelectText="🔍" />
                     </Columns>
                 </asp:GridView>
                 <asp:Label Text="No hay resultados que coincidan con la busqueda" ID="lblSinResultados" Visible="false" CssClass="alert alert-warning" runat="server" />

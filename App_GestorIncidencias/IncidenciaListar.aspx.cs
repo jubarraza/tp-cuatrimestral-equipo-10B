@@ -61,7 +61,7 @@ namespace App_GestorIncidencias
                         {
                             IncidenciaNegocio negocio = new IncidenciaNegocio();
                             List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-                            List<Incidencia> lista = negocio.listar(user.Legajo.ToString());
+                            List<Incidencia> lista = negocio.listarIncidenciasDeOperador(user.Legajo);
                             Session.Add("listaIncidencias", lista);
                             if (Request.QueryString["estado"] == null)
                             {
@@ -156,7 +156,7 @@ namespace App_GestorIncidencias
             {
                 IncidenciaNegocio negocio = new IncidenciaNegocio();
                 List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-                List<Incidencia> lista = negocio.listar(legajo.ToString());
+                List<Incidencia> lista = negocio.listarIncidenciasDeOperador(legajo);
                 Session.Add("listaIncidencias", lista);
 
                 if (Request.QueryString["estado"] == "abierto")

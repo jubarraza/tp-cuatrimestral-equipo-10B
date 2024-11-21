@@ -109,7 +109,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
-                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Activo = 1 AND C.Dni = " + dni);
+                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Dni = " + dni);
 
                 datos.ejecutarLectura();
 

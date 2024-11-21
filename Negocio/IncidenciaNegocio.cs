@@ -45,6 +45,22 @@ namespace Negocio
             }
         }
 
+        public List<Incidencia> listarIncidenciasDeCliente(long dniCliente)
+        {
+            List<Incidencia> lista = new List<Incidencia>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "select INC.codigo, INC.DniCliente, INC.LegajoEmpleado, INC.Descripcion,est.Id AS IdEstado, est.Nombre as Estado,PRIO.Id as IdPrioridad, PRIO.Nombre as Prioridad, INC.IdTipoIncidencia, INC.FechaAlta, INC.FechaCierre, INC.Resolucion from INCIDENCIAS as INC left join ESTADOS as est on INC.Estado = est.Id left join PRIORIDADES as PRIO on INC.Prioridad = PRIO.Id where INC.DniCliente = " + dniCliente;
+                lista = Devolverlista(consulta);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void AgregarIncidencia(Incidencia nueva)
         {
 

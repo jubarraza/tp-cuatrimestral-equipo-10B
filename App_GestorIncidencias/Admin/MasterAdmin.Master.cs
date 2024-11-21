@@ -17,7 +17,7 @@ namespace App_GestorIncidencias
             {
                 Empleado aux = (Empleado)Session["usuario"];
 
-                if(aux.tipoUsuario.IdTipoUsuario == 1)
+                if(aux.tipoUsuario.IdTipoUsuario != 3)
                 {
                     lblUser.Text = aux.persona.ToString();
 

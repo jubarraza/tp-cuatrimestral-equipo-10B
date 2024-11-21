@@ -35,7 +35,9 @@
                     </div>
                     <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" CssClass="me-3" />
                     <asp:Button Text="Cerrar Sesion" ID="btnCerrarSesion" CssClass="btn btn-danger me-3" runat="server" OnClick="btnCerrarSesion_Click" />
-                    <%} %>
+                    <%}
+
+                    %>
                 </div>
 
                 <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -52,16 +54,19 @@
                                 <a class="nav-link active" aria-current="page" href="HomeAdmin.aspx">Home Admin</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="Empleados.aspx">Empleados</a>
-                            </li>
-
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Adm de Clientes</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item" href="Clientes.aspx">Clientes</a></li>
                                     <li><a class="dropdown-item" href="Direcciones.aspx">Direcciones</a></li>
                                 </ul>
+                            </li>
+
+                            <%if (Negocio.Helper.SessionActiva(Session["usuario"]) && Negocio.Helper.consultaTipoUsuario(Session["usuario"]) == 1)
+                                { %>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="Empleados.aspx">Empleados</a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -81,6 +86,7 @@
                                     <li><a class="dropdown-item" href="Prioridades.aspx">Prioridades</a></li>
                                 </ul>
                             </li>
+                            <%} %>
                         </ul>
 
                     </div>

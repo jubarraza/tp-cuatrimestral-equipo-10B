@@ -50,8 +50,23 @@ namespace App_GestorIncidencias.Admin
             try
             {
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
-                long id = long.Parse(Session["idClienteEliminar"].ToString());
-                clienteNegocio.eliminarCliente(id);
+                long dni = long.Parse(Session["idClienteEliminar"].ToString());
+
+                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                List<Incidencia> lista = incidenciaNegocio.listarIncidenciasDeCliente(dni);
+                if (lista != null && lista.Count > 0)
+                {
+                    foreach (var incidencia in lista)
+                    {
+                        if (!(incidencia.Estado.EstadoFinal))
+                        {
+                            areaErrorEliminar.Visible = true;
+                            return;
+                        }
+                    }
+                }
+                             
+                clienteNegocio.eliminarCliente(dni);
                 Response.Redirect("Clientes.aspx", false);
             }
             catch (Exception ex)
@@ -89,6 +104,11 @@ namespace App_GestorIncidencias.Admin
             txtBuscar.Text = string.Empty;
             gvClientes.DataSource = Session["listaClientes"];
             gvClientes.DataBind();
+        }
+
+        protected void btnCerrarLbl_Click(object sender, EventArgs e)
+        {
+            areaErrorEliminar.Visible = false;
         }
     }
 }

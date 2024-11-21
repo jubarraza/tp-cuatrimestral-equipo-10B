@@ -33,7 +33,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="IncidenciaListar.aspx">Incidencias</a>
                         </li>
-                        <% if ((Negocio.Helper.consultaTipoUsuario(Session["usuario"])) == 1)
+                        <% if ((Negocio.Helper.consultaTipoUsuario(Session["usuario"])) != 3)
                             { %>
                         <li class="nav-item">
                             <a class="nav-link" href="./Admin/HomeAdmin.aspx">Menu Admin</a>

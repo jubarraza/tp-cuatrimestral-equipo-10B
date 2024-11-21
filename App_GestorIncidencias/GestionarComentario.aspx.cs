@@ -17,70 +17,76 @@ namespace App_GestorIncidencias
         public bool band;
         protected void Page_Load(object sender, EventArgs e)
         {
-            id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
-            Cod = Request.QueryString["Cod"] != null ? Request.QueryString["Cod"].ToString() : "";
-            txtCodIncidencia.Enabled = false;
-            txtLegajoEmpleado.Enabled = false;
-            txtFecha.Enabled = false;
-            TxtComentario.Enabled = false;
-            band = true;
-
-
-
-
-            if (!IsPostBack)
+            try
             {
-                try
-                {
-                    Empleado user = (Empleado)Session["usuario"];
-                    if (id != "")
-                    {
+                id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : "";
+                Cod = Request.QueryString["Cod"] != null ? Request.QueryString["Cod"].ToString() : "";
+                txtCodIncidencia.Enabled = false;
+                txtLegajoEmpleado.Enabled = false;
+                txtFecha.Enabled = false;
+                TxtComentario.Enabled = false;
+                band = true;
 
-                        btnModificar.Text = "Modificar";
-                        ComentarioNegocio negocio2 = new ComentarioNegocio();
-                        Comentario comentario2 = (negocio2.Listar(id, false)[0]);                                            
-                        IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
-                        Incidencia incidencia = incidenciaNegocio.buscarIncidencia(comentario2.Cod_Incidencia);
-                        if (incidencia.Estado.Id == 4 || incidencia.Estado.Id == 5)
+                if (!IsPostBack)
+                {
+                    try
+                    {
+                        Empleado user = (Empleado)Session["usuario"];
+                        if (id != "")
                         {
-                            btnModificar.Visible = false;
+
+                            btnModificar.Text = "Modificar";
+                            ComentarioNegocio negocio2 = new ComentarioNegocio();
+                            Comentario comentario2 = (negocio2.Listar(id, false)[0]);
+                            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                            Incidencia incidencia = incidenciaNegocio.buscarIncidencia(comentario2.Cod_Incidencia);
+                            if (incidencia.Estado.Id == 4 || incidencia.Estado.Id == 5)
+                            {
+                                btnModificar.Visible = false;
+                            }
+                            if (incidencia.Empleado.Legajo.ToString() == user.Legajo.ToString() || user.tipoUsuario.IdTipoUsuario != 3)
+                            {
+                                txtCodIncidencia.Text = comentario2.Cod_Incidencia.ToString();
+                                txtLegajoEmpleado.Text = comentario2.Usuario.ToString();
+                                txtFecha.Text = comentario2.Fecha.ToString();
+                                TxtComentario.Text = comentario2.ComentarioGestion.ToString();
+                            }
+                            else
+                            {
+                                Session.Add("error", "No posee permisos para poder visualizar el comentario.");
+                                Response.Redirect("~/PageError.aspx", false);
+                            }
+
                         }
-                        if(incidencia.Empleado.Legajo.ToString() == user.Legajo.ToString() || user.tipoUsuario.IdTipoUsuario != 3)
+                        else if (Cod != "")
                         {
-                            txtCodIncidencia.Text = comentario2.Cod_Incidencia.ToString();
-                            txtLegajoEmpleado.Text = comentario2.Usuario.ToString();
-                            txtFecha.Text = comentario2.Fecha.ToString();
-                            TxtComentario.Text = comentario2.ComentarioGestion.ToString();
+
+                            btnModificar.Text = "Agregar Comentario";
+                            ComentarioNegocio negocio2 = new ComentarioNegocio();
+                            txtCodIncidencia.Text = Cod;
+                            txtLegajoEmpleado.Text = user.ToString();
+                            txtFecha.Text = DateTime.Now.ToString();
+                            TxtComentario.Enabled = true;
                         }
                         else
                         {
-                            Session.Add("error", "No posee permisos para poder visualizar el comentario.");
-                            Response.Redirect("~/PageError.aspx", false);
+                            Response.Redirect("IncidenciaListar.aspx", false);
                         }
 
                     }
-                    else if (Cod != "")
+                    catch (Exception ex)
                     {
 
-                        btnModificar.Text = "Agregar Comentario";
-                        ComentarioNegocio negocio2 = new ComentarioNegocio();
-                        txtCodIncidencia.Text = Cod;
-                        txtLegajoEmpleado.Text = user.ToString();
-                        txtFecha.Text = DateTime.Now.ToString();
-                        TxtComentario.Enabled = true;
+                        throw ex;
                     }
-                    else
-                    {
-                        Response.Redirect("IncidenciaListar.aspx", false);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
                 }
             }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
+            
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
@@ -111,8 +117,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -138,8 +144,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception)
             {
-
-                throw;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
 
         }

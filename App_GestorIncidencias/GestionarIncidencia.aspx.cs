@@ -197,17 +197,26 @@ namespace App_GestorIncidencias
 
         protected void cargarClienteEditado()
         {
-            ClienteNegocio clienteNegocio = new ClienteNegocio();
-            Cliente aux = clienteNegocio.BuscarCliente(long.Parse(Request.QueryString["dni"]));
+            try
+            {
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                Cliente aux = clienteNegocio.BuscarCliente(long.Parse(Request.QueryString["dni"]));
 
-            Session.Add("IdPersona", aux.persona.Id);
-            txtDniCliente.Text = aux.Dni.ToString();
-            txtCliente.Text = aux.ToString();
-            txtEmail.Text = aux.persona.Email;
-            txtDireccion.Text = aux.direccion.ToString();
-            CargarTelefonos();
-            btnEditarCliente.Visible = true;
-            btnCambiarCliente.Visible = true;
+                Session.Add("IdPersona", aux.persona.Id);
+                txtDniCliente.Text = aux.Dni.ToString();
+                txtCliente.Text = aux.ToString();
+                txtEmail.Text = aux.persona.Email;
+                txtDireccion.Text = aux.direccion.ToString();
+                CargarTelefonos();
+                btnEditarCliente.Visible = true;
+                btnCambiarCliente.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
+            
 
         }
 
@@ -300,40 +309,49 @@ namespace App_GestorIncidencias
 
         protected void txtDniCliente_TextChanged(object sender, EventArgs e)
         {
-            if (Helper.validarSoloNumeros(txtDniCliente.Text))
+            try
             {
-                ClienteNegocio clienteNegocio = new ClienteNegocio();
-
-                if (string.IsNullOrWhiteSpace(txtDniCliente.Text))
+                if (Helper.validarSoloNumeros(txtDniCliente.Text))
                 {
-                    lblValidacionDniRequerido.Visible = true;
-                    return;
-                }
+                    ClienteNegocio clienteNegocio = new ClienteNegocio();
 
-                Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
+                    if (string.IsNullOrWhiteSpace(txtDniCliente.Text))
+                    {
+                        lblValidacionDniRequerido.Visible = true;
+                        return;
+                    }
 
-                if (aux.Dni != 0)
-                {
-                    Session.Add("IdPersona", aux.persona.Id);
-                    txtCliente.Text = aux.ToString();
-                    txtEmail.Text = aux.persona.Email;
-                    txtDireccion.Text = aux.direccion.ToString();
-                    CargarTelefonos();
-                    txtDniCliente.Enabled = false;
-                    btnEditarCliente.Visible = true;
-                    btnCambiarCliente.Visible = true;
+                    Cliente aux = clienteNegocio.BuscarCliente(long.Parse(txtDniCliente.Text));
 
+                    if (aux.Dni != 0)
+                    {
+                        Session.Add("IdPersona", aux.persona.Id);
+                        txtCliente.Text = aux.ToString();
+                        txtEmail.Text = aux.persona.Email;
+                        txtDireccion.Text = aux.direccion.ToString();
+                        CargarTelefonos();
+                        txtDniCliente.Enabled = false;
+                        btnEditarCliente.Visible = true;
+                        btnCambiarCliente.Visible = true;
+
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScriptEl", "showModal();", true);
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModalScriptEl", "showModal();", true);
+                    lblValidacionNumero.Visible = true;
+                    txtDniCliente.Enabled = true;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                lblValidacionNumero.Visible = true;
-                txtDniCliente.Enabled = true;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
+            
         }
 
         public void CargarTelefonos()
@@ -472,23 +490,30 @@ namespace App_GestorIncidencias
 
         protected void btnGuardarIncidencia_Click(object sender, EventArgs e)
         {
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-
-            string id = Request.QueryString["Id"];
-            if (id != null)
+            try
             {
-                Incidencia seleccion = (negocio.listar(id)[0]);
-                seleccion.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
-                seleccion.Estado.Id = 2;
-                negocio.ModificarIncidencia(seleccion);
-                ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+
+                string id = Request.QueryString["Id"];
+                if (id != null)
+                {
+                    Incidencia seleccion = (negocio.listar(id)[0]);
+                    seleccion.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
+                    seleccion.Estado.Id = 2;
+                    negocio.ModificarIncidencia(seleccion);
+                    ddlEstado.SelectedValue = seleccion.Estado.Id.ToString();
+                }
+
+                ddlUsuario.Enabled = false;
+                btnReasignar.Enabled = true;
+                btnGuardarIncidencia.Visible = false;
+                btnCancelar.Visible = false;
             }
-
-            ddlUsuario.Enabled = false;
-            btnReasignar.Enabled = true;
-            btnGuardarIncidencia.Visible = false;
-            btnCancelar.Visible = false;
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         private void EnviarCorreoCreacion(Incidencia inc)
@@ -563,75 +588,92 @@ namespace App_GestorIncidencias
 
         protected void btnGuardarResolucion_Click(object sender, EventArgs e)
         {
-            Incidencia incidencia = new Incidencia();
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-
-            if (Request.QueryString["Id"] != null)
+            try
             {
-                string Id = Request.QueryString["Id"];
-                incidencia.Id = int.Parse(Id);
+                Incidencia incidencia = new Incidencia();
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
 
-                incidencia.cliente = new Cliente();
-                incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
-                incidencia.Empleado = new Empleado();
-                incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
-                incidencia.Descripcion = TxtDescripcion.Text;
-                incidencia.Estado = new Estado();
-                incidencia.Estado.Id = 4;
-                incidencia.Prioridad = new Prioridad();
-                incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
-                incidencia.Tipo = new TipoIncidencia();
-                incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
-                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
-                incidencia.FechaCierre = DateTime.Now;
-                incidencia.Resolucion = txtComentarioResolucion.Text;
+                if (Request.QueryString["Id"] != null)
+                {
+                    string Id = Request.QueryString["Id"];
+                    incidencia.Id = int.Parse(Id);
 
-                negocio.ModificarIncidencia(incidencia);
-                incidencia = negocio.buscarIncidencia(incidencia.Id);
+                    incidencia.cliente = new Cliente();
+                    incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
+                    incidencia.Empleado = new Empleado();
+                    incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
+                    incidencia.Descripcion = TxtDescripcion.Text;
+                    incidencia.Estado = new Estado();
+                    incidencia.Estado.Id = 4;
+                    incidencia.Prioridad = new Prioridad();
+                    incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
+                    incidencia.Tipo = new TipoIncidencia();
+                    incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
+                    incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
+                    incidencia.FechaCierre = DateTime.Now;
+                    incidencia.Resolucion = txtComentarioResolucion.Text;
+
+                    negocio.ModificarIncidencia(incidencia);
+                    incidencia = negocio.buscarIncidencia(incidencia.Id);
+                }
+                ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
+                botonesCierre.Visible = false;
+                btnEditar.Visible = false;
+                BtnComentar.Visible = false;
+                btnReasignar.Visible = false;
+
+                EnviarCorreoCierre(incidencia);
             }
-            ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
-            botonesCierre.Visible = false;
-            btnEditar.Visible = false;
-            BtnComentar.Visible = false;
-            btnReasignar.Visible = false;
-
-            EnviarCorreoCierre(incidencia);
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         protected void btnGuardarCierre_Click(object sender, EventArgs e)
         {
-            Incidencia incidencia = new Incidencia();
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-
-            if (Request.QueryString["Id"] != null)
+            try
             {
-                string Id = Request.QueryString["Id"];
-                incidencia.Id = int.Parse(Id);
+                Incidencia incidencia = new Incidencia();
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
 
-                incidencia.cliente = new Cliente();
-                incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
-                incidencia.Empleado = new Empleado();
-                incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
-                incidencia.Descripcion = TxtDescripcion.Text;
-                incidencia.Estado = new Estado();
-                incidencia.Estado.Id = 5;
-                incidencia.Prioridad = new Prioridad();
-                incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
-                incidencia.Tipo = new TipoIncidencia();
-                incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
-                incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
-                incidencia.FechaCierre = DateTime.Now;
-                incidencia.Resolucion = txtComentarioCierre.Text;
+                if (Request.QueryString["Id"] != null)
+                {
+                    string Id = Request.QueryString["Id"];
+                    incidencia.Id = int.Parse(Id);
 
-                negocio.ModificarIncidencia(incidencia);
-                incidencia = negocio.buscarIncidencia(incidencia.Id);
+                    incidencia.cliente = new Cliente();
+                    incidencia.cliente.Dni = long.Parse(txtDniCliente.Text);
+                    incidencia.Empleado = new Empleado();
+                    incidencia.Empleado.Legajo = long.Parse(ddlUsuario.SelectedValue);
+                    incidencia.Descripcion = TxtDescripcion.Text;
+                    incidencia.Estado = new Estado();
+                    incidencia.Estado.Id = 5;
+                    incidencia.Prioridad = new Prioridad();
+                    incidencia.Prioridad.Id = int.Parse(ddlPrioridad.SelectedValue);
+                    incidencia.Tipo = new TipoIncidencia();
+                    incidencia.Tipo.Id = int.Parse(ddlTipoIncidencia.SelectedValue);
+                    incidencia.FechaAlta = DateTime.Parse(txtFechaReclamo.Text);
+                    incidencia.FechaCierre = DateTime.Now;
+                    incidencia.Resolucion = txtComentarioCierre.Text;
+
+                    negocio.ModificarIncidencia(incidencia);
+                    incidencia = negocio.buscarIncidencia(incidencia.Id);
+                }
+                ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
+                botonesCierre.Visible = false;
+                btnEditar.Visible = false;
+                BtnComentar.Visible = false;
+                btnReasignar.Visible = false;
+                EnviarCorreoCierre(incidencia);
             }
-            ddlEstado.SelectedValue = incidencia.Estado.Id.ToString();
-            botonesCierre.Visible = false;
-            btnEditar.Visible = false;
-            BtnComentar.Visible = false;
-            btnReasignar.Visible = false;
-            EnviarCorreoCierre(incidencia);
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
+            
         }
     }
 }

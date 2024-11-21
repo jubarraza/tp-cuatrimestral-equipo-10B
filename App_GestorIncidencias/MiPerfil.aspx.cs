@@ -53,7 +53,8 @@ namespace App_GestorIncidencias
             }          
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
           
         }
@@ -126,8 +127,8 @@ namespace App_GestorIncidencias
             catch (Exception ex)
             {
 
-                Session.Add("error de guardado", ex.ToString());
-                Response.Redirect("PageError.aspx");
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
     }

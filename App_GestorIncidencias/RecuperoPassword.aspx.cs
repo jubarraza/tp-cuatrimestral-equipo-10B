@@ -21,20 +21,26 @@ namespace App_GestorIncidencias
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            band1 = true; 
-            EmpleadoNegocio negocio = new EmpleadoNegocio(); 
-             string Pass = negocio.DevolverPassword(txtEmail.Text);
-            if(Pass != "")
+            try
             {
-                EnviarCorreoRecuperacion(txtEmail.Text, Pass);
-                band2 = false;
-            }     
-            else
-            {
-                band2 = true;
+                band1 = true;
+                EmpleadoNegocio negocio = new EmpleadoNegocio();
+                string Pass = negocio.DevolverPassword(txtEmail.Text);
+                if (Pass != "")
+                {
+                    EnviarCorreoRecuperacion(txtEmail.Text, Pass);
+                    band2 = false;
+                }
+                else
+                {
+                    band2 = true;
+                }
             }
-                
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         private void EnviarCorreoRecuperacion(string mailDestinatario, string password)

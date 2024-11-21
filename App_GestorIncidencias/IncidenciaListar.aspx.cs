@@ -15,199 +15,233 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (chkAvanzado.Checked)
+            try
             {
-                cargaFiltroAvanzado();
-                
-            }
-            else
-            {
-                txtBuscar.Enabled = true;
-                ddlBusquedapor.SelectedIndex = 0;
-                txtBusquedapor.Enabled = false;
-                ddlFiltrapor.SelectedIndex = 0;
-                ddlCategoria.Items.Clear();
-                ddlCategoria.Enabled = false;
-                txtFechaDesde.Text = "";
-                txtFechaHasta.Text = "";
-            }
-
-            if (!IsPostBack)
-            {
-                if (Helper.SessionActiva(Session["usuario"]))
+                if (chkAvanzado.Checked)
                 {
-                    Empleado user = (Empleado)Session["usuario"];
-                    if (Helper.consultaTipoUsuario(user) == 3)
-                    {
-                        IncidenciaNegocio negocio = new IncidenciaNegocio();
-                        List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-                        List<Incidencia> lista = negocio.listarIncidenciasDeOperador(user.Legajo);
-                        Session.Add("listaIncidencias", lista);
-                        if (Request.QueryString["estado"] == null)
-                        {
-                            dgvIncidencias.DataSource = lista;
-                            dgvIncidencias.DataBind();
-                        }
-                        else
-                        {
-                            cargarListaPorEstadoOperador(user.Legajo);
-                        }
-                        
-
-                    }
-                    else
-                    {
-                        IncidenciaNegocio negocio = new IncidenciaNegocio();
-                        List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-                        List<Incidencia> lista = negocio.listar(user.Legajo.ToString());
-                        Session.Add("listaIncidencias", lista);
-                        if (Request.QueryString["estado"] == null)
-                        {
-                            dgvIncidencias.DataSource = lista;
-                            dgvIncidencias.DataBind();
-                        }
-                        else
-                        {
-                            cargarListaPorEstado(user.Legajo);
-                        }
-                    }
+                    cargaFiltroAvanzado();
 
                 }
                 else
                 {
-                    Response.Redirect("~/Default.aspx", false);
+                    txtBuscar.Enabled = true;
+                    ddlBusquedapor.SelectedIndex = 0;
+                    txtBusquedapor.Enabled = false;
+                    ddlFiltrapor.SelectedIndex = 0;
+                    ddlCategoria.Items.Clear();
+                    ddlCategoria.Enabled = false;
+                    txtFechaDesde.Text = "";
+                    txtFechaHasta.Text = "";
                 }
 
+                if (!IsPostBack)
+                {
+                    if (Helper.SessionActiva(Session["usuario"]))
+                    {
+                        Empleado user = (Empleado)Session["usuario"];
+                        if (Helper.consultaTipoUsuario(user) == 3)
+                        {
+                            IncidenciaNegocio negocio = new IncidenciaNegocio();
+                            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                            List<Incidencia> lista = negocio.listarIncidenciasDeOperador(user.Legajo);
+                            Session.Add("listaIncidencias", lista);
+                            if (Request.QueryString["estado"] == null)
+                            {
+                                dgvIncidencias.DataSource = lista;
+                                dgvIncidencias.DataBind();
+                            }
+                            else
+                            {
+                                cargarListaPorEstadoOperador(user.Legajo);
+                            }
+
+
+                        }
+                        else
+                        {
+                            IncidenciaNegocio negocio = new IncidenciaNegocio();
+                            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                            List<Incidencia> lista = negocio.listar(user.Legajo.ToString());
+                            Session.Add("listaIncidencias", lista);
+                            if (Request.QueryString["estado"] == null)
+                            {
+                                dgvIncidencias.DataSource = lista;
+                                dgvIncidencias.DataBind();
+                            }
+                            else
+                            {
+                                cargarListaPorEstado(user.Legajo);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Default.aspx", false);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected void cargarListaPorEstadoOperador(long legajo)
         {
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-            List<Incidencia> lista = negocio.listarIncidenciasDeOperador(legajo);
-            Session.Add("listaIncidencias", lista);
-            if (Request.QueryString["estado"] == "abierto")
+            try
             {
-                foreach (Incidencia inc in lista)
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+                List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                List<Incidencia> lista = negocio.listarIncidenciasDeOperador(legajo);
+                Session.Add("listaIncidencias", lista);
+                if (Request.QueryString["estado"] == "abierto")
                 {
-                    if (inc.Estado.Id == 1)
+                    foreach (Incidencia inc in lista)
                     {
-                        listaFiltradaEstado.Add(inc);
+                        if (inc.Estado.Id == 1)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+
+                }
+                else if (Request.QueryString["estado"] == "asignado")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 2)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+                }
+                else if (Request.QueryString["estado"] == "enAnalisis")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 3)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+                }
+                else if (Request.QueryString["estado"] == "resuelto")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 4)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
                     }
                 }
 
+                dgvIncidencias.DataSource = listaFiltradaEstado;
+                dgvIncidencias.DataBind();
             }
-            else if (Request.QueryString["estado"] == "asignado")
+            catch (Exception ex)
             {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 2)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
-            else if (Request.QueryString["estado"] == "enAnalisis")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 3)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-            }
-            else if (Request.QueryString["estado"] == "resuelto")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 4)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-            }
-
-            dgvIncidencias.DataSource = listaFiltradaEstado;
-            dgvIncidencias.DataBind();
+            
         }
 
         protected void cargarListaPorEstado(long legajo)
         {
-            IncidenciaNegocio negocio = new IncidenciaNegocio();
-            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-            List<Incidencia> lista = negocio.listar(legajo.ToString());
-            Session.Add("listaIncidencias", lista);
+            try
+            {
+                IncidenciaNegocio negocio = new IncidenciaNegocio();
+                List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                List<Incidencia> lista = negocio.listar(legajo.ToString());
+                Session.Add("listaIncidencias", lista);
+
+                if (Request.QueryString["estado"] == "abierto")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 1)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+
+                }
+                else if (Request.QueryString["estado"] == "asignado")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 2)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+                }
+                else if (Request.QueryString["estado"] == "enAnalisis")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 3)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+                }
+                else if (Request.QueryString["estado"] == "resuelto")
+                {
+                    foreach (Incidencia inc in lista)
+                    {
+                        if (inc.Estado.Id == 4)
+                        {
+                            listaFiltradaEstado.Add(inc);
+                        }
+                    }
+                }
+
+                dgvIncidencias.DataSource = listaFiltradaEstado;
+                dgvIncidencias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
             
-            if (Request.QueryString["estado"] == "abierto")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 1)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-
-            }
-            else if (Request.QueryString["estado"] == "asignado")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 2)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-            }
-            else if (Request.QueryString["estado"] == "enAnalisis")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 3)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-            }
-            else if (Request.QueryString["estado"] == "resuelto")
-            {
-                foreach (Incidencia inc in lista)
-                {
-                    if (inc.Estado.Id == 4)
-                    {
-                        listaFiltradaEstado.Add(inc);
-                    }
-                }
-            }
-
-            dgvIncidencias.DataSource = listaFiltradaEstado;
-            dgvIncidencias.DataBind();
         }
 
 
 
         protected void cargaFiltroAvanzado()
         {
-            txtBuscar.Enabled = false;
-            DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            if (txtFechaDesde.Text == "")
+            try
             {
-                txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
+                txtBuscar.Enabled = false;
+                DateTime fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                if (txtFechaDesde.Text == "")
+                {
+                    txtFechaDesde.Text = fecha.ToString("yyyy-MM-dd");
+                }
+                if (txtFechaHasta.Text == "")
+                {
+                    fecha = fecha.AddMonths(1).AddDays(-1);
+                    txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
+                }
+                if (ddlFiltrapor.SelectedValue.ToString() == "Todos")
+                {
+                    ddlCategoria.Items.Clear();
+                    ddlCategoria.Enabled = false;
+                    ddlCategoria.Items.Add("");
+                }
             }
-            if (txtFechaHasta.Text == "")
+            catch (Exception ex)
             {
-                fecha = fecha.AddMonths(1).AddDays(-1);
-                txtFechaHasta.Text = fecha.ToString("yyyy-MM-dd");
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
-            if (ddlFiltrapor.SelectedValue.ToString() == "Todos")
-            {
-                ddlCategoria.Items.Clear();
-                ddlCategoria.Enabled = false;
-                ddlCategoria.Items.Add("");
-            }
+            
         }
 
         protected void dgvIncidencias_SelectedIndexChanged(object sender, EventArgs e)
@@ -242,8 +276,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
 
         }
@@ -291,8 +325,8 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -323,55 +357,72 @@ namespace App_GestorIncidencias
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected void ddlBusquedapor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBusquedapor.SelectedItem.ToString() == "Todos")
+            try
             {
-                txtBusquedapor.Enabled = false;
-                txtBusquedapor.Text = "";
-            }
-            else if(ddlBusquedapor.SelectedItem.ToString() == "Legajo Usuario Asignado")
-            {
-                if (Helper.consultaTipoUsuario(Session["usuario"]) == 3)
+                if (ddlBusquedapor.SelectedItem.ToString() == "Todos")
                 {
-                    txtBusquedapor.Text = ((Empleado)Session["usuario"]).Legajo.ToString();
                     txtBusquedapor.Enabled = false;
+                    txtBusquedapor.Text = "";
+                }
+                else if (ddlBusquedapor.SelectedItem.ToString() == "Legajo Usuario Asignado")
+                {
+                    if (Helper.consultaTipoUsuario(Session["usuario"]) == 3)
+                    {
+                        txtBusquedapor.Text = ((Empleado)Session["usuario"]).Legajo.ToString();
+                        txtBusquedapor.Enabled = false;
+                    }
+                    else
+                    {
+                        txtBusquedapor.Enabled = true;
+                    }
                 }
                 else
                 {
                     txtBusquedapor.Enabled = true;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                txtBusquedapor.Enabled = true;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
-
         }
 
         protected void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            ResetearFiltro();
-            lblSinResultados.Visible = false;
-            Empleado user = (Empleado)Session["usuario"];
-            if (Helper.consultaTipoUsuario(user) == 3)
+            try
             {
-                IncidenciaNegocio negocio = new IncidenciaNegocio();
-                Session.Add("listaIncidencias", negocio.listarIncidenciasDeOperador(user.Legajo));
-                dgvIncidencias.DataSource = Session["listaIncidencias"];
-                dgvIncidencias.DataBind();
+                ResetearFiltro();
+                lblSinResultados.Visible = false;
+                Empleado user = (Empleado)Session["usuario"];
+                if (Helper.consultaTipoUsuario(user) == 3)
+                {
+                    IncidenciaNegocio negocio = new IncidenciaNegocio();
+                    Session.Add("listaIncidencias", negocio.listarIncidenciasDeOperador(user.Legajo));
+                    dgvIncidencias.DataSource = Session["listaIncidencias"];
+                    dgvIncidencias.DataBind();
+                }
+                else
+                {
+                    IncidenciaNegocio negocio = new IncidenciaNegocio();
+                    Session.Add("listaIncidencias", negocio.listar());
+                    dgvIncidencias.DataSource = Session["listaIncidencias"];
+                    dgvIncidencias.DataBind();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                IncidenciaNegocio negocio = new IncidenciaNegocio();
-                Session.Add("listaIncidencias", negocio.listar());
-                dgvIncidencias.DataSource = Session["listaIncidencias"];
-                dgvIncidencias.DataBind();
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
+            
         }
 
 

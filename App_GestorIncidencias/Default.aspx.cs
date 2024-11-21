@@ -14,46 +14,53 @@ namespace App_GestorIncidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Helper.SessionActiva(Session["usuario"]))
+            try
             {
-                Empleado aux = (Empleado)Session["usuario"];
-                int contEstadoAbierto = 0;
-                int contEstadoAsignado = 0;
-                int contEstadoEnAnalisis = 0;
-                int contEstadoResuelto = 0;
-
-                lblTitulo.Text = "🏠 Inicio de " + aux.persona.Nombre +  " " + aux.persona.Apellido;
-
-                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
-                List<Incidencia> lista = incidenciaNegocio.listarIncidenciasDeOperador(aux.Legajo);
-
-                foreach(Incidencia inc in lista)
+                if (Helper.SessionActiva(Session["usuario"]))
                 {
-                    if(inc.Estado.Id == 1)
+                    Empleado aux = (Empleado)Session["usuario"];
+                    int contEstadoAbierto = 0;
+                    int contEstadoAsignado = 0;
+                    int contEstadoEnAnalisis = 0;
+                    int contEstadoResuelto = 0;
+
+                    lblTitulo.Text = "🏠 Inicio de " + aux.persona.Nombre + " " + aux.persona.Apellido;
+
+                    IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                    List<Incidencia> lista = incidenciaNegocio.listarIncidenciasDeOperador(aux.Legajo);
+
+                    foreach (Incidencia inc in lista)
                     {
-                        contEstadoAbierto++;
+                        if (inc.Estado.Id == 1)
+                        {
+                            contEstadoAbierto++;
+                        }
+                        if (inc.Estado.Id == 2)
+                        {
+                            contEstadoAsignado++;
+                        }
+                        if (inc.Estado.Id == 3)
+                        {
+                            contEstadoEnAnalisis++;
+                        }
+                        if (inc.Estado.Id == 4)
+                        {
+                            contEstadoResuelto++;
+                        }
                     }
-                    if(inc.Estado.Id == 2)
-                    {
-                        contEstadoAsignado++;
-                    }
-                    if(inc.Estado.Id == 3)
-                    {
-                        contEstadoEnAnalisis++;
-                    }
-                    if(inc.Estado.Id == 4)
-                    {
-                        contEstadoResuelto++;
-                    }
+
+                    lblAbierto.Text = contEstadoAbierto.ToString();
+                    lblAsignado.Text = contEstadoAsignado.ToString();
+                    lblEnAnalisis.Text = contEstadoEnAnalisis.ToString();
+                    lblResuelto.Text = contEstadoResuelto.ToString();
+
                 }
-
-                lblAbierto.Text = contEstadoAbierto.ToString();
-                lblAsignado.Text = contEstadoAsignado.ToString();
-                lblEnAnalisis.Text = contEstadoEnAnalisis.ToString();
-                lblResuelto.Text = contEstadoResuelto.ToString();
-
             }
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -78,7 +85,7 @@ namespace App_GestorIncidencias
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("PageError.aspx");
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -92,7 +99,7 @@ namespace App_GestorIncidencias
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 

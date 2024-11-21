@@ -61,7 +61,7 @@
 
                 <div class="mb-3 col-sm-7 col-md-4 me-auto">
                     <label for="ddlEstado" class="form-label">Estado: </label>
-                    <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-control text-center alert alert-warning"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlEstado" Enabled="false" CssClass="form-control text-center alert alert-warning"></asp:DropDownList>
                 </div>
 
                 <div class="col-md-2 col-sm-6 mb-4">

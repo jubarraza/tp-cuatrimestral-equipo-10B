@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="App_GestorIncidencias.MiPerfil" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <style>
         .margenFoto {
             margin-left: 3.7rem !important;
@@ -40,9 +45,14 @@
                     </div>
                     <div class="col-6">
                         <label for="lblUserPassword" class="form-label">Contraseña:</label>
-                        <asp:TextBox ID="txtUserPassword" CssClass="form-control" runat="server" MaxLength="20"></asp:TextBox>
+                        <div class="modal-body">
+                          <div class="input-group mb-3">
+                            <asp:TextBox cssclass="form-control" type="password" ID="txtUserPassword" runat="server" MaxLength="20"></asp:TextBox>                   
+                            <button id="btnMostrarPassword" class="btn btn-success" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                          </div>
+                         </div>
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUserPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
-                         <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
+                        <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
                     </div>
                 </div>
 
@@ -87,4 +97,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Funcion MostrarPassword -->
+<script type="text/javascript">
+    function mostrarPassword() {
+        var passwordField = document.getElementById('<%= txtUserPassword.ClientID %>'); 
+        var icon = document.querySelector('#btnMostrarPassword .icon'); 
+        if (passwordField.type === "password") {
+            passwordField.type = "text"; 
+            icon.classList.remove("fa-eye-slash"); 
+            icon.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password"; 
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash"); 
+        }
+    }
+</script>
+
 </asp:Content>

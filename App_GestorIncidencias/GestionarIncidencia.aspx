@@ -125,7 +125,7 @@
                     <div class="mb-3 me-auto ">
                         <label for="txtDescripcion" class="form-label">Descripción: </label>
                         <asp:TextBox runat="server" TextMode="MultiLine" ID="TxtDescripcion" CssClass="form-control alturaDesc" MaxLength="1000" />
-                        <asp:Label Text="⛔ El campo Descripcion es requerido" runat="server" Visible="false" ID="lblValidacionDescripcion" CssClass="text-danger" />
+                        <asp:Label Text="⛔ El campo Descripción es requerido" runat="server" Visible="false" ID="lblValidacionDescripcion" CssClass="text-danger" />
                     </div>
 
                 </div>

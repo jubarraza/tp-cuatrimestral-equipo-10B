@@ -58,7 +58,8 @@ namespace App_GestorIncidencias.Admin
                     txtLegajo.Text = seleccionado.Legajo.ToString();
                     ddlTipoUsuario.SelectedValue = seleccionado.tipoUsuario.Tipo.ToString();
                     txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString("yyyy-MM-dd");
-                    txtUserPassword.Text = seleccionado.UserPassword;
+                    txtUserPassword.Text = seleccionado.UserPassword;                    
+
                     bool activo = seleccionado.Activo;
                     if(activo)
                     {
@@ -70,6 +71,22 @@ namespace App_GestorIncidencias.Admin
                         lblEliminar.Visible = !activo;
                     }
                     HabilitarCampos(activo);
+
+                    IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                    List<Incidencia> lista = incidenciaNegocio.listarIncidenciasDeOperador(long.Parse(legajo));
+                    if (lista != null && lista.Count > 0)
+                    {
+                        foreach (var incidencia in lista)
+                        {
+                            if (incidencia.Estado.Id == 1 || incidencia.Estado.Id == 2 || incidencia.Estado.Id == 3 || incidencia.Estado.Id == 6)
+                            {
+                                rbInactivo.Enabled = false;
+                                btnEliminar.Enabled = false;
+                                lblInactivo.Visible = true;
+                                return;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)

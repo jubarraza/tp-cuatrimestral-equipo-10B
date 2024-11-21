@@ -18,7 +18,14 @@
     <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
 
     <div class="container mt-4">
+        <%if (Request.QueryString["Legajo"] != null)
+    {%>
+        <h2>Modifique los Datos del Empleado</h2>
+        <% }
+        else
+        { %>
         <h2>Ingrese los Datos del Empleado</h2>
+        <%}%>
         <asp:UpdatePanel ID="UpDatePanel1" runat="server">
             <ContentTemplate>
                 <div class="row">
@@ -63,7 +70,7 @@
                                 </div>
                             </div>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUserPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
-                            <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número" CssClass="text-danger" Display="Dynamic" runat="server" />
+                            <asp:RegularExpressionValidator ControlToValidate="txtUserPassword"  ValidationExpression="^(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número. No se aceptan simbolos. " CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-md-6 mt-3">
                             <div class="form-check form-check-inline me-md-2">

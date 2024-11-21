@@ -178,7 +178,14 @@ namespace Negocio
                 datos.setearParametro("@TipoUsuario", modificar.tipoUsuario.IdTipoUsuario);
                 datos.setearParametro("@FechaIngreso", modificar.FechaIngreso);
                 datos.setearParametro("@Activo", modificar.Activo);
-                datos.setearParametro("@ImagenPerfil",modificar.ImagenPerfil);
+                if (modificar.ImagenPerfil != null && modificar.ImagenPerfil.Length > 0)
+                {
+                    datos.setearParametro("@ImagenPerfil", modificar.ImagenPerfil);
+                }
+                else
+                {
+                    datos.setearParametro("@ImagenPerfil", DBNull.Value);
+                }
                 datos.ejecutarAccion();
 
             }

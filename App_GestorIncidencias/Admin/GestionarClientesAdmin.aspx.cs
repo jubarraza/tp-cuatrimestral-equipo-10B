@@ -92,7 +92,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -132,7 +132,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -190,7 +190,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -212,7 +212,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -256,45 +256,55 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected Cliente capturarDatosFormulario()
         {
-            Cliente cliente = new Cliente();
-            ClienteNegocio clienteNegocio = new ClienteNegocio();
-            ProvinciaNegocio provinciaNegocio = new ProvinciaNegocio();
-            PaisNegocio paisNegocio = new PaisNegocio();
-            DireccionNegocio direccionNegocio = new DireccionNegocio();
-            TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
+            try
+            {
+                Cliente cliente = new Cliente();
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                ProvinciaNegocio provinciaNegocio = new ProvinciaNegocio();
+                PaisNegocio paisNegocio = new PaisNegocio();
+                DireccionNegocio direccionNegocio = new DireccionNegocio();
+                TelefonoNegocio telefonoNegocio = new TelefonoNegocio();
 
 
-            //cliente
-            cliente.persona = new Persona();
-            cliente.persona.Nombre = txtNombre.Text;
-            cliente.persona.Apellido = txtApellido.Text;
-            cliente.persona.Email = txtEmail.Text;
-            cliente.Dni = long.Parse(txtDni.Text);
-            cliente.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
-            cliente.Activo = true;
+                //cliente
+                cliente.persona = new Persona();
+                cliente.persona.Nombre = txtNombre.Text;
+                cliente.persona.Apellido = txtApellido.Text;
+                cliente.persona.Email = txtEmail.Text;
+                cliente.Dni = long.Parse(txtDni.Text);
+                cliente.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+                cliente.Activo = true;
 
-            //direccion
+                //direccion
 
-            cliente.direccion = new Direccion();
-            cliente.direccion.Calle = txtCalle.Text;
-            cliente.direccion.Numero = long.Parse(txtNumero.Text);
-            cliente.direccion.Localidad = txtLocalidad.Text;
-            cliente.direccion.CodPostal = txtCP.Text;
+                cliente.direccion = new Direccion();
+                cliente.direccion.Calle = txtCalle.Text;
+                cliente.direccion.Numero = long.Parse(txtNumero.Text);
+                cliente.direccion.Localidad = txtLocalidad.Text;
+                cliente.direccion.CodPostal = txtCP.Text;
 
-            cliente.direccion.provincia = new Provincia();
-            cliente.direccion.provincia = provinciaNegocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
+                cliente.direccion.provincia = new Provincia();
+                cliente.direccion.provincia = provinciaNegocio.buscarProvincia(long.Parse(ddlProvincias.SelectedValue));
 
-            cliente.direccion.pais = new Pais();
-            cliente.direccion.pais = paisNegocio.buscarPais(cliente.direccion.provincia.IdPais);
+                cliente.direccion.pais = new Pais();
+                cliente.direccion.pais = paisNegocio.buscarPais(cliente.direccion.provincia.IdPais);
 
-            return cliente;
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+                throw;
+            }
+            
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -340,7 +350,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -364,7 +374,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -382,7 +392,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -396,7 +406,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -412,7 +422,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -429,7 +439,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -471,7 +481,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
 
@@ -498,51 +508,69 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected bool existeCliente(long dni)
         {
-
-            ClienteNegocio clienteNegocio = new ClienteNegocio();
-            Cliente cliente = clienteNegocio.BuscarCliente(dni);
-
-
-            if (cliente.Dni != 0)
+            try
             {
-                return true;
-            }
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                Cliente cliente = clienteNegocio.BuscarCliente(dni);
 
-            return false;
+
+                if (cliente.Dni != 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+                throw;
+            }
+            
 
         }
 
         protected void btnValidarDni_Click(object sender, EventArgs e)
         {
-            if (existeCliente(long.Parse(txtDni.Text)))
+            try
             {
-                boxAlerta.Visible = true;
-                cont2.Visible = true;
-                lblValidacionDni.Visible = true;
-                lblValidacionDni.Text = "<p>El DNI ingresado ya se encuentra registrado como Cliente.<br/> Si se ha producido algun error al ingresar el DNI por favor ingreselo de nuevo y vuelva a presionar <strong>'Validar DNI'</strong></p> <p><br/>Si el DNI ingresado es correcto, puede editar el cliente haciendo click en <strong>'Editar Cliente'</strong></p>";
-                btnEditarClienteValidado.Visible = true;
-                ocultarTelefonoYDireccion = true;
+                if (existeCliente(long.Parse(txtDni.Text)))
+                {
+                    boxAlerta.Visible = true;
+                    cont2.Visible = true;
+                    lblValidacionDni.Visible = true;
+                    lblValidacionDni.Text = "<p>El DNI ingresado ya se encuentra registrado como Cliente.<br/> Si se ha producido algun error al ingresar el DNI por favor ingreselo de nuevo y vuelva a presionar <strong>'Validar DNI'</strong></p> <p><br/>Si el DNI ingresado es correcto, puede editar el cliente haciendo click en <strong>'Editar Cliente'</strong></p>";
+                    btnEditarClienteValidado.Visible = true;
+                    ocultarTelefonoYDireccion = true;
+                }
+                else
+                {
+                    lblValidacionDni.Visible = false;
+                    btnEditarClienteValidado.Visible = false;
+                    btnValidarDni.Visible = false;
+                    ocultarTelefonoYDireccion = false;
+                    validatorCalle.Enabled = false;
+                    validatorNumero.Enabled = false;
+                    validatorLocalidad.Enabled = false;
+                    validatorCP.Enabled = false;
+                    boxAlerta.Visible = false;
+                    cont2.Visible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblValidacionDni.Visible = false;
-                btnEditarClienteValidado.Visible = false;
-                btnValidarDni.Visible = false;
-                ocultarTelefonoYDireccion = false;
-                validatorCalle.Enabled = false;
-                validatorNumero.Enabled = false;
-                validatorLocalidad.Enabled = false;
-                validatorCP.Enabled = false;
-                boxAlerta.Visible = false;
-                cont2.Visible = false;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
+            
         }
 
         protected void btnEditarClienteValidado_Click(object sender, EventArgs e)

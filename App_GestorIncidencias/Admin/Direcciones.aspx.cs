@@ -13,14 +13,23 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                DireccionNegocio negocio = new DireccionNegocio();
-                Session.Add("listaDirecciones", negocio.listar());
-                gvDirecciones.DataSource = Session["listaDirecciones"];
-                gvDirecciones.DataBind();
+                if (!IsPostBack)
+                {
+                    DireccionNegocio negocio = new DireccionNegocio();
+                    Session.Add("listaDirecciones", negocio.listar());
+                    gvDirecciones.DataSource = Session["listaDirecciones"];
+                    gvDirecciones.DataBind();
 
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
+            
         }
 
         protected void gvDirecciones_SelectedIndexChanged(object sender, EventArgs e)

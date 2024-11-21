@@ -26,8 +26,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -45,8 +45,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
         }
 
@@ -62,22 +62,25 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
             }
-        }
-
-        protected void gvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEmpleados.PageIndex = e.NewPageIndex;
-            gvEmpleados.DataBind();
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtBuscar.Text = string.Empty;
-            gvEmpleados.DataSource = Session["ListaEmpleados"];
-            gvEmpleados.DataBind();
+            try
+            {
+                txtBuscar.Text = string.Empty;
+                gvEmpleados.DataSource = Session["ListaEmpleados"];
+                gvEmpleados.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
+            
         }
     }
 }

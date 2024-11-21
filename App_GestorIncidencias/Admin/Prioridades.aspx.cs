@@ -13,14 +13,23 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                PrioridadNegocio negocio = new PrioridadNegocio();
-                Session.Add("listaPrioridades", negocio.listar());
-                gvPrioridades.DataSource = Session["listaPrioridades"];
-                gvPrioridades.DataBind();
+                if (!IsPostBack)
+                {
+                    PrioridadNegocio negocio = new PrioridadNegocio();
+                    Session.Add("listaPrioridades", negocio.listar());
+                    gvPrioridades.DataSource = Session["listaPrioridades"];
+                    gvPrioridades.DataBind();
 
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
+            
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -45,8 +54,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
             }
             
         }
@@ -62,8 +71,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
             }
             
         }
@@ -81,8 +90,8 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("PageError.aspx", false);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
             }
             
         }

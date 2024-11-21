@@ -36,7 +36,7 @@
             <ContentTemplate>
                 <div class="row justify-content-center">
                     <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" CssClass="table table-hover text-center transparent-grid border-black" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged"
-                        OnPageIndexChanging="gvEmpleados_PageIndexChanging" AutoGenerateColumns="false" runat="server">
+                       AutoGenerateColumns="false" runat="server">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre/s" DataField="persona.Nombre" />
                             <asp:BoundField HeaderText="Apellido/s" DataField="persona.Apellido" />

@@ -13,16 +13,23 @@ namespace App_GestorIncidencias.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ClienteNegocio negocio = new ClienteNegocio();
-                List <Cliente> lista = negocio.listar(true);
-                Session.Add("listaClientes", lista);
-                gvClientes.DataSource = lista;
-                gvClientes.DataBind();
+                if (!IsPostBack)
+                {
+                    ClienteNegocio negocio = new ClienteNegocio();
+                    List<Cliente> lista = negocio.listar(true);
+                    Session.Add("listaClientes", lista);
+                    gvClientes.DataSource = lista;
+                    gvClientes.DataBind();
 
+                }
             }
-            
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         protected void gvClientes_SelectedIndexChanged(object sender, EventArgs e)
@@ -41,7 +48,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -72,7 +79,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
@@ -95,16 +102,24 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
             }
         }
 
         protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
         {
-            txtBuscar.Text = string.Empty;
-            gvClientes.DataSource = Session["listaClientes"];
-            gvClientes.DataBind();
+            try
+            {
+                txtBuscar.Text = string.Empty;
+                gvClientes.DataSource = Session["listaClientes"];
+                gvClientes.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("~/PageError.aspx", false);
+            }
         }
 
         protected void btnCerrarLbl_Click(object sender, EventArgs e)

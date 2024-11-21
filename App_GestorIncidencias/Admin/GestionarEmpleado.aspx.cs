@@ -91,7 +91,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
         }
@@ -135,7 +135,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
 
@@ -158,17 +158,26 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
         }
 
         protected void rbActivo_CheckedChanged(object sender, EventArgs e)
         {
-            bool habilitar = rbActivo.Checked;
-            if (Request.QueryString["Legajo"] != null)
-                lblEliminar.Visible = !habilitar;
-            HabilitarCampos(habilitar);       
+            try
+            {
+                bool habilitar = rbActivo.Checked;
+                if (Request.QueryString["Legajo"] != null)
+                    lblEliminar.Visible = !habilitar;
+                HabilitarCampos(habilitar);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("../PageError.aspx", false);
+            }
+                 
         }
 
         protected void btnEliminarConfirmado_Click(object sender, EventArgs e)
@@ -183,7 +192,7 @@ namespace App_GestorIncidencias.Admin
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("../PageError.aspx", false);
             }
         }

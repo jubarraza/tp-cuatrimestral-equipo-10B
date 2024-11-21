@@ -61,7 +61,7 @@ namespace App_GestorIncidencias
                         {
                             IncidenciaNegocio negocio = new IncidenciaNegocio();
                             List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
-                            List<Incidencia> lista = negocio.listarIncidenciasDeOperador(user.Legajo);
+                            List<Incidencia> lista = negocio.listar();
                             Session.Add("listaIncidencias", lista);
                             if (Request.QueryString["estado"] == null)
                             {

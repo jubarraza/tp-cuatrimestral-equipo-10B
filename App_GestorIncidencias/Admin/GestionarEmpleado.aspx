@@ -17,19 +17,26 @@
 
     <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
 
-    <div class="container mt-4">
-        <%if (Request.QueryString["Legajo"] != null)
-    {%>
-        <h2>Modifique los Datos del Empleado</h2>
-        <% }
-        else
-        { %>
-        <h2>Ingrese los Datos del Empleado</h2>
-        <%}%>
+    <div class="container mt-5 border border-black rounded">
+        <div class="row justify-content-center">
+            <%if (Request.QueryString["Legajo"] != null)
+                {%>
+            <h2 class="mt-3 mb-3 text-center">Modifique los Datos del Empleado</h2>
+            <% }
+                else
+                { %>
+            <h2 class="mt-3 mb-3 text-center">Ingrese los Datos del Empleado</h2>
+            <%}%>
+        </div>
+
+
         <asp:UpdatePanel ID="UpDatePanel1" runat="server">
             <ContentTemplate>
                 <div class="row">
-                    <form class="row g-3">
+                    <form class="row g-2">
+<%--                        <div class="col-md-4">
+                         <asp:Image runat="server" ID="imgPerfil" CssClass="border border-5 ms-2 mb-4 rounded-5 shadow w-50 margenFoto" />
+                        </div>--%>
                         <div class="col-md-6">
                             <label for="lblNombre:" class="form-label">Nombre/s:</label>
                             <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server" MaxLength="50"></asp:TextBox>
@@ -44,7 +51,7 @@
                         </div>
                         <div class="col-12 mt-2">
                             <label for="lblEmail" class="form-label">Email:</label>
-                            <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" MaxLength="80"/>
+                            <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" MaxLength="80" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail" ErrorMessage="⛔ El campo Email es requerido" CssClass="text-danger" Display="Dynamic" />
                             <asp:RegularExpressionValidator ControlToValidate="txtEmail" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ErrorMessage="⛔ Ingrese un formato de correo válido" CssClass="text-danger" Display="Dynamic" runat="server" />
                         </div>
@@ -63,34 +70,32 @@
                         </div>
                         <div class="col-md-6 mt-2">
                             <label for="lblUserPassword" class="form-label">Contraseña:</label>
-                             <div class="modal-body">
-                                <div class="input-group mb-3">                            
-                                    <asp:TextBox ID="txtUserPassword" cssclass="form-control" type="password" runat="server" MaxLength="20"></asp:TextBox>                   
-                                    <button id="MostrarPassword" class="btn btn-primary" type="button" onclick="mostrarPassword()" CausesValidation="false"> <span class="fa fa-eye-slash icon"></span> </button>                                                                 
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <asp:TextBox ID="txtUserPassword" CssClass="form-control" type="password" runat="server" MaxLength="20"></asp:TextBox>
+                                    <button id="MostrarPassword" class="btn btn-primary" type="button" onclick="mostrarPassword()" causesvalidation="false"><span class="fa fa-eye-slash icon"></span></button>
                                 </div>
-                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUserPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
-                                 <asp:RegularExpressionValidator ControlToValidate="txtUserPassword"  ValidationExpression="^(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número. No se aceptan simbolos. " CssClass="text-danger" Display="Dynamic" runat="server" />
-                            </div>                            
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUserPassword" ErrorMessage="⛔ El campo Contraseña es requerido" CssClass="text-danger" Display="Dynamic" />
+                                <asp:RegularExpressionValidator ControlToValidate="txtUserPassword" ValidationExpression="^(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*\d)[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\d]{6,}$" ErrorMessage="⛔ La contraseña debe contener al menos 6 caracteres, incluir una letra mayúscula y un número. No se aceptan simbolos. " CssClass="text-danger" Display="Dynamic" runat="server" />
+                            </div>
                         </div>
                         <div class="col-md-6 mt-3">
                             <div class="form-check form-check-inline me-md-2">
                                 <asp:RadioButton AutoPostBack="true" ID="rbActivo" Text=" Activo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
                                 <asp:RadioButton AutoPostBack="true" ID="rbInactivo" Text=" Inactivo" OnCheckedChanged="rbActivo_CheckedChanged" GroupName="Activo" runat="server" />
-                                <asp:Label ID="lblSeleccion" Text="👈 Debe seleccionar una opción" CssClass="text-danger me-md-2" Visible="false" runat="server"></asp:Label>                                
+                                <asp:Label ID="lblSeleccion" Text="👈 Debe seleccionar una opción" CssClass="text-danger me-md-2" Visible="false" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="col-md-6 mt-3">
                             <asp:Button ID="btnAceptar" OnClick="btnAceptar_Click" Text="Aceptar" CssClass="btn btn-success me-md-2" runat="server" />
                             <asp:Button Text="Cancelar" ID="btnCancelar" OnClick="btnCancelar_Click" AutoPostBack="true" CausesValidation="false" CssClass="btn btn-secondary me-md-2" runat="server" />
-                            <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger me-md-2" runat="server" />                            
+                            <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-outline-danger me-md-2" runat="server" />
+                            <div class=" mt-3 d-flex">
+                                <asp:Label ID="lblEliminar" AutoPostBack="true" Text="⚠️ El empleado debe estar activo para su eliminación." CssClass="alert alert-info text-center" Visible="false" runat="server"></asp:Label>
+                                <asp:Label ID="lblInactivo" AutoPostBack="true" Text="⚠️ No se puede Desactivar o Eliminar el empleado, por que contiene incidencias sin resolver." CssClass="alert alert-info text-center" Visible="false" runat="server"></asp:Label>
+                            </div>
                         </div>
-                        <div class="col-md-6 mt-3 d-flex">
-                            <asp:Label ID="lblEliminar" AutoPostBack="true" Text="⚠️ El empleado debe estar activo para su eliminación." CssClass="alert alert-info text-center" Visible="false" runat="server"></asp:Label>
-                            <asp:Label ID="lblInactivo" AutoPostBack="true" Text="⚠️ No se puede Desactivar o Eliminar el empleado, por que contiene incidencias sin resolver." CssClass="alert alert-info text-center" Visible="false" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-6 mt-2  align-items-center">
-                            
-                        </div>
+
                     </form>
                 </div>
             </ContentTemplate>
@@ -117,19 +122,19 @@
 </div>
 
 <script type="text/javascript">
-function mostrarPassword() {
-    var passwordField = document.getElementById('<%= txtUserPassword.ClientID %>');
-    var icon = document.querySelector('#MostrarPassword .icon');
-    if (passwordField.type === "password") {
-        passwordField.type = "text";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
-    } else {
-        passwordField.type = "password";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash"); 
+    function mostrarPassword() {
+        var passwordField = document.getElementById('<%= txtUserPassword.ClientID %>');
+        var icon = document.querySelector('#MostrarPassword .icon');
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
     }
-}
 </script>
 
 </asp:Content>

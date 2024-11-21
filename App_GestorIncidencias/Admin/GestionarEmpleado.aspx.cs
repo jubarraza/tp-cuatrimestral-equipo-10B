@@ -12,18 +12,6 @@ namespace App_GestorIncidencias.Admin
 {
     public partial class GestionarEmpleado : System.Web.UI.Page
     {
-        public void HabilitarCampos(bool habilitar)
-        {          
-            txtNombre.Enabled = habilitar;
-            txtApellido.Enabled = habilitar;
-            txtEmail.Enabled = habilitar;
-            ddlTipoUsuario.Enabled = habilitar;
-            txtFechaIngreso.Enabled = habilitar;
-            txtUserPassword.Enabled = habilitar;
-            if (Request.QueryString["Legajo"] != null)
-                btnEliminar.Enabled = habilitar;
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -58,7 +46,15 @@ namespace App_GestorIncidencias.Admin
                     txtLegajo.Text = seleccionado.Legajo.ToString();
                     ddlTipoUsuario.SelectedValue = seleccionado.tipoUsuario.Tipo.ToString();
                     txtFechaIngreso.Text = seleccionado.FechaIngreso.ToString("yyyy-MM-dd");
-                    txtUserPassword.Text = seleccionado.UserPassword;                    
+                    txtUserPassword.Text = seleccionado.UserPassword;
+                    //if (!string.IsNullOrEmpty(seleccionado.ImagenPerfil))
+                    //{
+                    //    imgPerfil.ImageUrl = "~/Images/Perfiles/" + seleccionado.ImagenPerfil;
+                    //}
+                    //else
+                    //{
+                    //    imgPerfil.ImageUrl = "https://www.palomacornejo.com/wp-content/uploads/2021/08/no-image.jpg";
+                    //}
 
                     bool activo = seleccionado.Activo;
                     if(activo)
@@ -96,6 +92,17 @@ namespace App_GestorIncidencias.Admin
             }
         }
 
+        public void HabilitarCampos(bool habilitar)
+        {
+            txtNombre.Enabled = habilitar;
+            txtApellido.Enabled = habilitar;
+            txtEmail.Enabled = habilitar;
+            ddlTipoUsuario.Enabled = habilitar;
+            txtFechaIngreso.Enabled = habilitar;
+            txtUserPassword.Enabled = habilitar;
+            if (Request.QueryString["Legajo"] != null)
+                btnEliminar.Enabled = habilitar;
+        }
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try 

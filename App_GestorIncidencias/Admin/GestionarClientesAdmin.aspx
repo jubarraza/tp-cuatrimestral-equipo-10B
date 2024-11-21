@@ -65,7 +65,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <div class="container mt-5 border rounded">
+    <div class="container mt-5 border border-black rounded">
         <div class="row justify-content-center">
 
             <div class="mb-4 mt-3 col-4 col-sm-auto col-md-auto">

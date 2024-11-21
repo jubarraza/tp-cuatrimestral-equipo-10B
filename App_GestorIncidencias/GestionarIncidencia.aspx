@@ -61,7 +61,7 @@
 
                 <div class="mb-3 col-sm-7 col-md-4 me-auto">
                     <label for="ddlEstado" class="form-label">Estado: </label>
-                    <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-control text-center alert alert-primary"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlEstado" CssClass="form-control text-center alert alert-warning"></asp:DropDownList>
                 </div>
 
                 <div class="col-md-2 col-sm-6 mb-4">
@@ -75,7 +75,7 @@
             </asp:UpdatePanel>
 
             <div class="row flex">
-                <div class="container col-3 border rounded p-2">
+                <div class="container col-3 border border-dark-subtle rounded p-2">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <div class="row">
@@ -130,7 +130,7 @@
 
                 </div>
 
-                <div class="container col-3 p-2 border rounded mb-3">
+                <div class="container col-3 p-2 border border-dark-subtle rounded mb-3">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <div class="mb-3 me-auto">
@@ -185,7 +185,7 @@
                         </div>
                     </div>
 
-                    <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Id" CssClass="table gridSelector" AutoGenerateColumns="false">
+                    <asp:GridView ID="dgvComentarios" runat="server" OnSelectedIndexChanged="dgvComentarios_SelectedIndexChanged" DataKeyNames="Id" CssClass="table gridSelector transparent-grid border-dark-subtle" AutoGenerateColumns="false">
 
                         <Columns>
                             <asp:BoundField HeaderText="Id" DataField="Id" />

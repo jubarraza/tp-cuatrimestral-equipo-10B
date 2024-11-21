@@ -41,16 +41,36 @@ namespace App_GestorIncidencias
                     if (Helper.consultaTipoUsuario(user) == 3)
                     {
                         IncidenciaNegocio negocio = new IncidenciaNegocio();
-                        Session.Add("listaIncidencias", negocio.listarIncidenciasDeOperador(user.Legajo));
-                        dgvIncidencias.DataSource = Session["listaIncidencias"];
-                        dgvIncidencias.DataBind();
+                        List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                        List<Incidencia> lista = negocio.listarIncidenciasDeOperador(user.Legajo);
+                        Session.Add("listaIncidencias", lista);
+                        if (Request.QueryString["estado"] == null)
+                        {
+                            dgvIncidencias.DataSource = lista;
+                            dgvIncidencias.DataBind();
+                        }
+                        else
+                        {
+                            cargarListaPorEstadoOperador(user.Legajo);
+                        }
+                        
+
                     }
                     else
                     {
                         IncidenciaNegocio negocio = new IncidenciaNegocio();
-                        Session.Add("listaIncidencias", negocio.listar());
-                        dgvIncidencias.DataSource = Session["listaIncidencias"];
-                        dgvIncidencias.DataBind();
+                        List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+                        List<Incidencia> lista = negocio.listar(user.Legajo.ToString());
+                        Session.Add("listaIncidencias", lista);
+                        if (Request.QueryString["estado"] == null)
+                        {
+                            dgvIncidencias.DataSource = lista;
+                            dgvIncidencias.DataBind();
+                        }
+                        else
+                        {
+                            cargarListaPorEstado(user.Legajo);
+                        }
                     }
 
                 }
@@ -61,6 +81,113 @@ namespace App_GestorIncidencias
 
             }
         }
+
+        protected void cargarListaPorEstadoOperador(long legajo)
+        {
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
+            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+            List<Incidencia> lista = negocio.listarIncidenciasDeOperador(legajo);
+            Session.Add("listaIncidencias", lista);
+            if (Request.QueryString["estado"] == "abierto")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 1)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+
+            }
+            else if (Request.QueryString["estado"] == "asignado")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 2)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+            else if (Request.QueryString["estado"] == "enAnalisis")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 3)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+            else if (Request.QueryString["estado"] == "resuelto")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 4)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+
+            dgvIncidencias.DataSource = listaFiltradaEstado;
+            dgvIncidencias.DataBind();
+        }
+
+        protected void cargarListaPorEstado(long legajo)
+        {
+            IncidenciaNegocio negocio = new IncidenciaNegocio();
+            List<Incidencia> listaFiltradaEstado = new List<Incidencia>();
+            List<Incidencia> lista = negocio.listar(legajo.ToString());
+            Session.Add("listaIncidencias", lista);
+            
+            if (Request.QueryString["estado"] == "abierto")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 1)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+
+            }
+            else if (Request.QueryString["estado"] == "asignado")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 2)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+            else if (Request.QueryString["estado"] == "enAnalisis")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 3)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+            else if (Request.QueryString["estado"] == "resuelto")
+            {
+                foreach (Incidencia inc in lista)
+                {
+                    if (inc.Estado.Id == 4)
+                    {
+                        listaFiltradaEstado.Add(inc);
+                    }
+                }
+            }
+
+            dgvIncidencias.DataSource = listaFiltradaEstado;
+            dgvIncidencias.DataBind();
+        }
+
+
 
         protected void cargaFiltroAvanzado()
         {

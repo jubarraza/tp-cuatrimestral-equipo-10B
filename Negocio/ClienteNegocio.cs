@@ -51,6 +51,57 @@ namespace Negocio
             }
 
         }
+
+        public List<Cliente> listar(bool conInactivos)
+        {
+            List<Cliente> lista = new List<Cliente>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                if (conInactivos)
+                {
+                datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
+                    "inner join CLIENTES as C on C.IdPersona = P.Id");
+                }
+                else
+                {
+                    datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
+                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Activo = 1");
+                }
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Cliente aux = new Cliente();
+                    aux.persona = new Persona();
+                    aux.persona.Id = int.Parse(datos.Lector["Id"].ToString());
+                    aux.persona.Nombre = (string)datos.Lector["Nombre"];
+                    aux.persona.Apellido = (string)datos.Lector["Apellido"];
+                    aux.persona.Email = (string)datos.Lector["Email"];
+                    aux.Dni = long.Parse(datos.Lector["Dni"].ToString());
+                    aux.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
+                    aux.direccion = new Direccion();
+                    aux.direccion.Id = (long)datos.Lector["IdDireccion"];
+                    DireccionNegocio direNegocio = new DireccionNegocio();
+                    aux.direccion = direNegocio.buscarDireccion(aux.direccion.Id);
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    lista.Add(aux);
+
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
         public Cliente BuscarCliente(long dni)
         {
             Cliente aux = new Cliente();
@@ -58,7 +109,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("select P.Id, P.Nombre, P.Apellido, P.Email, C.Dni, C.FechaNacimiento, C.IdDireccion, C.Activo from PERSONAS as P " +
-                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Dni = " + dni);
+                    "inner join CLIENTES as C on C.IdPersona = P.Id WHERE C.Activo = 1 AND C.Dni = " + dni);
 
                 datos.ejecutarLectura();
 

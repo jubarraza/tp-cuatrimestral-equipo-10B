@@ -16,8 +16,9 @@ namespace App_GestorIncidencias.Admin
             if (!IsPostBack)
             {
                 ClienteNegocio negocio = new ClienteNegocio();
-                Session.Add("listaClientes", negocio.listar());
-                gvClientes.DataSource = negocio.listar();
+                List <Cliente> lista = negocio.listar(true);
+                Session.Add("listaClientes", lista);
+                gvClientes.DataSource = lista;
                 gvClientes.DataBind();
 
             }

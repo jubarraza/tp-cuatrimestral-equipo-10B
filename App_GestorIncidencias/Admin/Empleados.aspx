@@ -11,7 +11,7 @@
 
     <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
 
-    <div class="container-fluid mt-5 border rounded pt-3">
+    <div class="container-fluid mt-5 border border-black rounded pt-3">
 
         <div class="row justify-content-center">
 
@@ -35,8 +35,8 @@
         <asp:UpdatePanel ID="UpDatePanel1" runat="server">
             <ContentTemplate>
                 <div class="row justify-content-center">
-                    <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" CssClass="table table-hover text-center" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged"
-                        OnPageIndexChanging="gvEmpleados_PageIndexChanging" AllowPaging="true" PageSize="6" AutoGenerateColumns="false" runat="server">
+                    <asp:GridView ID="gvEmpleados" DataKeyNames="Legajo" CssClass="table table-hover text-center transparent-grid border-black" OnSelectedIndexChanged="gvEmpleados_SelectedIndexChanged"
+                        OnPageIndexChanging="gvEmpleados_PageIndexChanging" AutoGenerateColumns="false" runat="server">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre/s" DataField="persona.Nombre" />
                             <asp:BoundField HeaderText="Apellido/s" DataField="persona.Apellido" />

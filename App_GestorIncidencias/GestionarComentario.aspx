@@ -13,7 +13,7 @@
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <div class="container mt-5 border rounded pt-3 col-lg-5 col-xxl-5 col-sm-auto">
+    <div class="container mt-5 border border-dark-subtle rounded pt-3 col-lg-5 col-xxl-5 col-sm-auto">
 
         <div class="row justify-content-center">
 

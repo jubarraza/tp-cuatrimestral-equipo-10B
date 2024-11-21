@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="container mt-5 border rounded pt-3 col-lg-5 col-xxl-6 col-sm-auto">
+     <div class="container mt-5 border border-black rounded pt-3 col-lg-5 col-xxl-6 col-sm-auto">
 
      <div class="row justify-content-center">
 
@@ -25,7 +25,7 @@
 
          <div>
              <asp:GridView ID="gvEstados" runat="server" DataKeyNames="Id"
-                 CssClass="table" AutoGenerateColumns="false">
+                 CssClass="table transparent-grid border-black" AutoGenerateColumns="false">
                  <Columns>
                      <asp:BoundField HeaderText="ID" DataField="Id" />
                      <asp:BoundField HeaderText="Prioridad" DataField="Nombre" />

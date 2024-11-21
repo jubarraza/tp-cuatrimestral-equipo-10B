@@ -17,7 +17,41 @@ namespace App_GestorIncidencias
             if (Helper.SessionActiva(Session["usuario"]))
             {
                 Empleado aux = (Empleado)Session["usuario"];
-                lblUsuarioLogueado.Text = "Usuario loguedo: <strong>" + aux.persona.ToString() + "</strong> - " + aux.persona.Email;
+                int contEstadoAbierto = 0;
+                int contEstadoAsignado = 0;
+                int contEstadoEnAnalisis = 0;
+                int contEstadoResuelto = 0;
+
+                lblTitulo.Text = "🏠 Inicio de " + aux.persona.Nombre +  " " + aux.persona.Apellido;
+
+                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                List<Incidencia> lista = incidenciaNegocio.listarIncidenciasDeOperador(aux.Legajo);
+
+                foreach(Incidencia inc in lista)
+                {
+                    if(inc.Estado.Id == 1)
+                    {
+                        contEstadoAbierto++;
+                    }
+                    if(inc.Estado.Id == 2)
+                    {
+                        contEstadoAsignado++;
+                    }
+                    if(inc.Estado.Id == 3)
+                    {
+                        contEstadoEnAnalisis++;
+                    }
+                    if(inc.Estado.Id == 4)
+                    {
+                        contEstadoResuelto++;
+                    }
+                }
+
+                lblAbierto.Text = contEstadoAbierto.ToString();
+                lblAsignado.Text = contEstadoAsignado.ToString();
+                lblEnAnalisis.Text = contEstadoEnAnalisis.ToString();
+                lblResuelto.Text = contEstadoResuelto.ToString();
+
             }
 
         }
@@ -65,6 +99,26 @@ namespace App_GestorIncidencias
         protected void btnPerfil_Click(object sender, EventArgs e)
         {
             Response.Redirect("MiPerfil.aspx", false);
+        }
+
+        protected void btnAbierto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("IncidenciaListar.aspx?estado=abierto", false);
+        }
+
+        protected void btnAsignado_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("IncidenciaListar.aspx?estado=asignado", false);
+        }
+
+        protected void btnEnAnalisis_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("IncidenciaListar.aspx?estado=enAnalisis", false);
+        }
+
+        protected void btnResuelto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("IncidenciaListar.aspx?estado=resuelto", false);
         }
     }
 }

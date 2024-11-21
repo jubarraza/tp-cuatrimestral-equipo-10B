@@ -1,10 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="IncidenciaListar.aspx.cs" Inherits="App_GestorIncidencias.IncidenciaListar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .gridSelector a {
+            text-decoration: none;
+            color: black;
+        }
+
+            .gridSelector a:hover {
+                text-decoration: underline;
+                color: blue;
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <div class="container-fluid mt-5 border rounded pt-3">
+    <div class="container-fluid mt-5 border border-dark-subtle rounded pt-3">
 
         <div class="row justify-content-center">
 
@@ -98,7 +109,7 @@
             <div class="row justify-content-center">
 
                 <asp:GridView ID="dgvIncidencias" runat="server" DataKeyNames="Id"
-                    CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvIncidencias_SelectedIndexChanged">
+                    CssClass="table gridselector transparent-grid border-dark-subtle" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvIncidencias_SelectedIndexChanged">
 
                     <Columns>
                         <asp:BoundField HeaderText="Ticket" DataField="Id" />
@@ -120,7 +131,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:CommandField HeaderText="Ver" ShowSelectButton="true" InsertImageUrl="/Recursos/CallC.png" />
+                        <asp:CommandField HeaderText="Ver" ShowSelectButton="true" SelectText="Ver🔍" />
                     </Columns>
                 </asp:GridView>
                 <asp:Label Text="No hay resultados que coincidan con la busqueda" ID="lblSinResultados" Visible="false" CssClass="alert alert-warning" runat="server" />

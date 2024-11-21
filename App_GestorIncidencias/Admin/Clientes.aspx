@@ -17,7 +17,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <div class="container-fluid mt-5 border rounded pt-3">
+    <div class="container-fluid mt-5 border border-black rounded pt-3">
 
         <div class="row justify-content-center">
 
@@ -48,7 +48,7 @@
 
                 <div class="row justify-content-center">
                     <div>
-                        <asp:GridView ID="gvClientes" CssClass="table" AutoGenerateColumns="false" runat="server" DataKeyNames="Dni" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" OnRowDeleting="gvClientes_RowDeleting">
+                        <asp:GridView ID="gvClientes" CssClass="table transparent-grid" AutoGenerateColumns="false" runat="server" DataKeyNames="Dni" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" OnRowDeleting="gvClientes_RowDeleting">
                             <Columns>
                                 <asp:BoundField HeaderText="Nombre" DataField="persona.Nombre" />
                                 <asp:BoundField HeaderText="Apellido" DataField="persona.Apellido" />

@@ -48,7 +48,7 @@
 
                 <div class="row justify-content-center">
                     <div>
-                        <asp:GridView ID="gvClientes" CssClass="table transparent-grid" AutoGenerateColumns="false" runat="server" DataKeyNames="Dni" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" OnRowDeleting="gvClientes_RowDeleting">
+                        <asp:GridView ID="gvClientes" CssClass="table transparent-grid border-black" AutoGenerateColumns="false" runat="server" DataKeyNames="Dni" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" OnRowDeleting="gvClientes_RowDeleting">
                             <Columns>
                                 <asp:BoundField HeaderText="Nombre" DataField="persona.Nombre" />
                                 <asp:BoundField HeaderText="Apellido" DataField="persona.Apellido" />

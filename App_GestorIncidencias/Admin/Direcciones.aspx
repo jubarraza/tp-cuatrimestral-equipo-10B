@@ -40,7 +40,7 @@
 
                     <div>
                         <asp:GridView ID="gvDirecciones" runat="server" DataKeyNames="Id"
-                            CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="gvDirecciones_SelectedIndexChanged">
+                            CssClass="table transparent-grid border-black" AutoGenerateColumns="false" OnSelectedIndexChanged="gvDirecciones_SelectedIndexChanged">
                             <Columns>
                                 <asp:BoundField HeaderText="ID" DataField="Id"/>
                                 <asp:BoundField HeaderText="Cliente" DataField="NombreApellidoCliente" />

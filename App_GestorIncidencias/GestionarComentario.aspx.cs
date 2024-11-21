@@ -142,7 +142,7 @@ namespace App_GestorIncidencias
                 negocio.Modificar(comentario);
                 Response.Redirect("GestionarIncidencia.aspx?Id=" + comentario.Cod_Incidencia);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);

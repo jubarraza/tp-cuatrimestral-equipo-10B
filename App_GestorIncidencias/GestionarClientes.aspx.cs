@@ -581,6 +581,7 @@ namespace App_GestorIncidencias.Admin
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("~/PageError.aspx", false);
+                throw;
             }
             
 

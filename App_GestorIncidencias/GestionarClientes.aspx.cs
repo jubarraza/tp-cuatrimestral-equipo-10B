@@ -278,7 +278,7 @@ namespace App_GestorIncidencias.Admin
                 }
                 else
                 {
-                    Response.Redirect("Clientes.aspx", false);
+                    Response.Redirect("~/Clientes.aspx", false);
                 }
             }
             catch (Exception ex)
@@ -348,7 +348,7 @@ namespace App_GestorIncidencias.Admin
                 }
                 else
                 {
-                    Response.Redirect("Clientes.aspx", false);
+                    Response.Redirect("~/Clientes.aspx", false);
                 }
             }
             catch (Exception ex)
@@ -624,7 +624,7 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnEditarClienteValidado_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GestionarClientes.aspx?dni=" + txtDni.Text);
+            Response.Redirect("~/GestionarClientes.aspx?dni=" + txtDni.Text);
         }
     }
 }

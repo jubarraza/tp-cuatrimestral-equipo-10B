@@ -575,7 +575,7 @@ namespace App_GestorIncidencias.Admin
 
         protected void btnEditarClienteValidado_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Admin/GestionarClientes.aspx?dni=" + txtDni.Text);
+            Response.Redirect("~/Admin/GestionarClientesAdmin.aspx?dni=" + txtDni.Text);
         }
     }
 }
